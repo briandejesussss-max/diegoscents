@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DIEGO SCENTS - Catálogo Oficial & Tienda</title>
+  <title>DIEGO SCENTS - Catálogo Oficial & Decants</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  
+
   <!-- Fuentes Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,82 +25,15 @@
 
     body {
       font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      background: radial-gradient(circle at 50% 0%, #151924 0%, #08090C 100%);
+      background: radial-gradient(circle at 50% 0%, #151824 0%, #060709 100%);
       color: #FFFFFF;
       margin: 0;
       padding: 0;
+      min-height: 100vh;
     }
 
     .font-brand {
       font-family: 'Montserrat', sans-serif;
-    }
-
-    /* Animaciones y movimiento visual llamativo */
-    @keyframes floatBottle {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
-    }
-
-    .catalog-card-item {
-      background: linear-gradient(180deg, #131620 0%, #0D0F16 100%);
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-    }
-
-    .catalog-card-item:hover {
-      transform: translateY(-4px);
-      border-color: rgba(212, 175, 55, 0.5);
-      box-shadow: 0 14px 28px -8px rgba(0, 0, 0, 0.7), 0 0 15px -3px rgba(212, 175, 55, 0.15);
-    }
-
-    .catalog-card-item:hover img {
-      animation: floatBottle 3s ease-in-out infinite;
-    }
-
-    .btn-gold {
-      background: linear-gradient(135deg, #E6C258 0%, #C49826 100%);
-      transition: all 0.25s ease;
-    }
-
-    .btn-gold:hover {
-      filter: brightness(1.12);
-      transform: scale(1.02);
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-    }
-
-    .brand-title {
-      color: #D4AF37;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      line-height: 1.3;
-      margin: 0 0 2px 0;
-      display: block;
-    }
-
-    .fragrance-title {
-      color: #FFFFFF;
-      font-size: 15px;
-      font-weight: 800;
-      line-height: 1.25;
-      margin: 0 0 4px 0;
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .fragrance-notes {
-      color: #D1D5DB;
-      font-size: 11px;
-      line-height: 1.4;
-      margin: 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
 
     /* Reglas para imprimir en PDF A4 */
@@ -111,7 +44,7 @@
 
     @media print {
       html, body {
-        background-color: #08090C !important;
+        background-color: #060709 !important;
         color: #FFFFFF !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -146,12 +79,10 @@
         min-height: 297mm !important;
         padding: 10mm 12mm !important;
         margin: 0 !important;
-        background-color: #08090C !important;
+        background-color: #060709 !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
-        box-shadow: none !important;
-        border: none !important;
       }
 
       .pdf-sheet-page:last-child {
@@ -171,35 +102,80 @@
       .catalog-card-item {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
-        background-color: #11131B !important;
+        background-color: #0E1017 !important;
         border: 1px solid #1F2433 !important;
-        box-shadow: none !important;
-        transform: none !important;
       }
     }
 
     .pdf-sheet-page {
-      background-color: #090B10;
+      background: linear-gradient(180deg, #0D0F17 0%, #06070A 100%);
       border: 1px solid #1C202C;
       border-radius: 1.25rem;
       padding: 1.5rem;
       margin-bottom: 2rem;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.95);
       position: relative;
+    }
+
+    .glass-card {
+      background: rgba(17, 19, 27, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      transition: all 0.25s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.7);
+    }
+
+    .brand-title {
+      color: #D4AF37;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin: 0 0 2px 0;
+      display: block;
+    }
+
+    .fragrance-title {
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin: 0 0 4px 0;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fragrance-notes {
+      color: #D1D5DB;
+      font-size: 11px;
+      line-height: 1.45;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased pb-20">
 
   <!-- BARRA DE CONTROL SUPERIOR -->
-  <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#0C0E14]/90 backdrop-blur-md border-b border-zinc-800/80 px-4 py-3">
+  <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#08090E]/95 backdrop-blur-md border-b border-zinc-800/80 px-4 py-3">
     <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
       
       <!-- LOGO / IDENTIFICADOR -->
       <div class="flex items-center space-x-3">
         <div class="relative group cursor-pointer" onclick="triggerLogoUpload()" title="Subir logotipo">
-          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#D4AF37] via-[#FFF1B0] to-[#967215] p-[1.5px] shadow-lg shadow-[#D4AF37]/15 flex items-center justify-center">
-            <div class="w-full h-full bg-[#11131B] rounded-[9px] flex items-center justify-center overflow-hidden">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#D4AF37] via-[#FFF1B0] to-[#8C6D15] p-[1.5px] shadow-lg shadow-[#D4AF37]/15 flex items-center justify-center">
+            <div class="w-full h-full bg-[#0D0F17] rounded-[10px] flex items-center justify-center overflow-hidden">
               <img id="header-logo-img" src="" alt="Logo" class="hidden w-full h-full object-contain p-1">
               <span id="header-logo-icon" class="text-[#D4AF37] font-brand font-black text-sm tracking-wider">DS</span>
             </div>
@@ -208,55 +184,57 @@
         </div>
 
         <div>
-          <h1 id="header-store-name" class="text-sm font-brand font-bold tracking-wider text-white">DIEGO SCENTS</h1>
-          <p class="text-[11px] text-zinc-400">Catálogo Oficial & Tienda de Decants</p>
+          <h1 id="header-store-name" class="font-brand text-sm font-extrabold tracking-wider text-white uppercase">DIEGO SCENTS</h1>
+          <p class="text-[11px] text-zinc-400">Alta Perfumería • Muestras Exclusivas</p>
         </div>
       </div>
 
       <!-- BOTONES DE ACCIÓN -->
       <div class="flex items-center flex-wrap gap-2">
-        <button id="auth-btn" onclick="toggleAuthModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-300 border border-zinc-700 flex items-center gap-1.5 transition">
+        <!-- BOTÓN DE LOGIN / LOGOUT -->
+        <button id="auth-btn" onclick="toggleAuthModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-xs text-zinc-300 border border-zinc-700/80 flex items-center gap-1.5 transition">
           <i data-lucide="lock" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
           <span id="auth-btn-text">Admin Login</span>
         </button>
 
-        <!-- CONTROLES EXCLUSIVOS DE ADMIN (SOLO VISIBLES TRAS INICIAR SESIÓN) -->
+        <!-- CONTROLES EXCLUSIVOS DE ADMIN -->
         <div id="admin-controls" class="hidden flex items-center flex-wrap gap-2">
           <button onclick="document.getElementById('quick-logo-input').click()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-[#F1D779] border border-[#D4AF37]/40 flex items-center gap-1.5 transition">
             <i data-lucide="image" class="w-3.5 h-3.5"></i>
             <span>Subir Logo</span>
           </button>
 
-          <button onclick="openStoreConfigModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-200 border border-zinc-700 flex items-center gap-1.5 transition">
-            <i data-lucide="user" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+          <button onclick="openStoreConfigModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-200 border border-zinc-700/80 flex items-center gap-1.5 transition">
+            <i data-lucide="settings" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
             <span>Datos Tienda</span>
           </button>
 
-          <button onclick="exportBackupData()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-amber-300 border border-zinc-700 flex items-center gap-1.5 transition">
+          <button onclick="exportBackupData()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-amber-300 border border-zinc-700/80 flex items-center gap-1.5 transition">
             <i data-lucide="download" class="w-3.5 h-3.5"></i>
             <span>Respaldar JSON</span>
           </button>
 
-          <label class="cursor-pointer px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-200 border border-zinc-700 flex items-center gap-1.5 transition">
-            <i data-lucide="upload" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
-            <span>Cargar JSON</span>
-            <input type="file" accept=".json" class="hidden" onchange="importBackupData(event)">
+          <!-- CARGADOR DE CUALQUIER ARCHIVO JSON -->
+          <label class="cursor-pointer px-3 py-1.5 rounded-xl bg-gradient-to-r from-zinc-800 to-zinc-900 hover:bg-zinc-700 text-xs text-zinc-200 border border-[#D4AF37]/40 flex items-center gap-1.5 transition shadow">
+            <i data-lucide="file-up" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+            <span>Actualizar (.json)</span>
+            <input type="file" accept=".json" class="hidden" onchange="importAnyBackupData(event)">
           </label>
 
-          <button onclick="openFragranceModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-[#D4AF37]/50 text-xs text-white flex items-center gap-1.5 font-semibold transition">
-            <i data-lucide="plus" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+          <button onclick="openFragranceModal()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F3DE8A] text-black font-extrabold text-xs flex items-center gap-1.5 shadow-md shadow-[#D4AF37]/20 hover:brightness-110 active:scale-95 transition">
+            <i data-lucide="plus" class="w-3.5 h-3.5 stroke-[3]"></i>
             <span>+ Perfume</span>
           </button>
         </div>
 
-        <button onclick="toggleCartDrawer()" class="px-3.5 py-1.5 rounded-xl btn-gold text-black text-xs font-bold flex items-center gap-1.5 shadow-md transition">
+        <button onclick="toggleCartDrawer()" class="px-3.5 py-1.5 rounded-xl bg-[#D4AF37] hover:bg-[#c29e2e] text-black text-xs font-bold flex items-center gap-1.5 transition shadow-md">
           <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
           <span>Pedido (<span id="cart-count">0</span>)</span>
         </button>
 
         <button onclick="window.print()" class="px-3.5 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold flex items-center gap-1.5 border border-zinc-600 transition">
           <i data-lucide="printer" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
-          <span>PDF</span>
+          <span>Exportar PDF</span>
         </button>
       </div>
 
@@ -267,7 +245,7 @@
   <main class="flex-1 max-w-5xl w-full mx-auto p-4 flex flex-col gap-4">
 
     <!-- BUSCADOR -->
-    <section class="no-print bg-[#11131B]/90 backdrop-blur border border-zinc-800 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg">
+    <section class="no-print bg-[#0E1017]/90 backdrop-blur border border-zinc-800/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-md">
       <div class="flex items-center gap-2 flex-1 min-w-[240px]">
         <div class="relative w-full">
           <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3 top-2.5"></i>
@@ -275,20 +253,20 @@
             type="text" 
             id="search-input" 
             oninput="filterCatalog()"
-            placeholder="Buscar por perfume, casa o notas..." 
-            class="w-full bg-[#181B26] border border-zinc-700/80 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#D4AF37] transition"
+            placeholder="Buscar por fragancia, casa olfativa o notas..." 
+            class="w-full bg-[#151722] border border-zinc-700/80 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#D4AF37]"
           >
         </div>
         <select 
           id="filter-brand" 
           onchange="filterCatalog()" 
-          class="bg-[#181B26] border border-zinc-700/80 rounded-xl px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none max-w-[170px]">
+          class="bg-[#151722] border border-zinc-700/80 rounded-xl px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none max-w-[170px]">
           <option value="ALL">Todas las Casas</option>
         </select>
       </div>
 
       <div class="flex items-center gap-2">
-        <select id="currency-symbol" onchange="renderCatalog()" class="bg-[#181B26] border border-zinc-700 text-xs text-white rounded-xl px-2.5 py-1.5 focus:outline-none">
+        <select id="currency-symbol" onchange="renderCatalog()" class="bg-[#151722] border border-zinc-700/80 text-xs text-white rounded-xl px-2.5 py-1.5 focus:outline-none">
           <option value="$">$ (MXN)</option>
           <option value="USD $">USD $</option>
         </select>
@@ -303,13 +281,13 @@
     <div id="empty-state" class="hidden py-16 text-center">
       <i data-lucide="package-search" class="w-10 h-10 text-zinc-600 mx-auto mb-2"></i>
       <h3 class="text-sm font-semibold text-zinc-300">No se encontraron fragancias</h3>
-      <p class="text-xs text-zinc-500 mt-1">Modifica tu búsqueda o añade un perfume nuevo.</p>
+      <p class="text-xs text-zinc-500 mt-1">Intenta con otro término o actualiza tu catálogo JSON.</p>
     </div>
   </main>
 
   <!-- MODAL LOGIN ADMIN -->
   <div id="login-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
-    <div class="bg-[#11131B] border border-zinc-700 rounded-2xl w-full max-w-sm p-6 relative shadow-2xl">
+    <div class="bg-[#11131B] border border-zinc-700 rounded-2xl w-full max-w-sm p-6 relative">
       <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -318,8 +296,8 @@
         <div class="w-12 h-12 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 flex items-center justify-center mx-auto mb-2 text-[#D4AF37]">
           <i data-lucide="shield" class="w-6 h-6"></i>
         </div>
-        <h3 class="text-base font-bold text-white font-brand">Panel de Propietario</h3>
-        <p class="text-[11px] text-zinc-400">Ingresa tus credenciales para editar el catálogo</p>
+        <h3 class="font-brand text-base font-bold text-white">Panel de Propietario</h3>
+        <p class="text-[11px] text-zinc-400">Ingresa para editar fragancias y configuración</p>
       </div>
 
       <form onsubmit="handleLoginSubmit(event)" class="space-y-3">
@@ -332,7 +310,7 @@
           <input type="password" id="login-pass" required class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#D4AF37]">
         </div>
         <div class="pt-2">
-          <button type="submit" class="w-full py-2.5 rounded-xl btn-gold text-black font-bold transition">
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-[#D4AF37] hover:bg-[#c29e2e] text-black font-bold transition">
             Iniciar Sesión
           </button>
         </div>
@@ -341,29 +319,29 @@
   </div>
 
   <!-- PANEL LATERAL DE CARRITO / PEDIDO DE WHATSAPP -->
-  <div id="cart-drawer" class="no-print fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[#11131B] border-l border-zinc-800 shadow-2xl p-5 flex flex-col justify-between hidden text-xs">
+  <div id="cart-drawer" class="no-print fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[#10121A] border-l border-zinc-800 shadow-2xl p-5 flex flex-col justify-between hidden text-xs">
     <div>
       <div class="flex items-center justify-between pb-3 border-b border-zinc-800 mb-3">
         <div class="flex items-center gap-2">
           <i data-lucide="shopping-bag" class="w-5 h-5 text-[#D4AF37]"></i>
-          <h3 class="text-sm font-bold text-white font-brand">Tu Pedido de Decants</h3>
+          <h3 class="font-brand text-sm font-bold text-white">Tu Pedido de Decants</h3>
         </div>
         <button onclick="toggleCartDrawer()" class="text-zinc-400 hover:text-white">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <div id="cart-items-container" class="space-y-2.5 overflow-y-auto max-h-[58vh] pr-1"></div>
+      <div id="cart-items-container" class="space-y-2.5 overflow-y-auto max-h-[60vh] pr-1"></div>
     </div>
 
     <div class="pt-4 border-t border-zinc-800 space-y-3">
       <div>
         <label class="block text-zinc-300 mb-1 font-semibold">Tu Nombre Completo *</label>
-        <input type="text" id="order-customer-name" placeholder="Ej: Juan Pérez" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#D4AF37]">
+        <input type="text" id="order-customer-name" placeholder="Ej: Juan Pérez" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none">
       </div>
       <div>
         <label class="block text-zinc-300 mb-1 font-semibold">Ciudad / Dirección de Envío</label>
-        <input type="text" id="order-customer-address" placeholder="Ej: Puebla, Pue." class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#D4AF37]">
+        <input type="text" id="order-customer-address" placeholder="Ej: Puebla, Pue." class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none">
       </div>
 
       <div class="flex justify-between items-center text-sm font-bold text-white pt-2">
@@ -387,7 +365,7 @@
 
       <div class="mb-4">
         <span class="text-[10px] tracking-widest text-[#D4AF37] uppercase font-bold">Detalle de Fragancia</span>
-        <h3 id="modal-title" class="text-base font-bold text-white mt-0.5 font-brand">Editar Fragancia</h3>
+        <h3 id="modal-title" class="font-brand text-base font-bold text-white mt-0.5">Editar Fragancia</h3>
       </div>
 
       <form id="fragrance-form" onsubmit="handleFragranceSubmit(event)" class="space-y-3">
@@ -410,7 +388,7 @@
             <input type="text" id="frag-concentration" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white focus:outline-none">
           </div>
           <div>
-            <label class="block font-medium text-zinc-300 mb-1">Género</label>
+            <label class="block font-medium text-zinc-300 mb-1">Categoría</label>
             <select id="frag-gender" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white focus:outline-none">
               <option value="Unisex">Unisex</option>
               <option value="Masculino">Masculino</option>
@@ -420,7 +398,7 @@
         </div>
 
         <!-- FOTO -->
-        <div class="p-3 rounded-xl bg-[#090A0E] border border-zinc-800 space-y-2">
+        <div class="p-3 rounded-xl bg-[#08090C] border border-zinc-800 space-y-2">
           <label class="block font-semibold text-zinc-300">Fotografía de la Botella</label>
           <div class="flex items-center gap-3">
             <div class="flex-1 space-y-1.5">
@@ -439,13 +417,852 @@
         </div>
 
         <!-- PRECIOS -->
-        <div class="p-2.5 rounded-xl bg-[#151722] border border-[#D4AF37]/30 space-y-1.5">
+        <div class="p-2.5 rounded-xl bg-[#141620] border border-[#D4AF37]/30 space-y-1.5">
           <span class="text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider block">Precios de Decants</span>
           <div class="grid grid-cols-3 gap-2">
-            <div class="bg-[#0C0E14] p-2 rounded-lg border border-zinc-800">
+            <div class="bg-[#0A0B10] p-2 rounded-lg border border-zinc-800">
               <div class="flex justify-between text-[10px] text-zinc-400 mb-1">
                 <span>3 ml</span>
                 <label><input type="checkbox" id="frag-3ml-avail" checked> Stock</label>
               </div>
               <input type="number" id="frag-price-3ml" class="w-full bg-[#181B26] border border-zinc-700 rounded px-2 py-0.5 text-white text-xs">
+            </div>
+
+            <div class="bg-[#0A0B10] p-2 rounded-lg border border-[#D4AF37]/40">
+              <div class="flex justify-between text-[10px] text-[#D4AF37] mb-1">
+                <span class="font-bold">5 ml</span>
+                <label><input type="checkbox" id="frag-5ml-avail" checked> Stock</label>
+              </div>
+              <input type="number" id="frag-price-5ml" class="w-full bg-[#181B26] border border-zinc-700 rounded px-2 py-0.5 text-[#D4AF37] font-bold text-xs">
+            </div>
+
+            <div class="bg-[#0A0B10] p-2 rounded-lg border border-zinc-800">
+              <div class="flex justify-between text-[10px] text-zinc-400 mb-1">
+                <span>10 ml</span>
+                <label><input type="checkbox" id="frag-10ml-avail" checked> Stock</label>
+              </div>
+              <input type="number" id="frag-price-10ml" class="w-full bg-[#181B26] border border-zinc-700 rounded px-2 py-0.5 text-white text-xs">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium text-zinc-300 mb-1">Notas Olfativas</label>
+          <textarea id="frag-notes" rows="2" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2 border-t border-zinc-800">
+          <button type="button" onclick="closeFragranceModal()" class="px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-300">Cancelar</button>
+          <button type="submit" class="px-4 py-1.5 rounded-lg bg-[#D4AF37] text-black font-bold">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DATOS TIENDA -->
+  <div id="store-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
+    <div class="bg-[#11131B] border border-zinc-700 rounded-2xl w-full max-w-md p-5 relative">
+      <button onclick="closeStoreConfigModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="font-brand text-base font-bold text-white mb-3">Datos del Catálogo & Propietario</h3>
+
+      <form onsubmit="handleStoreConfigSubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-zinc-300 mb-1">Nombre Comercial</label>
+          <input type="text" id="config-store-name" required class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white">
+        </div>
+        <div>
+          <label class="block text-zinc-300 mb-1">Lema o Subtítulo</label>
+          <input type="text" id="config-store-tagline" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-zinc-300 mb-1">WhatsApp</label>
+            <input type="text" id="config-store-whatsapp" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white">
+          </div>
+          <div>
+            <label class="block text-zinc-300 mb-1">Instagram</label>
+            <input type="text" id="config-store-instagram" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white">
+          </div>
+        </div>
+        <div>
+          <label class="block text-zinc-300 mb-1">Información de Envíos y Garantía</label>
+          <input type="text" id="config-store-notes" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white">
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2 border-t border-zinc-800">
+          <button type="button" onclick="closeStoreConfigModal()" class="px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-300">Cancelar</button>
+          <button type="submit" class="px-4 py-1.5 rounded-lg bg-[#D4AF37] text-black font-bold">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container" class="no-print fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    // CREDENCIALES DEL ADMINISTRADOR
+    const ADMIN_USER = "DIEGO";
+    const ADMIN_PASS = "123456789";
+
+    let storeConfig = {
+      name: "DIEGO SCENTS",
+      tagline: "TU MUESTRA DE LUJO AL MEJOR PRECIO.",
+      whatsapp: "+52 243 106 6247",
+      instagram: "@scents.by.diego",
+      notes: "Envios express a toda la república y entregas personales en Izúcar de Matamoros, Puebla",
+      logo: ""
+    };
+
+    let fragrances = [];
+    let cart = [];
+    let isAdminLoggedIn = false;
+    const ITEMS_PER_PAGE = 4;
+
+    async function initApp() {
+      // 1. Estado de la sesión del administrador
+      isAdminLoggedIn = sessionStorage.getItem('aura_is_admin') === 'true';
+      updateAdminUI();
+
+      // 2. Intentar cargar desde el almacenamiento local
+      try {
+        const storedStore = localStorage.getItem('aura_store_config');
+        if (storedStore) storeConfig = { ...storeConfig, ...JSON.parse(storedStore) };
+        const storedFrag = localStorage.getItem('aura_fragrances');
+        if (storedFrag && JSON.parse(storedFrag).length > 0) {
+          fragrances = JSON.parse(storedFrag);
+        }
+      } catch(e) {}
+
+      // 3. Si no hay datos en memoria local, buscar los archivos de respaldo del repositorio
+      if (!fragrances || fragrances.length === 0) {
+        await autoFetchAvailableBackup();
+      }
+
+      updateStoreBrandHeader();
+      populateBrandFilter();
+      renderCatalog();
+      updateCartUI();
+      lucide.createIcons();
+    }
+
+    // Búsqueda progresiva automática (r10, r9, r8, etc.)
+    async function autoFetchAvailableBackup() {
+      const candidates = ['./R10.json', './R9.json', './R8.json', './backup.json'];
+      for (const file of candidates) {
+        try {
+          const res = await fetch(file);
+          if (res.ok) {
+            const data = await res.json();
+            applyBackupPayload(data);
+            return;
+          }
+        } catch (e) {}
+      }
+    }
+
+    // Función universal para procesar y actualizar con cualquier JSON cargado
+    function applyBackupPayload(data) {
+      if (!data) return false;
+
+      // Actualizar datos de la tienda si existen en el JSON
+      if (data.store) {
+        storeConfig = { ...storeConfig, ...data.store };
+        saveStoreConfig();
+      }
+
+      // Actualizar o fusionar fragancias sin perder existentes
+      if (data.fragrances && Array.isArray(data.fragrances) && data.fragrances.length > 0) {
+        const newFrags = data.fragrances;
         
+        // Mapear por ID o Nombre para actualizar existentes o insertar nuevas
+        const map = new Map();
+        fragrances.forEach(f => map.set(f.id || f.name, f));
+        newFrags.forEach(f => map.set(f.id || f.name, f));
+
+        fragrances = Array.from(map.values());
+        saveFragrances();
+      }
+
+      renderCatalog();
+      updateStoreBrandHeader();
+      return true;
+    }
+
+    // Importación manual de cualquier archivo JSON (R8, R9, R10, etc.)
+    function importAnyBackupData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          const ok = applyBackupPayload(parsed);
+          if (ok) {
+            showToast(`¡Catálogo actualizado desde ${file.name}!`);
+          } else {
+            showToast('El archivo no contiene fragancias válidas');
+          }
+        } catch(err) {
+          showToast('Error al leer el archivo JSON');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    // LOGIN Y AUTENTICACIÓN
+    function toggleAuthModal() {
+      if (isAdminLoggedIn) {
+        isAdminLoggedIn = false;
+        sessionStorage.removeItem('aura_is_admin');
+        updateAdminUI();
+        renderCatalog();
+        showToast('Sesión cerrada');
+      } else {
+        document.getElementById('login-modal').classList.remove('hidden');
+      }
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const user = document.getElementById('login-user').value.trim();
+      const pass = document.getElementById('login-pass').value.trim();
+
+      if (user === ADMIN_USER && pass === ADMIN_PASS) {
+        isAdminLoggedIn = true;
+        sessionStorage.setItem('aura_is_admin', 'true');
+        document.getElementById('login-modal').classList.add('hidden');
+        document.getElementById('login-user').value = '';
+        document.getElementById('login-pass').value = '';
+        updateAdminUI();
+        renderCatalog();
+        showToast('¡Bienvenido Diego! Modo edición activado');
+      } else {
+        showToast('Credenciales incorrectas');
+      }
+    }
+
+    function updateAdminUI() {
+      const controls = document.getElementById('admin-controls');
+      const authBtnText = document.getElementById('auth-btn-text');
+      if (isAdminLoggedIn) {
+        controls.classList.remove('hidden');
+        authBtnText.textContent = 'Cerrar Sesión';
+      } else {
+        controls.classList.add('hidden');
+        authBtnText.textContent = 'Admin Login';
+      }
+      lucide.createIcons();
+    }
+
+    // CARRITO Y ENVIAR PEDIDO POR WHATSAPP
+    function addToCart(fragId, size) {
+      const frag = fragrances.find(f => f.id === fragId);
+      if (!frag) return;
+
+      const priceInfo = frag.prices?.[size];
+      if (!priceInfo || !priceInfo.inStock || priceInfo.price <= 0) {
+        showToast('Tamaño agotado');
+        return;
+      }
+
+      const existingItem = cart.find(item => item.fragId === fragId && item.size === size);
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cart.push({
+          fragId: frag.id,
+          name: frag.name,
+          brand: frag.brand,
+          size: size,
+          price: priceInfo.price,
+          qty: 1
+        });
+      }
+
+      updateCartUI();
+      showToast(`Agregado: ${frag.name} (${size})`);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const countEl = document.getElementById('cart-count');
+      const container = document.getElementById('cart-items-container');
+      const totalPriceEl = document.getElementById('cart-total-price');
+
+      let totalCount = 0;
+      let totalPrice = 0;
+
+      container.innerHTML = '';
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="py-8 text-center text-zinc-500">
+            <i data-lucide="shopping-bag" class="w-8 h-8 mx-auto mb-1 opacity-50"></i>
+            <p>Tu bolsa de pedido está vacía</p>
+          </div>
+        `;
+      } else {
+        cart.forEach((item, idx) => {
+          totalCount += item.qty;
+          const subtotal = item.price * item.qty;
+          totalPrice += subtotal;
+
+          container.innerHTML += `
+            <div class="p-2.5 rounded-xl bg-[#161822] border border-zinc-800 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-[#D4AF37] font-bold uppercase block">${item.brand}</span>
+                <span class="text-xs text-white font-bold block">${item.name}</span>
+                <span class="text-[11px] text-zinc-400 font-medium">Decant ${item.size} × ${item.qty} (${formatPrice(item.price)})</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-white font-bold">${formatPrice(subtotal)}</span>
+                <button onclick="removeFromCart(${idx})" class="p-1 text-zinc-500 hover:text-red-400 transition">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      countEl.textContent = totalCount;
+      totalPriceEl.textContent = formatPrice(totalPrice);
+      lucide.createIcons();
+    }
+
+    function toggleCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function sendOrderViaWhatsApp() {
+      if (cart.length === 0) {
+        showToast('Agrega al menos una fragancia a tu pedido');
+        return;
+      }
+
+      const customerName = document.getElementById('order-customer-name').value.trim();
+      const customerAddress = document.getElementById('order-customer-address').value.trim();
+
+      if (!customerName) {
+        showToast('Escribe tu nombre para el pedido');
+        document.getElementById('order-customer-name').focus();
+        return;
+      }
+
+      let total = 0;
+      let orderListText = "";
+
+      cart.forEach((item) => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        orderListText += `▪ ${item.qty}x ${item.brand} - ${item.name} (${item.size}) -> ${formatPrice(subtotal)}\n`;
+      });
+
+      let message = `¡Hola! Me gustaría levantar el siguiente pedido de decants en *${storeConfig.name}*:\n\n`;
+      message += `*Cliente:* ${customerName}\n`;
+      if (customerAddress) message += `*Destino/Ciudad:* ${customerAddress}\n`;
+      message += `\n*Detalle del Pedido:*\n${orderListText}\n`;
+      message += `*Total:* ${formatPrice(total)}\n\n`;
+      message += `¿Me confirmas disponibilidad y forma de pago, por favor?`;
+
+      const cleanPhone = storeConfig.whatsapp.replace(/[^0-9]/g, '');
+      const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+
+      window.open(waUrl, '_blank');
+      toggleCartDrawer();
+    }
+
+    function triggerLogoUpload() {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
+      document.getElementById('quick-logo-input').click();
+    }
+
+    function updateStoreBrandHeader() {
+      document.getElementById('header-store-name').textContent = storeConfig.name;
+      const logoImg = document.getElementById('header-logo-img');
+      const logoIcon = document.getElementById('header-logo-icon');
+
+      if (storeConfig.logo && storeConfig.logo.trim() !== '') {
+        logoImg.src = storeConfig.logo;
+        logoImg.classList.remove('hidden');
+        logoIcon.classList.add('hidden');
+      } else {
+        logoImg.classList.add('hidden');
+        logoIcon.classList.remove('hidden');
+        const initials = storeConfig.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'DS';
+        logoIcon.textContent = initials;
+      }
+    }
+
+    function handleDirectLogoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        storeConfig.logo = e.target.result;
+        saveStoreConfig();
+        showToast('Logotipo actualizado');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveFragrances() {
+      try {
+        localStorage.setItem('aura_fragrances', JSON.stringify(fragrances));
+      } catch (err) {}
+      populateBrandFilter();
+    }
+
+    function saveStoreConfig() {
+      try {
+        localStorage.setItem('aura_store_config', JSON.stringify(storeConfig));
+      } catch(e) {}
+      updateStoreBrandHeader();
+      renderCatalog();
+    }
+
+    function exportBackupData() {
+      const dataToExport = {
+        store: storeConfig,
+        fragrances: fragrances,
+        exportDate: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Respaldo_${storeConfig.name.replace(/\s+/g, '_')}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Respaldo descargado');
+    }
+
+    function populateBrandFilter() {
+      const select = document.getElementById('filter-brand');
+      const currentVal = select.value;
+      const brands = Array.from(new Set(fragrances.map(f => f.brand))).filter(Boolean).sort();
+
+      select.innerHTML = '<option value="ALL">Todas las Casas</option>';
+      brands.forEach(brand => {
+        const opt = document.createElement('option');
+        opt.value = brand;
+        opt.textContent = brand;
+        select.appendChild(opt);
+      });
+
+      if (brands.includes(currentVal)) {
+        select.value = currentVal;
+      }
+    }
+
+    function getCurrencySymbol() {
+      return document.getElementById('currency-symbol')?.value || '$';
+    }
+
+    function formatPrice(val) {
+      const num = parseFloat(val);
+      if (isNaN(num) || num <= 0) return 'Agotado';
+      return `${getCurrencySymbol()}${num.toFixed(0)}`;
+    }
+
+    function renderCatalog() {
+      const container = document.getElementById('catalog-sheet');
+      const emptyState = document.getElementById('empty-state');
+      const searchQuery = (document.getElementById('search-input').value || '').toLowerCase().trim();
+      const selectedBrand = document.getElementById('filter-brand').value;
+
+      const filtered = fragrances.filter(frag => {
+        const matchBrand = selectedBrand === 'ALL' || frag.brand === selectedBrand;
+        const matchSearch = (frag.name || '').toLowerCase().includes(searchQuery) ||
+                            (frag.brand || '').toLowerCase().includes(searchQuery) ||
+                            (frag.notes && frag.notes.toLowerCase().includes(searchQuery));
+        return matchBrand && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+      let pagesHtml = '';
+
+      for (let pageIdx = 0; pageIdx < totalPages; pageIdx++) {
+        const pageItems = filtered.slice(pageIdx * ITEMS_PER_PAGE, (pageIdx + 1) * ITEMS_PER_PAGE);
+        const pageNumber = pageIdx + 1;
+        const pageId = `catalog-page-${pageNumber}`;
+
+        pagesHtml += `
+          <div id="${pageId}" class="pdf-sheet-page">
+            
+            <!-- ENCABEZADO -->
+            <div>
+              <div class="pb-3 border-b border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#D4AF37] via-[#FFF1B0] to-[#8C6D15] p-[1.5px] shadow-lg shadow-[#D4AF37]/15 shrink-0">
+                    <div class="w-full h-full bg-[#0D0F17] rounded-[10px] flex items-center justify-center overflow-hidden">
+                      ${storeConfig.logo ? `
+                        <img src="${storeConfig.logo}" class="w-full h-full object-contain p-1" alt="Logo">
+                      ` : `
+                        <span class="text-[#D4AF37] font-brand font-black text-base">
+                          ${storeConfig.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'DS'}
+                        </span>
+                      `}
+                    </div>
+                  </div>
+                  <div>
+                    <h2 class="font-brand text-lg sm:text-xl font-extrabold tracking-wide text-white uppercase">
+                      ${storeConfig.name}
+                    </h2>
+                    <p class="text-[11px] text-zinc-400 mt-0.5 font-medium tracking-wide">
+                      ${storeConfig.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:items-end gap-1.5 text-xs text-zinc-300">
+                  <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-1">
+                      <i data-lucide="message-circle" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+                      <span class="font-semibold text-white tracking-wide">${storeConfig.whatsapp}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <i data-lucide="instagram" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+                      <span class="font-semibold text-zinc-300">${storeConfig.instagram}</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-1 text-[10px] text-zinc-400">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+                    <span>${storeConfig.notes}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- GUÍA DE RENDIMIENTO -->
+              <div class="mt-2.5 px-3 py-1.5 rounded-xl bg-[#11131B] border border-zinc-800 flex items-center justify-between gap-2 text-xs">
+                <span class="text-[#D4AF37] font-bold text-[11px] flex items-center gap-1">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Rendimiento estimado:
+                </span>
+                <div class="flex items-center gap-4 text-[10px] text-zinc-300 font-medium">
+                  <span><strong class="text-white">3 ml:</strong> ~45 sprays</span>
+                  <span><strong class="text-[#D4AF37]">5 ml:</strong> ~75 sprays</span>
+                  <span><strong class="text-white">10 ml:</strong> ~150 sprays</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- GRILLA DE PRODUCTOS -->
+            <div class="catalog-grid-2x2 grid grid-cols-1 sm:grid-cols-2 gap-3.5 my-3">
+              ${pageItems.map(frag => {
+                const p3 = frag.prices?.['3ml'] || { price: 0, inStock: true };
+                const p5 = frag.prices?.['5ml'] || { price: 0, inStock: true };
+                const p10 = frag.prices?.['10ml'] || { price: 0, inStock: true };
+
+                return `
+                  <div class="catalog-card-item glass-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                      <div class="relative w-full h-44 bg-[#06070A] p-2 flex items-center justify-center border-b border-zinc-800/80">
+                        <img 
+                          src="${frag.image || 'https://placehold.co/400x400/11131B/D4AF37?text=' + encodeURIComponent(frag.name)}" 
+                          alt="${frag.name}"
+                          crossorigin="anonymous"
+                          class="max-h-full max-w-full object-contain filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.85)]"
+                        />
+
+                        <div class="absolute top-2 left-2 flex gap-1">
+                          <span class="bg-[#181B26]/90 border border-zinc-700/80 text-zinc-200 font-medium text-[9px] px-2 py-0.5 rounded-md backdrop-blur-sm">
+                            ${frag.concentration || 'EDP'}
+                          </span>
+                          ${frag.gender ? `
+                            <span class="bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#F1D779] font-medium text-[9px] px-2 py-0.5 rounded-md backdrop-blur-sm">
+                              ${frag.gender}
+                            </span>
+                          ` : ''}
+                        </div>
+
+                        ${isAdminLoggedIn ? `
+                          <div class="action-buttons-card no-print absolute top-2 right-2 flex items-center gap-1">
+                            <button onclick="editFragrance('${frag.id}')" title="Editar" class="p-1 rounded bg-black/70 hover:bg-[#D4AF37] text-white hover:text-black transition">
+                              <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <button onclick="deleteFragrance('${frag.id}')" title="Eliminar" class="p-1 rounded bg-black/70 hover:bg-red-600 text-white transition">
+                              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                          </div>
+                        ` : ''}
+                      </div>
+
+                      <div style="padding: 12px 12px 6px 12px;">
+                        <span class="brand-title">
+                          ${frag.brand}
+                        </span>
+                        <div class="fragrance-title" title="${frag.name}">
+                          ${frag.name}
+                        </div>
+
+                        <p class="fragrance-notes">
+                          <strong style="color: #9CA3AF; font-weight: 600;">Notas:</strong> ${frag.notes || 'Notas aromáticas exclusivas.'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div style="padding: 4px 12px 12px 12px;">
+                      <div class="bg-[#08090E] border border-zinc-800 rounded-xl p-1.5 grid grid-cols-3 gap-1.5 text-center">
+                        <button 
+                          onclick="${p3.inStock ? `addToCart('${frag.id}', '3ml')` : ''}"
+                          class="p-1 rounded hover:bg-zinc-800/80 transition flex flex-col items-center ${!p3.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[9px] uppercase font-bold text-zinc-400 block">3 ml</span>
+                          <span class="text-[11px] font-bold ${p3.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
+                            ${p3.inStock ? formatPrice(p3.price) : 'Agotado'}
+                          </span>
+                        </button>
+
+                        <button 
+                          onclick="${p5.inStock ? `addToCart('${frag.id}', '5ml')` : ''}"
+                          class="p-1 rounded bg-gradient-to-b from-[#D4AF37]/25 to-[#D4AF37]/10 border border-[#D4AF37]/40 hover:brightness-110 transition flex flex-col items-center ${!p5.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[9px] uppercase font-extrabold text-[#F1D779] block">5 ml</span>
+                          <span class="text-[11px] font-extrabold ${p5.inStock ? 'text-[#FFF1B0]' : 'text-zinc-500 line-through'}">
+                            ${p5.inStock ? formatPrice(p5.price) : 'Agotado'}
+                          </span>
+                        </button>
+
+                        <button 
+                          onclick="${p10.inStock ? `addToCart('${frag.id}', '10ml')` : ''}"
+                          class="p-1 rounded hover:bg-zinc-800/80 transition flex flex-col items-center ${!p10.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[9px] uppercase font-bold text-zinc-400 block">10 ml</span>
+                          <span class="text-[11px] font-bold ${p10.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
+                            ${p10.inStock ? formatPrice(p10.price) : 'Agotado'}
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- PIE DE HOJA -->
+            <div class="pt-2 border-t border-zinc-800 flex items-center justify-between text-[10px] text-zinc-400">
+              <span class="text-[#D4AF37] font-medium flex items-center gap-1">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                100% Auténtico • Decants Sellados Herméticamente
+              </span>
+              <span class="font-semibold text-zinc-300">
+                Página ${pageNumber} de ${totalPages}
+              </span>
+            </div>
+
+          </div>
+        `;
+      }
+
+      container.innerHTML = pagesHtml;
+      lucide.createIcons();
+    }
+
+    function filterCatalog() {
+      renderCatalog();
+    }
+
+    function openFragranceModal(isEdit = false) {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
+      document.getElementById('fragrance-modal').classList.remove('hidden');
+      if (!isEdit) {
+        document.getElementById('fragrance-form').reset();
+        document.getElementById('form-edit-id').value = '';
+        document.getElementById('modal-title').textContent = 'Agregar Fragancia';
+        updateImagePreview('');
+      }
+    }
+
+    function closeFragranceModal() {
+      document.getElementById('fragrance-modal').classList.add('hidden');
+    }
+
+    function updateImagePreview(url) {
+      const img = document.getElementById('frag-preview-img');
+      const ph = document.getElementById('frag-preview-placeholder');
+      if (url && url.trim() !== '') {
+        img.src = url;
+        img.classList.remove('hidden');
+        ph.classList.add('hidden');
+      } else {
+        img.src = '';
+        img.classList.add('hidden');
+        ph.classList.remove('hidden');
+      }
+    }
+
+    function handleLocalImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('frag-image-url').value = e.target.result;
+        updateImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleFragranceSubmit(e) {
+      e.preventDefault();
+
+      const editId = document.getElementById('form-edit-id').value;
+      const name = document.getElementById('frag-name').value.trim();
+      const brand = document.getElementById('frag-brand').value.trim();
+      const concentration = document.getElementById('frag-concentration').value.trim();
+      const gender = document.getElementById('frag-gender').value;
+      const image = document.getElementById('frag-image-url').value.trim();
+      const notes = document.getElementById('frag-notes').value.trim();
+
+      const p3 = parseFloat(document.getElementById('frag-price-3ml').value) || 0;
+      const p3Avail = document.getElementById('frag-3ml-avail').checked;
+
+      const p5 = parseFloat(document.getElementById('frag-price-5ml').value) || 0;
+      const p5Avail = document.getElementById('frag-5ml-avail').checked;
+
+      const p10 = parseFloat(document.getElementById('frag-price-10ml').value) || 0;
+      const p10Avail = document.getElementById('frag-10ml-avail').checked;
+
+      const itemData = {
+        id: editId || 'frag-' + Date.now(),
+        name,
+        brand,
+        concentration,
+        gender,
+        image: image,
+        notes,
+        prices: {
+          "3ml": { price: p3, inStock: p3Avail },
+          "5ml": { price: p5, inStock: p5Avail },
+          "10ml": { price: p10, inStock: p10Avail }
+        }
+      };
+
+      if (editId) {
+        const index = fragrances.findIndex(f => f.id === editId);
+        if (index !== -1) fragrances[index] = itemData;
+      } else {
+        fragrances.unshift(itemData);
+      }
+
+      saveFragrances();
+      renderCatalog();
+      closeFragranceModal();
+      showToast('Fragancia guardada');
+    }
+
+    function editFragrance(id) {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
+      const frag = fragrances.find(f => f.id === id);
+      if (!frag) return;
+
+      document.getElementById('form-edit-id').value = frag.id;
+      document.getElementById('frag-name').value = frag.name || '';
+      document.getElementById('frag-brand').value = frag.brand || '';
+      document.getElementById('frag-concentration').value = frag.concentration || 'Eau de Parfum';
+      document.getElementById('frag-gender').value = frag.gender || 'Unisex';
+      document.getElementById('frag-image-url').value = frag.image || '';
+      document.getElementById('frag-notes').value = frag.notes || '';
+
+      const p3 = frag.prices?.['3ml'] || { price: 0, inStock: true };
+      const p5 = frag.prices?.['5ml'] || { price: 0, inStock: true };
+      const p10 = frag.prices?.['10ml'] || { price: 0, inStock: true };
+
+      document.getElementById('frag-price-3ml').value = p3.price || '';
+      document.getElementById('frag-3ml-avail').checked = p3.inStock;
+
+      document.getElementById('frag-price-5ml').value = p5.price || '';
+      document.getElementById('frag-5ml-avail').checked = p5.inStock;
+
+      document.getElementById('frag-price-10ml').value = p10.price || '';
+      document.getElementById('frag-10ml-avail').checked = p10.inStock;
+
+      updateImagePreview(frag.image || '');
+      document.getElementById('modal-title').textContent = 'Editar Fragancia';
+      openFragranceModal(true);
+    }
+
+    function deleteFragrance(id) {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
+      fragrances = fragrances.filter(f => f.id !== id);
+      saveFragrances();
+      renderCatalog();
+      showToast('Fragancia eliminada');
+    }
+
+    function openStoreConfigModal() {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
+      document.getElementById('config-store-name').value = storeConfig.name;
+      document.getElementById('config-store-tagline').value = storeConfig.tagline;
+      document.getElementById('config-store-whatsapp').value = storeConfig.whatsapp;
+      document.getElementById('config-store-instagram').value = storeConfig.instagram;
+      document.getElementById('config-store-notes').value = storeConfig.notes;
+      document.getElementById('store-modal').classList.remove('hidden');
+    }
+
+    function closeStoreConfigModal() {
+      document.getElementById('store-modal').classList.add('hidden');
+    }
+
+    function handleStoreConfigSubmit(e) {
+      e.preventDefault();
+      storeConfig.name = document.getElementById('config-store-name').value.trim();
+      storeConfig.tagline = document.getElementById('config-store-tagline').value.trim();
+      storeConfig.whatsapp = document.getElementById('config-store-whatsapp').value.trim();
+      storeConfig.instagram = document.getElementById('config-store-instagram').value.trim();
+      storeConfig.notes = document.getElementById('config-store-notes').value.trim();
+
+      saveStoreConfig();
+      closeStoreConfigModal();
+      showToast('Datos actualizados');
+    }
+
+    function showToast(message, duration = 2000) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'px-3 py-2 rounded-xl bg-zinc-900 border border-[#D4AF37]/50 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 pointer-events-auto';
+      toast.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-[#D4AF37]"></i> <span>${message}</span>`;
+      container.appendChild(toast);
+      lucide.createIcons();
+      setTimeout(() => toast.remove(), duration);
+    }
+
+    window.onload = function() {
+      initApp();
+    };
+  </script>
+</body>
+</html>

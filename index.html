@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo Oficial & Decants</title>
+  <title>DIEGO SCENTS - Catálogo Oficial & Tienda</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,31 +13,22 @@
   
   <!-- html2canvas para exportar a Instagram -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  
-  <!-- Tipografía Google -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     * {
       box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: radial-gradient(circle at 50% 0%, #151824 0%, #08090C 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #08090C;
       color: #FFFFFF;
-      min-height: 100vh;
       margin: 0;
+      padding: 0;
     }
 
-    .font-brand {
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    /* Reglas para imprimir en PDF A4 */
     @page {
       size: A4 portrait;
       margin: 0;
@@ -45,12 +36,13 @@
 
     @media print {
       html, body {
-        background: #08090C !important;
+        background-color: #08090C !important;
         color: #FFFFFF !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         margin: 0 !important;
         padding: 0 !important;
+        width: 100% !important;
       }
 
       .no-print,
@@ -58,6 +50,8 @@
       #toast-container,
       #fragrance-modal,
       #store-modal,
+      #login-modal,
+      #cart-drawer,
       button {
         display: none !important;
       }
@@ -77,7 +71,7 @@
         min-height: 297mm !important;
         padding: 10mm 12mm !important;
         margin: 0 !important;
-        background: #08090C !important;
+        background-color: #08090C !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
@@ -94,98 +88,131 @@
         grid-template-rows: repeat(2, 1fr) !important;
         gap: 12px !important;
         flex: 1 !important;
+        margin: 8px 0 !important;
       }
 
       .catalog-card-item {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
-        background: #0F121A !important;
-        border: 1px solid #2A3042 !important;
+        background-color: #11131B !important;
+        border: 1px solid #1F2433 !important;
       }
     }
 
     .pdf-sheet-page {
-      background: linear-gradient(180deg, #0E1017 0%, #08090D 100%);
-      border: 1px solid #1E2333;
+      background-color: #08090C;
+      border: 1px solid #1C202C;
       border-radius: 1.25rem;
       padding: 1.5rem;
       margin-bottom: 2rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.95);
       position: relative;
     }
 
-    .glass-card {
-      background: rgba(18, 21, 31, 0.85);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      transition: all 0.25s ease;
+    .brand-title {
+      color: #D4AF37;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.3;
+      margin: 0 0 2px 0;
+      display: block;
     }
 
-    .glass-card:hover {
-      border-color: rgba(212, 175, 55, 0.4);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+    .fragrance-title {
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin: 0 0 4px 0;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fragrance-notes {
+      color: #D1D5DB;
+      font-size: 11px;
+      line-height: 1.4;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   </style>
 </head>
-<body class="flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased pb-20">
 
   <!-- BARRA DE CONTROL SUPERIOR -->
-  <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#0A0C12]/90 backdrop-blur-md border-b border-zinc-800/80 px-4 py-3">
+  <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#0C0E14]/95 backdrop-blur border-b border-zinc-800 px-4 py-3">
     <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
       
-      <!-- LOGO Y DATOS DE LA MARCA -->
+      <!-- LOGO / IDENTIFICADOR -->
       <div class="flex items-center space-x-3">
-        <div class="relative group cursor-pointer" onclick="document.getElementById('quick-logo-input').click()" title="Haz clic para subir tu logotipo">
-          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#D4AF37] via-[#FFF1B0] to-[#997715] p-[1.5px] shadow-lg shadow-[#D4AF37]/10 flex items-center justify-center">
-            <div class="w-full h-full bg-[#0D0F17] rounded-[10px] flex items-center justify-center overflow-hidden">
+        <div class="relative group cursor-pointer" onclick="triggerLogoUpload()" title="Subir logotipo">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#D4AF37] to-[#FFF1B0] p-[1.5px] shadow-sm flex items-center justify-center">
+            <div class="w-full h-full bg-[#11131B] rounded-[9px] flex items-center justify-center overflow-hidden">
               <img id="header-logo-img" src="" alt="Logo" class="hidden w-full h-full object-contain p-1">
-              <span id="header-logo-icon" class="text-[#D4AF37] font-brand font-black text-sm tracking-wider">DS</span>
+              <span id="header-logo-icon" class="text-[#D4AF37] font-bold text-sm tracking-wider">DS</span>
             </div>
-          </div>
-          <div class="absolute inset-0 bg-black/60 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-200">
-            <i data-lucide="camera" class="w-4 h-4 text-white"></i>
           </div>
           <input type="file" id="quick-logo-input" accept="image/*" class="hidden" onchange="handleDirectLogoUpload(event)">
         </div>
 
         <div>
-          <h1 id="header-store-name" class="font-brand text-sm font-extrabold tracking-wider text-white uppercase">DIEGO SCENTS</h1>
-          <p class="text-[11px] text-zinc-400">Alta Perfumería • Decants Exclusivos</p>
+          <h1 id="header-store-name" class="text-sm font-bold tracking-wider text-white">DIEGO SCENTS</h1>
+          <p class="text-[11px] text-zinc-400">Catálogo Oficial de Decants</p>
         </div>
       </div>
 
-      <!-- BOTONES DE GESTIÓN -->
+      <!-- BOTONES DE ACCIÓN -->
       <div class="flex items-center flex-wrap gap-2">
-        <button onclick="document.getElementById('quick-logo-input').click()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37]/20 to-amber-500/10 hover:from-[#D4AF37]/30 text-xs text-[#F1D779] border border-[#D4AF37]/40 flex items-center gap-1.5 transition font-semibold">
-          <i data-lucide="image-plus" class="w-3.5 h-3.5"></i>
-          <span>Subir Logo</span>
+        <!-- BOTÓN DE LOGIN / LOGOUT -->
+        <button id="auth-btn" onclick="toggleAuthModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-300 border border-zinc-700 flex items-center gap-1.5 transition">
+          <i data-lucide="lock" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+          <span id="auth-btn-text">Admin Login</span>
         </button>
 
-        <button onclick="openStoreConfigModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-200 border border-zinc-700/80 flex items-center gap-1.5 transition">
-          <i data-lucide="settings" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
-          <span>Configurar Tienda</span>
-        </button>
+        <!-- CONTROLES EXCLUSIVOS DE ADMIN -->
+        <div id="admin-controls" class="hidden flex items-center flex-wrap gap-2">
+          <button onclick="document.getElementById('quick-logo-input').click()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-[#F1D779] border border-[#D4AF37]/40 flex items-center gap-1.5 transition">
+            <i data-lucide="image" class="w-3.5 h-3.5"></i>
+            <span>Subir Logo</span>
+          </button>
 
-        <button onclick="exportBackupData()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-amber-300 border border-zinc-700/80 flex items-center gap-1.5 transition">
-          <i data-lucide="download" class="w-3.5 h-3.5"></i>
-          <span>Respaldar JSON</span>
-        </button>
+          <button onclick="openStoreConfigModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-200 border border-zinc-700 flex items-center gap-1.5 transition">
+            <i data-lucide="user" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+            <span>Datos Tienda</span>
+          </button>
 
-        <label class="cursor-pointer px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-200 border border-zinc-700/80 flex items-center gap-1.5 transition">
-          <i data-lucide="upload" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
-          <span>Cargar Copia</span>
-          <input type="file" accept=".json" class="hidden" onchange="importBackupData(event)">
-        </label>
+          <button onclick="exportBackupData()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-amber-300 border border-zinc-700 flex items-center gap-1.5 transition">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>Respaldar JSON</span>
+          </button>
 
-        <button onclick="openFragranceModal()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F3DE8A] text-black font-extrabold text-xs flex items-center gap-1.5 shadow-md shadow-[#D4AF37]/20 hover:brightness-110 active:scale-95 transition">
-          <i data-lucide="plus" class="w-3.5 h-3.5 stroke-[3]"></i>
-          <span>+ Fragancia</span>
+          <label class="cursor-pointer px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs text-zinc-200 border border-zinc-700 flex items-center gap-1.5 transition">
+            <i data-lucide="upload" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+            <span>Cargar JSON</span>
+            <input type="file" accept=".json" class="hidden" onchange="importBackupData(event)">
+          </label>
+
+          <button onclick="openFragranceModal()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-[#D4AF37]/50 text-xs text-white flex items-center gap-1.5 font-semibold transition">
+            <i data-lucide="plus" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+            <span>+ Perfume</span>
+          </button>
+        </div>
+
+        <button onclick="toggleCartDrawer()" class="px-3 py-1.5 rounded-xl bg-[#D4AF37] hover:bg-[#c29e2e] text-black text-xs font-bold flex items-center gap-1.5 transition">
+          <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+          <span>Pedido (<span id="cart-count">0</span>)</span>
         </button>
 
         <button onclick="window.print()" class="px-3.5 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold flex items-center gap-1.5 border border-zinc-600 transition">
           <i data-lucide="printer" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
-          <span>Exportar PDF</span>
+          <span>PDF</span>
         </button>
       </div>
 
@@ -195,8 +222,8 @@
   <!-- CONTENIDO PRINCIPAL -->
   <main class="flex-1 max-w-5xl w-full mx-auto p-4 flex flex-col gap-4">
 
-    <!-- BUSCADOR Y FILTROS -->
-    <section class="no-print bg-[#0F1118]/80 backdrop-blur border border-zinc-800/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-md">
+    <!-- BUSCADOR -->
+    <section class="no-print bg-[#11131B] border border-zinc-800 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-2 flex-1 min-w-[240px]">
         <div class="relative w-full">
           <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3 top-2.5"></i>
@@ -204,20 +231,20 @@
             type="text" 
             id="search-input" 
             oninput="filterCatalog()"
-            placeholder="Buscar fragancia, casa olfativa o notas..." 
-            class="w-full bg-[#161822] border border-zinc-700/80 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#D4AF37]"
+            placeholder="Buscar por perfume, casa o notas..." 
+            class="w-full bg-[#181B26] border border-zinc-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#D4AF37]"
           >
         </div>
         <select 
           id="filter-brand" 
           onchange="filterCatalog()" 
-          class="bg-[#161822] border border-zinc-700/80 rounded-xl px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none max-w-[170px]">
+          class="bg-[#181B26] border border-zinc-700 rounded-xl px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none max-w-[170px]">
           <option value="ALL">Todas las Casas</option>
         </select>
       </div>
 
       <div class="flex items-center gap-2">
-        <select id="currency-symbol" onchange="renderCatalog()" class="bg-[#161822] border border-zinc-700/80 text-xs text-white rounded-xl px-2.5 py-1.5 focus:outline-none">
+        <select id="currency-symbol" onchange="renderCatalog()" class="bg-[#181B26] border border-zinc-700 text-xs text-white rounded-xl px-2.5 py-1.5 focus:outline-none">
           <option value="$">$ (MXN)</option>
           <option value="USD $">USD $</option>
         </select>
@@ -230,22 +257,93 @@
     </div>
 
     <div id="empty-state" class="hidden py-16 text-center">
-      <i data-lucide="package-search" class="w-10 h-10 text-zinc-600 mx-auto mb-2"></i>
+      <i data-lucide="package-search" class="w-8 h-8 text-zinc-600 mx-auto mb-2"></i>
       <h3 class="text-sm font-semibold text-zinc-300">No se encontraron fragancias</h3>
-      <p class="text-xs text-zinc-500 mt-1">Intenta con otro término o añade una nueva botella.</p>
+      <p class="text-xs text-zinc-500 mt-1">Modifica tu búsqueda o añade un perfume nuevo.</p>
     </div>
   </main>
 
-  <!-- MODAL PARA AGREGAR/EDITAR FRAGANCIA -->
+  <!-- MODAL LOGIN ADMIN -->
+  <div id="login-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
+    <div class="bg-[#11131B] border border-zinc-700 rounded-2xl w-full max-w-sm p-6 relative">
+      <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-4 text-center">
+        <div class="w-12 h-12 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 flex items-center justify-center mx-auto mb-2 text-[#D4AF37]">
+          <i data-lucide="shield" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-base font-bold text-white">Panel de Propietario</h3>
+        <p class="text-[11px] text-zinc-400">Ingresa tus credenciales para editar el catálogo</p>
+      </div>
+
+      <form onsubmit="handleLoginSubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-zinc-300 mb-1 font-semibold">Usuario</label>
+          <input type="text" id="login-user" required class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#D4AF37]">
+        </div>
+        <div>
+          <label class="block text-zinc-300 mb-1 font-semibold">Contraseña</label>
+          <input type="password" id="login-pass" required class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#D4AF37]">
+        </div>
+        <div class="pt-2">
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-[#D4AF37] hover:bg-[#c29e2e] text-black font-bold transition">
+            Iniciar Sesión
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PANEL LATERAL DE CARRITO / PEDIDO DE WHATSAPP -->
+  <div id="cart-drawer" class="no-print fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[#11131B] border-l border-zinc-800 shadow-2xl p-5 flex flex-col justify-between hidden text-xs">
+    <div>
+      <div class="flex items-center justify-between pb-3 border-b border-zinc-800 mb-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-[#D4AF37]"></i>
+          <h3 class="text-sm font-bold text-white">Tu Pedido de Decants</h3>
+        </div>
+        <button onclick="toggleCartDrawer()" class="text-zinc-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="cart-items-container" class="space-y-2.5 overflow-y-auto max-h-[60vh] pr-1"></div>
+    </div>
+
+    <div class="pt-4 border-t border-zinc-800 space-y-3">
+      <div>
+        <label class="block text-zinc-300 mb-1 font-semibold">Tu Nombre Completo *</label>
+        <input type="text" id="order-customer-name" placeholder="Ej: Juan Pérez" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none">
+      </div>
+      <div>
+        <label class="block text-zinc-300 mb-1 font-semibold">Ciudad / Dirección de Envío</label>
+        <input type="text" id="order-customer-address" placeholder="Ej: Puebla, Pue." class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-2 text-white focus:outline-none">
+      </div>
+
+      <div class="flex justify-between items-center text-sm font-bold text-white pt-2">
+        <span>Total Estimado:</span>
+        <span id="cart-total-price" class="text-base text-[#D4AF37] font-extrabold">$0</span>
+      </div>
+
+      <button onclick="sendOrderViaWhatsApp()" class="w-full py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-black font-extrabold flex items-center justify-center gap-2 shadow-lg transition">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span>Enviar Pedido a WhatsApp</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR / AGREGAR FRAGANCIA -->
   <div id="fragrance-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 overflow-y-auto">
-    <div class="bg-[#12141C] border border-zinc-700 rounded-2xl w-full max-w-lg p-5 relative text-xs">
+    <div class="bg-[#11131B] border border-zinc-700 rounded-2xl w-full max-w-lg p-5 relative text-xs">
       <button onclick="closeFragranceModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <div class="mb-4">
-        <span class="text-[10px] tracking-widest text-[#D4AF37] uppercase font-bold">Gestión de Catálogo</span>
-        <h3 id="modal-title" class="font-brand text-base font-bold text-white mt-0.5">Editar Fragancia</h3>
+        <span class="text-[10px] tracking-widest text-[#D4AF37] uppercase font-bold">Detalle de Fragancia</span>
+        <h3 id="modal-title" class="text-base font-bold text-white mt-0.5">Editar Fragancia</h3>
       </div>
 
       <form id="fragrance-form" onsubmit="handleFragranceSubmit(event)" class="space-y-3">
@@ -265,10 +363,10 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-medium text-zinc-300 mb-1">Concentración</label>
-            <input type="text" id="frag-concentration" placeholder="Eau de Parfum, Elixir..." class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white focus:outline-none">
+            <input type="text" id="frag-concentration" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white focus:outline-none">
           </div>
           <div>
-            <label class="block font-medium text-zinc-300 mb-1">Categoría</label>
+            <label class="block font-medium text-zinc-300 mb-1">Género</label>
             <select id="frag-gender" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white focus:outline-none">
               <option value="Unisex">Unisex</option>
               <option value="Masculino">Masculino</option>
@@ -277,7 +375,7 @@
           </div>
         </div>
 
-        <!-- FOTOGRAFÍA -->
+        <!-- FOTO -->
         <div class="p-3 rounded-xl bg-[#090A0E] border border-zinc-800 space-y-2">
           <label class="block font-semibold text-zinc-300">Fotografía de la Botella</label>
           <div class="flex items-center gap-3">
@@ -285,7 +383,7 @@
               <input type="text" id="frag-image-url" placeholder="URL directa o base64" oninput="updateImagePreview(this.value)" class="w-full bg-[#181B26] border border-zinc-700 rounded-lg px-2.5 py-1 text-white text-[11px] focus:outline-none">
               <label class="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-600 text-[10px]">
                 <i data-lucide="image" class="w-3 h-3 text-[#D4AF37]"></i>
-                <span>Subir archivo de imagen</span>
+                <span>Subir imagen</span>
                 <input type="file" accept="image/*" class="hidden" onchange="handleLocalImageUpload(event)">
               </label>
             </div>
@@ -339,36 +437,16 @@
     </div>
   </div>
 
-  <!-- MODAL CONFIGURACIÓN TIENDA / LOGOTIPO -->
+  <!-- MODAL DATOS TIENDA -->
   <div id="store-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
-    <div class="bg-[#12141C] border border-zinc-700 rounded-2xl w-full max-w-md p-5 relative">
+    <div class="bg-[#11131B] border border-zinc-700 rounded-2xl w-full max-w-md p-5 relative">
       <button onclick="closeStoreConfigModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <h3 class="font-brand text-base font-bold text-white mb-3">Datos de Marca & Logotipo</h3>
+      <h3 class="text-base font-bold text-white mb-3">Datos del Catálogo & Propietario</h3>
 
       <form onsubmit="handleStoreConfigSubmit(event)" class="space-y-3">
-        <!-- APARTADO DE LOGOTIPO -->
-        <div class="p-3 rounded-xl bg-[#090A0E] border border-zinc-800 flex items-center gap-3">
-          <div class="w-14 h-14 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center overflow-hidden shrink-0">
-            <img id="modal-logo-preview" src="" class="hidden w-full h-full object-contain p-1" alt="Logo">
-            <span id="modal-logo-placeholder" class="text-zinc-500 text-[10px]">Sin Logo</span>
-          </div>
-          <div class="flex-1 space-y-1">
-            <label class="block font-semibold text-zinc-200">Logotipo Oficial</label>
-            <div class="flex items-center gap-2">
-              <label class="cursor-pointer px-2.5 py-1 rounded bg-[#D4AF37]/20 hover:bg-[#D4AF37]/30 text-[#F1D779] border border-[#D4AF37]/40 text-[11px] font-semibold flex items-center gap-1">
-                <i data-lucide="upload" class="w-3 h-3"></i>
-                <span>Elegir imagen</span>
-                <input type="file" accept="image/*" class="hidden" onchange="handleModalLogoUpload(event)">
-              </label>
-              <button type="button" onclick="removeLogo()" class="px-2 py-1 rounded bg-zinc-800 text-zinc-400 hover:text-red-400 text-[11px]">Quitar</button>
-            </div>
-            <input type="text" id="config-store-logo" placeholder="O pega el enlace de tu logo" oninput="updateLogoModalPreview(this.value)" class="w-full bg-[#181B26] border border-zinc-700 rounded px-2 py-1 text-white text-[10px] mt-1">
-          </div>
-        </div>
-
         <div>
           <label class="block text-zinc-300 mb-1">Nombre Comercial</label>
           <input type="text" id="config-store-name" required class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white">
@@ -388,7 +466,7 @@
           </div>
         </div>
         <div>
-          <label class="block text-zinc-300 mb-1">Información de Envíos / Garantía</label>
+          <label class="block text-zinc-300 mb-1">Información de Envíos y Garantía</label>
           <input type="text" id="config-store-notes" class="w-full bg-[#181B26] border border-zinc-700 rounded-xl px-3 py-1.5 text-white">
         </div>
 
@@ -403,33 +481,239 @@
   <div id="toast-container" class="no-print fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <script>
+    // CREDENCIALES DEL ADMINISTRADOR
+    const ADMIN_USER = "DIEGO";
+    const ADMIN_PASS = "123456789";
+
     let storeConfig = {
       name: "DIEGO SCENTS",
-      tagline: "TU MUESTRA DE LUJO AL MEJOR PRECIO",
+      tagline: "TU MUESTRA DE LUJO AL MEJOR PRECIO.",
       whatsapp: "+52 243 106 6247",
       instagram: "@scents.by.diego",
-      notes: "Envíos express a toda la república y entregas personales en Izúcar de Matamoros, Puebla",
+      notes: "Envios express a toda la república y entregas personales en Izúcar de Matamoros, Puebla",
       logo: ""
     };
 
     let fragrances = [];
+    let cart = [];
+    let isAdminLoggedIn = false;
     const ITEMS_PER_PAGE = 4;
 
-    function initApp() {
+    async function initApp() {
+      // 1. Estado de la sesión del administrador
+      isAdminLoggedIn = sessionStorage.getItem('aura_is_admin') === 'true';
+      updateAdminUI();
+
+      // 2. Cargar directamente el archivo R9.json
+      await loadRemoteJson();
+
+      // 3. Respetar cambios locales en caso de que Diego guarde modificaciones
       try {
         const storedStore = localStorage.getItem('aura_store_config');
         if (storedStore) storeConfig = { ...storeConfig, ...JSON.parse(storedStore) };
-      } catch(e) {}
-
-      try {
         const storedFrag = localStorage.getItem('aura_fragrances');
-        if (storedFrag) fragrances = JSON.parse(storedFrag);
+        if (storedFrag && JSON.parse(storedFrag).length > 0) fragrances = JSON.parse(storedFrag);
       } catch(e) {}
 
       updateStoreBrandHeader();
       populateBrandFilter();
       renderCatalog();
+      updateCartUI();
       lucide.createIcons();
+    }
+
+    // LECTURA EXCLUSIVA DE R9.JSON
+    async function loadRemoteJson() {
+      try {
+        const res = await fetch('./R9.json');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.store) storeConfig = { ...storeConfig, ...data.store };
+          if (data.fragrances && data.fragrances.length > 0) {
+            fragrances = data.fragrances;
+            saveFragrances();
+            saveStoreConfig();
+          }
+        }
+      } catch (e) {
+        console.error("Error al obtener R9.json:", e);
+      }
+    }
+
+    // LOGIN Y AUTENTICACIÓN
+    function toggleAuthModal() {
+      if (isAdminLoggedIn) {
+        isAdminLoggedIn = false;
+        sessionStorage.removeItem('aura_is_admin');
+        updateAdminUI();
+        renderCatalog();
+        showToast('Sesión cerrada');
+      } else {
+        document.getElementById('login-modal').classList.remove('hidden');
+      }
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const user = document.getElementById('login-user').value.trim();
+      const pass = document.getElementById('login-pass').value.trim();
+
+      if (user === ADMIN_USER && pass === ADMIN_PASS) {
+        isAdminLoggedIn = true;
+        sessionStorage.setItem('aura_is_admin', 'true');
+        document.getElementById('login-modal').classList.add('hidden');
+        document.getElementById('login-user').value = '';
+        document.getElementById('login-pass').value = '';
+        updateAdminUI();
+        renderCatalog();
+        showToast('¡Bienvenido Diego! Modo edición activado');
+      } else {
+        showToast('Credenciales incorrectas');
+      }
+    }
+
+    function updateAdminUI() {
+      const controls = document.getElementById('admin-controls');
+      const authBtnText = document.getElementById('auth-btn-text');
+      if (isAdminLoggedIn) {
+        controls.classList.remove('hidden');
+        authBtnText.textContent = 'Cerrar Sesión';
+      } else {
+        controls.classList.add('hidden');
+        authBtnText.textContent = 'Admin Login';
+      }
+      lucide.createIcons();
+    }
+
+    // CARRITO Y ENVIAR PEDIDO POR WHATSAPP
+    function addToCart(fragId, size) {
+      const frag = fragrances.find(f => f.id === fragId);
+      if (!frag) return;
+
+      const priceInfo = frag.prices?.[size];
+      if (!priceInfo || !priceInfo.inStock || priceInfo.price <= 0) {
+        showToast('Tamaño agotado');
+        return;
+      }
+
+      const existingItem = cart.find(item => item.fragId === fragId && item.size === size);
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cart.push({
+          fragId: frag.id,
+          name: frag.name,
+          brand: frag.brand,
+          size: size,
+          price: priceInfo.price,
+          qty: 1
+        });
+      }
+
+      updateCartUI();
+      showToast(`Agregado: ${frag.name} (${size})`);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const countEl = document.getElementById('cart-count');
+      const container = document.getElementById('cart-items-container');
+      const totalPriceEl = document.getElementById('cart-total-price');
+
+      let totalCount = 0;
+      let totalPrice = 0;
+
+      container.innerHTML = '';
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="py-8 text-center text-zinc-500">
+            <i data-lucide="shopping-bag" class="w-8 h-8 mx-auto mb-1 opacity-50"></i>
+            <p>Tu bolsa de pedido está vacía</p>
+          </div>
+        `;
+      } else {
+        cart.forEach((item, idx) => {
+          totalCount += item.qty;
+          const subtotal = item.price * item.qty;
+          totalPrice += subtotal;
+
+          container.innerHTML += `
+            <div class="p-2.5 rounded-xl bg-[#161822] border border-zinc-800 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-[#D4AF37] font-bold uppercase block">${item.brand}</span>
+                <span class="text-xs text-white font-bold block">${item.name}</span>
+                <span class="text-[11px] text-zinc-400 font-medium">Decant ${item.size} × ${item.qty} (${formatPrice(item.price)})</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-white font-bold">${formatPrice(subtotal)}</span>
+                <button onclick="removeFromCart(${idx})" class="p-1 text-zinc-500 hover:text-red-400 transition">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      countEl.textContent = totalCount;
+      totalPriceEl.textContent = formatPrice(totalPrice);
+      lucide.createIcons();
+    }
+
+    function toggleCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function sendOrderViaWhatsApp() {
+      if (cart.length === 0) {
+        showToast('Agrega al menos una fragancia a tu pedido');
+        return;
+      }
+
+      const customerName = document.getElementById('order-customer-name').value.trim();
+      const customerAddress = document.getElementById('order-customer-address').value.trim();
+
+      if (!customerName) {
+        showToast('Escribe tu nombre para el pedido');
+        document.getElementById('order-customer-name').focus();
+        return;
+      }
+
+      let total = 0;
+      let orderListText = "";
+
+      cart.forEach((item) => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        orderListText += `▪ ${item.qty}x ${item.brand} - ${item.name} (${item.size}) -> ${formatPrice(subtotal)}\n`;
+      });
+
+      let message = `¡Hola! Me gustaría levantar el siguiente pedido de decants en *${storeConfig.name}*:\n\n`;
+      message += `*Cliente:* ${customerName}\n`;
+      if (customerAddress) message += `*Destino/Ciudad:* ${customerAddress}\n`;
+      message += `\n*Detalle del Pedido:*\n${orderListText}\n`;
+      message += `*Total:* ${formatPrice(total)}\n\n`;
+      message += `¿Me confirmas disponibilidad y forma de pago, por favor?`;
+
+      const cleanPhone = storeConfig.whatsapp.replace(/[^0-9]/g, '');
+      const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+
+      window.open(waUrl, '_blank');
+      toggleCartDrawer();
+    }
+
+    function triggerLogoUpload() {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
+      document.getElementById('quick-logo-input').click();
     }
 
     function updateStoreBrandHeader() {
@@ -457,40 +741,9 @@
       reader.onload = function(e) {
         storeConfig.logo = e.target.result;
         saveStoreConfig();
-        showToast('¡Logotipo actualizado con éxito!');
+        showToast('Logotipo actualizado');
       };
       reader.readAsDataURL(file);
-    }
-
-    function handleModalLogoUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('config-store-logo').value = e.target.result;
-        updateLogoModalPreview(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function updateLogoModalPreview(url) {
-      const preview = document.getElementById('modal-logo-preview');
-      const placeholder = document.getElementById('modal-logo-placeholder');
-      if (url && url.trim() !== '') {
-        preview.src = url;
-        preview.classList.remove('hidden');
-        placeholder.classList.add('hidden');
-      } else {
-        preview.src = '';
-        preview.classList.add('hidden');
-        placeholder.classList.remove('hidden');
-      }
-    }
-
-    function removeLogo() {
-      document.getElementById('config-store-logo').value = '';
-      updateLogoModalPreview('');
     }
 
     function saveFragrances() {
@@ -523,7 +776,7 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('Copia de seguridad guardada');
+      showToast('Respaldo descargado');
     }
 
     function importBackupData(event) {
@@ -540,7 +793,7 @@
             saveFragrances();
             saveStoreConfig();
             renderCatalog();
-            showToast('Datos cargados con éxito');
+            showToast('Catálogo cargado con éxito');
           }
         } catch(err) {
           showToast('Error al importar el archivo JSON');
@@ -555,7 +808,7 @@
       const currentVal = select.value;
       const brands = Array.from(new Set(fragrances.map(f => f.brand))).filter(Boolean).sort();
 
-      select.innerHTML = '<option value="ALL">Todas las Marcas</option>';
+      select.innerHTML = '<option value="ALL">Todas las Casas</option>';
       brands.forEach(brand => {
         const opt = document.createElement('option');
         opt.value = brand;
@@ -613,21 +866,21 @@
             
             <!-- ENCABEZADO -->
             <div>
-              <div class="pb-3 border-b border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="pb-3 border-b border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#D4AF37] via-[#FFF1B0] to-[#997715] p-[1.5px] shadow-lg shadow-[#D4AF37]/10 shrink-0">
-                    <div class="w-full h-full bg-[#0D0F17] rounded-[10px] flex items-center justify-center overflow-hidden">
+                  <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#D4AF37] to-[#FFF1B0] p-[1.5px] shadow-sm shrink-0">
+                    <div class="w-full h-full bg-[#11131B] rounded-[9px] flex items-center justify-center overflow-hidden">
                       ${storeConfig.logo ? `
                         <img src="${storeConfig.logo}" class="w-full h-full object-contain p-1" alt="Logo">
                       ` : `
-                        <span class="text-[#D4AF37] font-brand font-black text-base">
+                        <span class="text-[#D4AF37] font-bold text-base">
                           ${storeConfig.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'DS'}
                         </span>
                       `}
                     </div>
                   </div>
                   <div>
-                    <h2 class="font-brand text-lg sm:text-xl font-extrabold tracking-wide text-white uppercase">
+                    <h2 class="text-lg sm:text-xl font-bold tracking-wide text-white">
                       ${storeConfig.name}
                     </h2>
                     <p class="text-[11px] text-zinc-400 mt-0.5 font-medium tracking-wide">
@@ -638,7 +891,7 @@
 
                 <div class="flex flex-col sm:items-end gap-1.5 text-xs text-zinc-300">
                   <div class="no-print">
-                    <button onclick="downloadPageAsInstagramImage('${pageId}', ${pageNumber})" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#D4AF37] via-amber-400 to-[#F1D779] text-black font-extrabold text-[11px] flex items-center gap-1.5 shadow-md hover:brightness-110 active:scale-95 transition">
+                    <button onclick="downloadPageAsInstagramImage('${pageId}', ${pageNumber})" class="px-3 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#F1D779] text-black font-bold text-[11px] flex items-center gap-1.5 shadow hover:brightness-110 active:scale-95 transition">
                       <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
                       <span>Descargar imagen Instagram (4:5)</span>
                     </button>
@@ -661,10 +914,10 @@
                 </div>
               </div>
 
-              <!-- GUÍA DE DECANTS -->
-              <div class="mt-2.5 px-3 py-1.5 rounded-xl bg-[#12141F]/80 border border-zinc-800 flex items-center justify-between gap-2 text-xs">
-                <span class="text-[#D4AF37] font-bold text-[11px] flex items-center gap-1">
-                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Rendimiento:
+              <!-- GUÍA DE RENDIMIENTO -->
+              <div class="mt-2.5 px-3 py-1.5 rounded-xl bg-[#11131B] border border-zinc-800 flex items-center justify-between gap-2 text-xs">
+                <span class="text-[#D4AF37] font-semibold text-[11px] flex items-center gap-1">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Rendimiento estimado:
                 </span>
                 <div class="flex items-center gap-4 text-[10px] text-zinc-300 font-medium">
                   <span><strong class="text-white">3 ml:</strong> ~45 sprays</span>
@@ -674,7 +927,7 @@
               </div>
             </div>
 
-            <!-- GRILLA 2x2 DE FRAGANCIAS -->
+            <!-- GRILLA DE PRODUCTOS -->
             <div class="catalog-grid-2x2 grid grid-cols-1 sm:grid-cols-2 gap-3.5 my-3">
               ${pageItems.map(frag => {
                 const p3 = frag.prices?.['3ml'] || { price: 0, inStock: true };
@@ -682,76 +935,81 @@
                 const p10 = frag.prices?.['10ml'] || { price: 0, inStock: true };
 
                 return `
-                  <div class="catalog-card-item glass-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                  <div class="catalog-card-item bg-[#11131B] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col justify-between shadow-sm">
                     <div>
-                      <!-- CONTENEDOR DE IMAGEN -->
-                      <div class="relative w-full h-44 bg-[#06070A] p-2 flex items-center justify-center border-b border-zinc-800/80">
+                      <div class="relative w-full h-44 bg-[#08090C] p-2 flex items-center justify-center border-b border-zinc-800">
                         <img 
-                          src="${frag.image || 'https://placehold.co/400x400/12141C/D4AF37?text=' + encodeURIComponent(frag.name)}" 
+                          src="${frag.image || 'https://placehold.co/400x400/11131B/D4AF37?text=' + encodeURIComponent(frag.name)}" 
                           alt="${frag.name}"
                           crossorigin="anonymous"
-                          class="max-h-full max-w-full object-contain filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)]"
+                          class="max-h-full max-w-full object-contain"
                         />
 
                         <div class="absolute top-2 left-2 flex gap-1">
-                          <span class="bg-[#151824]/90 border border-zinc-700/80 text-zinc-200 font-medium text-[9px] px-2 py-0.5 rounded-md backdrop-blur-sm">
+                          <span class="bg-[#181B26] border border-zinc-700/80 text-zinc-200 font-medium text-[9px] px-2 py-0.5 rounded-md">
                             ${frag.concentration || 'EDP'}
                           </span>
                           ${frag.gender ? `
-                            <span class="bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#FCE89B] font-medium text-[9px] px-2 py-0.5 rounded-md backdrop-blur-sm">
+                            <span class="bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#F1D779] font-medium text-[9px] px-2 py-0.5 rounded-md">
                               ${frag.gender}
                             </span>
                           ` : ''}
                         </div>
 
-                        <div class="action-buttons-card no-print absolute top-2 right-2 flex items-center gap-1">
-                          <button onclick="editFragrance('${frag.id}')" title="Editar" class="p-1 rounded bg-black/70 hover:bg-[#D4AF37] text-white hover:text-black transition">
-                            <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
-                          </button>
-                          <button onclick="deleteFragrance('${frag.id}')" title="Eliminar" class="p-1 rounded bg-black/70 hover:bg-red-600 text-white transition">
-                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                          </button>
-                        </div>
+                        ${isAdminLoggedIn ? `
+                          <div class="action-buttons-card no-print absolute top-2 right-2 flex items-center gap-1">
+                            <button onclick="editFragrance('${frag.id}')" title="Editar" class="p-1 rounded bg-black/70 hover:bg-[#D4AF37] text-white hover:text-black">
+                              <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <button onclick="deleteFragrance('${frag.id}')" title="Eliminar" class="p-1 rounded bg-black/70 hover:bg-red-600 text-white">
+                              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                          </div>
+                        ` : ''}
                       </div>
 
-                      <!-- INFORMACIÓN Y NOTAS NÍTIDAS -->
                       <div style="padding: 12px 12px 6px 12px;">
-                        <span style="color: #D4AF37; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.2; margin: 0 0 2px 0; display: block;">
+                        <span class="brand-title">
                           ${frag.brand}
                         </span>
-                        <div style="color: #FFFFFF; font-size: 15px; font-weight: 800; line-height: 1.25; margin: 0 0 5px 0; display: block;" title="${frag.name}">
+                        <div class="fragrance-title" title="${frag.name}">
                           ${frag.name}
                         </div>
 
-                        <p style="color: #D1D5DB; font-size: 11px; line-height: 1.45; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                        <p class="fragrance-notes">
                           <strong style="color: #9CA3AF; font-weight: 600;">Notas:</strong> ${frag.notes || 'Notas aromáticas exclusivas.'}
                         </p>
                       </div>
                     </div>
 
-                    <!-- PRECIOS -->
                     <div style="padding: 4px 12px 12px 12px;">
-                      <div class="bg-[#090B10] border border-zinc-800/90 rounded-xl p-1.5 grid grid-cols-3 gap-1.5 text-center">
-                        <div class="p-1 rounded ${!p3.inStock ? 'opacity-40' : ''}">
+                      <div class="bg-[#090A0D] border border-zinc-800 rounded-xl p-1.5 grid grid-cols-3 gap-1.5 text-center">
+                        <button 
+                          onclick="${p3.inStock ? `addToCart('${frag.id}', '3ml')` : ''}"
+                          class="p-1 rounded hover:bg-zinc-800/80 transition flex flex-col items-center ${!p3.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}">
                           <span class="text-[9px] uppercase font-bold text-zinc-400 block">3 ml</span>
                           <span class="text-[11px] font-bold ${p3.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
                             ${p3.inStock ? formatPrice(p3.price) : 'Agotado'}
                           </span>
-                        </div>
+                        </button>
 
-                        <div class="p-1 rounded bg-gradient-to-b from-[#D4AF37]/25 to-[#D4AF37]/10 border border-[#D4AF37]/40 ${!p5.inStock ? 'opacity-40' : ''}">
-                          <span class="text-[9px] uppercase font-extrabold text-[#F1D779] block">5 ml</span>
-                          <span class="text-[12px] font-black ${p5.inStock ? 'text-[#FFF1B0]' : 'text-zinc-500 line-through'}">
+                        <button 
+                          onclick="${p5.inStock ? `addToCart('${frag.id}', '5ml')` : ''}"
+                          class="p-1 rounded bg-[#D4AF37]/15 border border-[#D4AF37]/40 hover:bg-[#D4AF37]/25 transition flex flex-col items-center ${!p5.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[9px] uppercase font-bold text-[#D4AF37] block">5 ml</span>
+                          <span class="text-[11px] font-extrabold ${p5.inStock ? 'text-[#F1D779]' : 'text-zinc-500 line-through'}">
                             ${p5.inStock ? formatPrice(p5.price) : 'Agotado'}
                           </span>
-                        </div>
+                        </button>
 
-                        <div class="p-1 rounded ${!p10.inStock ? 'opacity-40' : ''}">
+                        <button 
+                          onclick="${p10.inStock ? `addToCart('${frag.id}', '10ml')` : ''}"
+                          class="p-1 rounded hover:bg-zinc-800/80 transition flex flex-col items-center ${!p10.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}">
                           <span class="text-[9px] uppercase font-bold text-zinc-400 block">10 ml</span>
                           <span class="text-[11px] font-bold ${p10.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
                             ${p10.inStock ? formatPrice(p10.price) : 'Agotado'}
                           </span>
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -760,7 +1018,7 @@
             </div>
 
             <!-- PIE DE HOJA -->
-            <div class="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[10px] text-zinc-400">
+            <div class="pt-2 border-t border-zinc-800 flex items-center justify-between text-[10px] text-zinc-400">
               <span class="text-[#D4AF37] font-medium flex items-center gap-1">
                 <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
                 100% Auténtico • Decants Sellados Herméticamente
@@ -778,7 +1036,6 @@
       lucide.createIcons();
     }
 
-    // EXPORTAR A INSTAGRAM (4:5 / 1080 x 1350 px)
     async function downloadPageAsInstagramImage(pageElementId, pageNum) {
       const pageEl = document.getElementById(pageElementId);
       if (!pageEl) return;
@@ -790,7 +1047,7 @@
 
       try {
         const renderedCanvas = await html2canvas(pageEl, {
-          backgroundColor: '#08090D',
+          backgroundColor: '#08090C',
           scale: 2.5,
           useCORS: true,
           logging: false
@@ -801,7 +1058,7 @@
         igCanvas.height = 1350;
         const ctx = igCanvas.getContext('2d');
 
-        ctx.fillStyle = '#08090D';
+        ctx.fillStyle = '#08090C';
         ctx.fillRect(0, 0, igCanvas.width, igCanvas.height);
 
         const padding = 36;
@@ -830,6 +1087,10 @@
     }
 
     function openFragranceModal(isEdit = false) {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
       document.getElementById('fragrance-modal').classList.remove('hidden');
       if (!isEdit) {
         document.getElementById('fragrance-form').reset();
@@ -918,6 +1179,10 @@
     }
 
     function editFragrance(id) {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
       const frag = fragrances.find(f => f.id === id);
       if (!frag) return;
 
@@ -948,6 +1213,10 @@
     }
 
     function deleteFragrance(id) {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
       fragrances = fragrances.filter(f => f.id !== id);
       saveFragrances();
       renderCatalog();
@@ -955,13 +1224,15 @@
     }
 
     function openStoreConfigModal() {
+      if (!isAdminLoggedIn) {
+        toggleAuthModal();
+        return;
+      }
       document.getElementById('config-store-name').value = storeConfig.name;
       document.getElementById('config-store-tagline').value = storeConfig.tagline;
       document.getElementById('config-store-whatsapp').value = storeConfig.whatsapp;
       document.getElementById('config-store-instagram').value = storeConfig.instagram;
       document.getElementById('config-store-notes').value = storeConfig.notes;
-      document.getElementById('config-store-logo').value = storeConfig.logo || '';
-      updateLogoModalPreview(storeConfig.logo || '');
       document.getElementById('store-modal').classList.remove('hidden');
     }
 
@@ -976,7 +1247,6 @@
       storeConfig.whatsapp = document.getElementById('config-store-whatsapp').value.trim();
       storeConfig.instagram = document.getElementById('config-store-instagram').value.trim();
       storeConfig.notes = document.getElementById('config-store-notes').value.trim();
-      storeConfig.logo = document.getElementById('config-store-logo').value.trim();
 
       saveStoreConfig();
       closeStoreConfigModal();

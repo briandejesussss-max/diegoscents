@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DIEGO SCENTS - Perfumería de Autor & Decants Exclusivos</title>
+  <title>DIEGO SCENTS - Catálogo Exclusivo</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,10 +11,10 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Fuentes Google: Space Grotesk (moderna/técnica) y Plus Jakarta Sans -->
+  <!-- Fuentes Google: Space Grotesk & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -23,12 +23,13 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #050608;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background-color: #060709;
       color: #E2E8F0;
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .font-heading {
@@ -36,35 +37,61 @@
       letter-spacing: -0.02em;
     }
 
-    /* Vitrina de exhibición del perfume */
-    .bottle-stage {
-      background: radial-gradient(circle at 50% 60%, rgba(212, 175, 55, 0.08) 0%, rgba(10, 12, 18, 0.95) 75%);
+    /* Fondo dinámico con partículas de luz dorada sutiles */
+    .hero-glow {
+      background: radial-gradient(circle at 50% -20%, rgba(212, 175, 55, 0.22) 0%, rgba(6, 7, 9, 0) 70%);
     }
 
-    /* Tarjetas estilo obsidiana pulida con borde dorado tenue */
-    .product-card {
-      background: #0C0E14;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Efectos de movimiento y tarjetas interactivas */
+    .luxury-card {
+      background: linear-gradient(145deg, rgba(18, 20, 29, 0.95), rgba(11, 13, 19, 0.95));
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
-    .product-card:hover {
-      border-color: rgba(212, 175, 55, 0.4);
-      transform: translateY(-3px);
-      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.9), 0 0 20px -5px rgba(212, 175, 55, 0.15);
+    .luxury-card:hover {
+      border-color: rgba(212, 175, 55, 0.55);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.9), 0 0 25px -4px rgba(212, 175, 55, 0.2);
     }
 
-    /* REGLAS PARA IMPRESIÓN PDF LIMPIA EN A4 */
+    .bottle-box {
+      background: radial-gradient(circle at 50% 60%, rgba(212, 175, 55, 0.12) 0%, rgba(9, 10, 15, 0.95) 75%);
+      transition: transform 0.4s ease;
+    }
+    .luxury-card:hover .bottle-img {
+      transform: scale(1.08) translateY(-4px);
+    }
+    .bottle-img {
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Animación de entrada general */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-enter {
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    /* ==========================================================
+       CONFIGURACIÓN EXACTA DE IMPRESIÓN (SIN BORDES BLANCOS)
+       ========================================================== */
     @page {
       size: A4 portrait;
-      margin: 10mm;
+      margin: 0 !important; /* Elimina márgenes de la impresora */
     }
 
     @media print {
-      body {
-        background: #050608 !important;
+      html, body {
+        background-color: #060709 !important;
         color: #FFFFFF !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
       }
 
       .no-print,
@@ -75,36 +102,75 @@
       #store-modal,
       #login-modal,
       #cart-drawer,
+      #search-section,
       button {
         display: none !important;
       }
 
-      #catalog-grid {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
+      #catalog-sheet {
+        display: block !important;
+        width: 210mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
 
-      .product-card {
+      /* Cada página ocupa exactamente una hoja completa A4 sin bordes */
+      .print-page {
+        page-break-after: always !important;
+        break-after: page !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        max-height: 297mm !important;
+        min-height: 297mm !important;
+        box-sizing: border-box !important;
+        padding: 12mm 14mm !important;
+        margin: 0 !important;
+        background: #060709 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        overflow: hidden !important;
+      }
+
+      .print-page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+
+      .print-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        flex: 1 !important;
+        margin: 10px 0 !important;
+      }
+
+      .print-card {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
+        background: #0F1118 !important;
+        border: 1px solid #232738 !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
         box-shadow: none !important;
-        border: 1px solid #2A3042 !important;
       }
     }
   </style>
 </head>
 <body class="flex flex-col antialiased selection:bg-[#D4AF37] selection:text-black">
 
-  <!-- NAVBAR SUPERIOR MINIMALISTA -->
+  <!-- NAVBAR -->
   <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#08090E]/90 backdrop-blur-md border-b border-zinc-800/80 px-4 py-3">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       
       <!-- LOGO / IDENTIFICADOR -->
       <div class="flex items-center space-x-3">
-        <div class="relative group cursor-pointer" onclick="triggerLogoUpload()" title="Cambiar logotipo">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#D4AF37] to-[#FFF1B0] p-[1.5px] shadow-sm flex items-center justify-center">
-            <div class="w-full h-full bg-[#0D0F17] rounded-[9px] flex items-center justify-center overflow-hidden">
+        <div class="relative group cursor-pointer" onclick="triggerLogoUpload()" title="Haz clic para subir tu logotipo">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#D4AF37] via-[#FFF1B0] to-[#8C6D15] p-[1.5px] shadow-lg shadow-[#D4AF37]/15 flex items-center justify-center">
+            <div class="w-full h-full bg-[#0D0F17] rounded-[14px] flex items-center justify-center overflow-hidden">
               <img id="header-logo-img" src="" alt="Logo" class="hidden w-full h-full object-contain p-1">
               <span id="header-logo-icon" class="text-[#D4AF37] font-heading font-black text-xs tracking-wider">DS</span>
             </div>
@@ -113,7 +179,7 @@
         </div>
 
         <div>
-          <h1 id="header-store-name" class="font-heading text-sm font-bold tracking-wider text-white uppercase">DIEGO SCENTS</h1>
+          <h1 id="header-store-name" class="font-heading text-sm font-extrabold tracking-wider text-white uppercase">DIEGO SCENTS</h1>
           <p class="text-[10px] text-zinc-400">Decants Auténticos & Muestras de Lujo</p>
         </div>
       </div>
@@ -142,7 +208,7 @@
             <span>Respaldar</span>
           </button>
 
-          <label class="cursor-pointer px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs text-zinc-200 border border-[#D4AF37]/50 flex items-center gap-1.5 transition">
+          <label class="cursor-pointer px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs text-zinc-200 border border-[#D4AF37]/50 flex items-center gap-1.5 transition shadow">
             <i data-lucide="file-up" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
             <span>Actualizar (.json)</span>
             <input type="file" accept=".json" class="hidden" onchange="importAnyBackupData(event)">
@@ -155,51 +221,51 @@
         </div>
 
         <!-- CARRITO DE COMPRAS -->
-        <button onclick="toggleCartDrawer()" class="px-3.5 py-1.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black text-xs font-bold flex items-center gap-1.5 transition shadow-lg">
+        <button onclick="toggleCartDrawer()" class="px-3.5 py-1.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black text-xs font-bold flex items-center gap-1.5 transition shadow-lg shadow-[#D4AF37]/20 active:scale-95">
           <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
           <span>Bolsa (<span id="cart-count">0</span>)</span>
         </button>
 
-        <button onclick="window.print()" class="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs flex items-center gap-1.5 border border-zinc-800 transition">
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold flex items-center gap-1.5 border border-[#D4AF37]/40 transition shadow active:scale-95">
           <i data-lucide="printer" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
-          <span>PDF</span>
+          <span>Guardar PDF (A4 Completo)</span>
         </button>
       </div>
 
     </div>
   </header>
 
-  <!-- SECCIÓN HERO DE BIENVENIDA -->
-  <section id="hero-banner" class="no-print border-b border-zinc-900 bg-gradient-to-b from-[#0E1017] to-[#050608] px-4 py-8">
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+  <!-- SECCIÓN HERO DINÁMICA -->
+  <section id="hero-banner" class="no-print hero-glow border-b border-zinc-900/80 px-4 py-10 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10 animate-enter">
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[10px] font-bold tracking-widest uppercase mb-3">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse"></span>
-          Decants 100% Originales en Envases de Vidrio
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35 text-[#F1D779] text-[10px] font-bold tracking-widest uppercase mb-3 shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-ping"></span>
+          Decants 100% Originales • Vidrio Hermético
         </div>
-        <h2 id="hero-tagline" class="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+        <h2 id="hero-tagline" class="font-heading text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
           TU MUESTRA DE LUJO AL MEJOR PRECIO.
         </h2>
-        <p id="hero-notes" class="text-xs text-zinc-400 mt-2 max-w-xl">
-          Envíos express a toda la república y entregas personales en Izúcar de Matamoros, Puebla.
+        <p id="hero-notes" class="text-xs sm:text-sm text-zinc-400 mt-2.5 max-w-xl leading-relaxed">
+          Envios express a toda la república y entregas personales en Izúcar de Matamoros, Puebla.
         </p>
       </div>
 
-      <!-- GUÍA RÁPIDA DE RENDIMIENTO -->
-      <div class="bg-[#0D0F16] border border-zinc-800/90 rounded-2xl p-4 flex flex-col gap-2 shrink-0 w-full md:w-auto shadow-xl">
+      <!-- GUÍA RÁPIDA DE RENDIMIENTO CON EFECTO VIDRIO -->
+      <div class="bg-[#10121B]/90 backdrop-blur-md border border-[#D4AF37]/20 rounded-2xl p-4 flex flex-col gap-2.5 shrink-0 w-full md:w-auto shadow-2xl">
         <span class="text-[11px] font-bold text-[#D4AF37] flex items-center gap-1.5">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Rendimiento por Decant
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Rendimiento Estimado por Frasco
         </span>
-        <div class="grid grid-cols-3 gap-3 text-center text-xs">
-          <div class="bg-[#141622] p-2 rounded-xl border border-zinc-800/70">
+        <div class="grid grid-cols-3 gap-2.5 text-center text-xs">
+          <div class="bg-[#161826] p-2.5 rounded-xl border border-zinc-800 hover:border-[#D4AF37]/40 transition">
             <span class="text-[10px] text-zinc-400 block font-semibold">3 ml</span>
             <strong class="text-white text-xs">~45 sprays</strong>
           </div>
-          <div class="bg-[#D4AF37]/15 p-2 rounded-xl border border-[#D4AF37]/40">
+          <div class="bg-gradient-to-b from-[#D4AF37]/20 to-[#D4AF37]/5 p-2.5 rounded-xl border border-[#D4AF37]/50 shadow-inner">
             <span class="text-[10px] text-[#F1D779] block font-semibold">5 ml</span>
             <strong class="text-[#FFF1B0] text-xs">~75 sprays</strong>
           </div>
-          <div class="bg-[#141622] p-2 rounded-xl border border-zinc-800/70">
+          <div class="bg-[#161826] p-2.5 rounded-xl border border-zinc-800 hover:border-[#D4AF37]/40 transition">
             <span class="text-[10px] text-zinc-400 block font-semibold">10 ml</span>
             <strong class="text-white text-xs">~150 sprays</strong>
           </div>
@@ -208,43 +274,45 @@
     </div>
   </section>
 
-  <!-- CONTENIDO PRINCIPAL: FILTROS + CATÁLOGO -->
+  <!-- CONTENIDO PRINCIPAL -->
   <main class="flex-1 max-w-6xl w-full mx-auto p-4 flex flex-col gap-5">
 
-    <!-- BARRA DE BÚSQUEDA Y MONEDA -->
-    <section class="no-print bg-[#0C0E14] border border-zinc-800/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-md">
-      <div class="flex items-center gap-2 flex-1 min-w-[240px]">
+    <!-- BARRA DE BÚSQUEDA Y FILTRO -->
+    <section id="search-section" class="no-print bg-[#0E1017]/90 backdrop-blur border border-zinc-800/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-md">
+      <div class="flex items-center gap-2.5 flex-1 min-w-[240px]">
         <div class="relative w-full">
-          <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3 top-2.5"></i>
+          <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3.5 top-3"></i>
           <input 
             type="text" 
             id="search-input" 
             oninput="filterCatalog()"
             placeholder="Buscar por fragancia, casa olfativa o notas..." 
-            class="w-full bg-[#141722] border border-zinc-700/80 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#D4AF37]"
+            class="w-full bg-[#151824] border border-zinc-700/80 rounded-xl pl-10 pr-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#D4AF37] transition"
           >
         </div>
         <select 
           id="filter-brand" 
           onchange="filterCatalog()" 
-          class="bg-[#141722] border border-zinc-700/80 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none max-w-[170px]">
+          class="bg-[#151824] border border-zinc-700/80 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none max-w-[180px]">
           <option value="ALL">Todas las Casas</option>
         </select>
       </div>
 
       <div class="flex items-center gap-2">
-        <select id="currency-symbol" onchange="renderCatalog()" class="bg-[#141722] border border-zinc-700/80 text-xs text-white rounded-xl px-2.5 py-2 focus:outline-none">
+        <select id="currency-symbol" onchange="renderCatalog()" class="bg-[#151824] border border-zinc-700/80 text-xs text-white rounded-xl px-3 py-2 focus:outline-none">
           <option value="$">$ (MXN)</option>
           <option value="USD $">USD $</option>
         </select>
       </div>
     </section>
 
-    <!-- GRILLA PRINCIPAL DE PRODUCTOS -->
-    <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+    <!-- CONTENEDOR DONDE SE RENDERIZAN LAS PÁGINAS A4 -->
+    <div class="w-full flex justify-center">
+      <div id="catalog-sheet" class="w-full max-w-[860px]"></div>
+    </div>
 
     <div id="empty-state" class="hidden py-20 text-center">
-      <i data-lucide="package-search" class="w-10 h-10 text-zinc-600 mx-auto mb-2"></i>
+      <i data-lucide="package-search" class="w-12 h-12 text-zinc-600 mx-auto mb-2"></i>
       <h3 class="text-sm font-semibold text-zinc-300">No se encontraron fragancias</h3>
       <p class="text-xs text-zinc-500 mt-1">Intenta con otro término o verifica la búsqueda.</p>
     </div>
@@ -262,7 +330,7 @@
           <i data-lucide="shield" class="w-6 h-6"></i>
         </div>
         <h3 class="font-heading text-base font-bold text-white">Panel de Propietario</h3>
-        <p class="text-[11px] text-zinc-400">Ingresa tus credenciales para editar productos</p>
+        <p class="text-[11px] text-zinc-400">Ingresa para editar fragancias y configuración</p>
       </div>
 
       <form onsubmit="handleLoginSubmit(event)" class="space-y-3">
@@ -484,13 +552,13 @@
     let fragrances = [];
     let cart = [];
     let isAdminLoggedIn = false;
+    const ITEMS_PER_PAGE = 4; // 4 por página para formato A4 limpio al imprimir
 
     async function initApp() {
-      // 1. Estado de la sesión del administrador
       isAdminLoggedIn = sessionStorage.getItem('aura_is_admin') === 'true';
       updateAdminUI();
 
-      // 2. Cargar datos del almacenamiento local si existen
+      // Cargar memoria local si existe
       try {
         const storedStore = localStorage.getItem('aura_store_config');
         if (storedStore) storeConfig = { ...storeConfig, ...JSON.parse(storedStore) };
@@ -500,7 +568,7 @@
         }
       } catch(e) {}
 
-      // 3. Si no hay datos, buscar los respaldos JSON en el repositorio
+      // Si no hay datos, buscar cualquier archivo disponible (R10, R9, R8, etc.)
       if (!fragrances || fragrances.length === 0) {
         await autoFetchAvailableBackup();
       }
@@ -512,7 +580,7 @@
       lucide.createIcons();
     }
 
-    // Búsqueda progresiva de respaldos (R10, R9, R8)
+    // Busca automáticamente el archivo JSON más reciente en el repositorio
     async function autoFetchAvailableBackup() {
       const candidates = ['./R10.json', './R9.json', './R8.json', './backup.json'];
       for (const file of candidates) {
@@ -527,7 +595,7 @@
       }
     }
 
-    // Aplica o actualiza cualquier JSON entrante
+    // Procesa cualquier payload JSON
     function applyBackupPayload(data) {
       if (!data) return false;
 
@@ -549,7 +617,7 @@
       return true;
     }
 
-    // Importar cualquier JSON nuevo
+    // Importación manual de cualquier archivo JSON (R8, R9, R10, etc.)
     function importAnyBackupData(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -560,7 +628,7 @@
           const parsed = JSON.parse(e.target.result);
           const ok = applyBackupPayload(parsed);
           if (ok) {
-            showToast(`¡Catálogo actualizado con ${file.name}!`);
+            showToast(`¡Catálogo actualizado desde ${file.name}!`);
           } else {
             showToast('El archivo no contiene fragancias válidas');
           }
@@ -617,7 +685,7 @@
       lucide.createIcons();
     }
 
-    // CARRITO Y WHATSAPP
+    // CARRITO Y ENVIAR PEDIDO POR WHATSAPP
     function addToCart(fragId, size) {
       const frag = fragrances.find(f => f.id === fragId);
       if (!frag) return;
@@ -842,9 +910,9 @@
       return `${getCurrencySymbol()}${num.toFixed(0)}`;
     }
 
-    // RENDERIZADO MODERNO DE PRODUCTOS
+    // RENDERIZADO POR PÁGINAS A4 EXACTAS (SIN BORDES BLANCOS AL IMPRIMIR)
     function renderCatalog() {
-      const grid = document.getElementById('catalog-grid');
+      const container = document.getElementById('catalog-sheet');
       const emptyState = document.getElementById('empty-state');
       const searchQuery = (document.getElementById('search-input').value || '').toLowerCase().trim();
       const selectedBrand = document.getElementById('filter-brand').value;
@@ -858,106 +926,190 @@
       });
 
       if (filtered.length === 0) {
-        grid.innerHTML = '';
+        container.innerHTML = '';
         emptyState.classList.remove('hidden');
         return;
       }
 
       emptyState.classList.add('hidden');
 
-      grid.innerHTML = filtered.map(frag => {
-        const p3 = frag.prices?.['3ml'] || { price: 0, inStock: true };
-        const p5 = frag.prices?.['5ml'] || { price: 0, inStock: true };
-        const p10 = frag.prices?.['10ml'] || { price: 0, inStock: true };
+      const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+      let pagesHtml = '';
 
-        return `
-          <div class="product-card rounded-2xl overflow-hidden flex flex-col justify-between">
+      for (let pageIdx = 0; pageIdx < totalPages; pageIdx++) {
+        const pageItems = filtered.slice(pageIdx * ITEMS_PER_PAGE, (pageIdx + 1) * ITEMS_PER_PAGE);
+        const pageNumber = pageIdx + 1;
+
+        pagesHtml += `
+          <div class="print-page rounded-2xl mb-8 p-6 bg-[#0B0D13] border border-zinc-800/80 shadow-2xl">
+            
+            <!-- ENCABEZADO DE CADA PÁGINA -->
             <div>
-              <!-- VITRINA DE LA BOTELLA CON REFLEJO -->
-              <div class="relative w-full h-52 bottle-stage p-4 flex items-center justify-center border-b border-zinc-800/80">
-                <img 
-                  src="${frag.image || 'https://placehold.co/400x400/10121A/D4AF37?text=' + encodeURIComponent(frag.name)}" 
-                  alt="${frag.name}"
-                  crossorigin="anonymous"
-                  class="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.95)]"
-                />
-
-                <!-- BADGES SUPERIORES -->
-                <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
-                  <span class="bg-[#12141F]/90 border border-zinc-700/80 text-zinc-300 font-semibold text-[9px] px-2 py-0.5 rounded-full backdrop-blur-md">
-                    ${frag.concentration || 'EDP'}
-                  </span>
-                  ${frag.gender ? `
-                    <span class="bg-[#D4AF37]/15 border border-[#D4AF37]/35 text-[#F1D779] font-semibold text-[9px] px-2 py-0.5 rounded-full backdrop-blur-md">
-                      ${frag.gender}
-                    </span>
-                  ` : ''}
+              <div class="pb-3 border-b border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#D4AF37] via-[#FFF1B0] to-[#8C6D15] p-[1.5px] shadow-lg shadow-[#D4AF37]/15 shrink-0">
+                    <div class="w-full h-full bg-[#0D0F17] rounded-[14px] flex items-center justify-center overflow-hidden">
+                      ${storeConfig.logo ? `
+                        <img src="${storeConfig.logo}" class="w-full h-full object-contain p-1" alt="Logo">
+                      ` : `
+                        <span class="text-[#D4AF37] font-heading font-black text-sm">
+                          ${storeConfig.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'DS'}
+                        </span>
+                      `}
+                    </div>
+                  </div>
+                  <div>
+                    <h2 class="font-heading text-lg sm:text-xl font-extrabold tracking-wide text-white uppercase">
+                      ${storeConfig.name}
+                    </h2>
+                    <p class="text-[11px] text-zinc-400 mt-0.5 font-medium tracking-wide">
+                      ${storeConfig.tagline}
+                    </p>
+                  </div>
                 </div>
 
-                <!-- CONTROLES DE ADMIN -->
-                ${isAdminLoggedIn ? `
-                  <div class="action-buttons-card no-print absolute top-2.5 right-2.5 flex items-center gap-1">
-                    <button onclick="editFragrance('${frag.id}')" title="Editar" class="p-1.5 rounded-lg bg-black/80 hover:bg-[#D4AF37] text-white hover:text-black transition">
-                      <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
-                    </button>
-                    <button onclick="deleteFragrance('${frag.id}')" title="Eliminar" class="p-1.5 rounded-lg bg-black/80 hover:bg-red-600 text-white transition">
-                      <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                    </button>
+                <div class="flex flex-col sm:items-end gap-1 text-xs text-zinc-300">
+                  <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-1">
+                      <i data-lucide="message-circle" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+                      <span class="font-semibold text-white tracking-wide">${storeConfig.whatsapp}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <i data-lucide="instagram" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+                      <span class="font-semibold text-zinc-300">${storeConfig.instagram}</span>
+                    </div>
                   </div>
-                ` : ''}
+                  <div class="flex items-center gap-1 text-[10px] text-zinc-400">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
+                    <span>${storeConfig.notes}</span>
+                  </div>
+                </div>
               </div>
 
-              <!-- INFORMACIÓN DE MARCA Y NOTAS OLFATIVAS -->
-              <div class="p-4 pb-2">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-[#D4AF37] block">
-                  ${frag.brand}
+              <!-- RENDIMIENTO -->
+              <div class="mt-2.5 px-3 py-1.5 rounded-xl bg-[#12141F]/80 border border-zinc-800 flex items-center justify-between gap-2 text-xs">
+                <span class="text-[#D4AF37] font-bold text-[11px] flex items-center gap-1">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Rendimiento:
                 </span>
-                <h3 class="font-heading text-base font-bold text-white mt-0.5 leading-snug truncate" title="${frag.name}">
-                  ${frag.name}
-                </h3>
-
-                <p class="text-[11px] text-zinc-400 mt-1.5 leading-relaxed line-clamp-3">
-                  <span class="text-zinc-500 font-semibold">Notas:</span> ${frag.notes || 'Notas aromáticas disponibles.'}
-                </p>
+                <div class="flex items-center gap-4 text-[10px] text-zinc-300 font-medium">
+                  <span><strong class="text-white">3 ml:</strong> ~45 sprays</span>
+                  <span><strong class="text-[#D4AF37]">5 ml:</strong> ~75 sprays</span>
+                  <span><strong class="text-white">10 ml:</strong> ~150 sprays</span>
+                </div>
               </div>
             </div>
 
-            <!-- SELECTOR DE DECANTS Y PRECIOS -->
-            <div class="p-4 pt-1">
-              <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider block mb-1.5">Seleccionar Decant:</span>
-              <div class="grid grid-cols-3 gap-1.5 text-center">
-                <button 
-                  onclick="${p3.inStock ? `addToCart('${frag.id}', '3ml')` : ''}"
-                  class="p-1.5 rounded-xl border border-zinc-800 bg-[#07080B] hover:border-[#D4AF37]/40 transition flex flex-col items-center ${!p3.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer hover:bg-zinc-800/50'}">
-                  <span class="text-[9px] uppercase font-bold text-zinc-400 block">3 ml</span>
-                  <span class="text-xs font-bold ${p3.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
-                    ${p3.inStock ? formatPrice(p3.price) : 'Agotado'}
-                  </span>
-                </button>
+            <!-- CUADRÍCULA 2X2 DE FRAGANCIAS -->
+            <div class="print-grid grid grid-cols-1 sm:grid-cols-2 gap-3.5 my-3">
+              ${pageItems.map(frag => {
+                const p3 = frag.prices?.['3ml'] || { price: 0, inStock: true };
+                const p5 = frag.prices?.['5ml'] || { price: 0, inStock: true };
+                const p10 = frag.prices?.['10ml'] || { price: 0, inStock: true };
 
-                <button 
-                  onclick="${p5.inStock ? `addToCart('${frag.id}', '5ml')` : ''}"
-                  class="p-1.5 rounded-xl bg-gradient-to-b from-[#D4AF37]/20 to-[#D4AF37]/5 border border-[#D4AF37]/50 hover:brightness-125 transition flex flex-col items-center ${!p5.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
-                  <span class="text-[9px] uppercase font-extrabold text-[#F1D779] block">5 ml</span>
-                  <span class="text-xs font-black ${p5.inStock ? 'text-[#FFF1B0]' : 'text-zinc-500 line-through'}">
-                    ${p5.inStock ? formatPrice(p5.price) : 'Agotado'}
-                  </span>
-                </button>
+                return `
+                  <div class="print-card luxury-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                      <!-- VITRINA DE BOTELLA -->
+                      <div class="bottle-box relative w-full h-48 p-3 flex items-center justify-center border-b border-zinc-800/80">
+                        <img 
+                          src="${frag.image || 'https://placehold.co/400x400/11131B/D4AF37?text=' + encodeURIComponent(frag.name)}" 
+                          alt="${frag.name}"
+                          crossorigin="anonymous"
+                          class="bottle-img max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.95)]"
+                        />
 
-                <button 
-                  onclick="${p10.inStock ? `addToCart('${frag.id}', '10ml')` : ''}"
-                  class="p-1.5 rounded-xl border border-zinc-800 bg-[#07080B] hover:border-[#D4AF37]/40 transition flex flex-col items-center ${!p10.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer hover:bg-zinc-800/50'}">
-                  <span class="text-[9px] uppercase font-bold text-zinc-400 block">10 ml</span>
-                  <span class="text-xs font-bold ${p10.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
-                    ${p10.inStock ? formatPrice(p10.price) : 'Agotado'}
-                  </span>
-                </button>
-              </div>
+                        <!-- BADGES -->
+                        <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+                          <span class="bg-[#12141F]/90 border border-zinc-700/80 text-zinc-300 font-semibold text-[9px] px-2 py-0.5 rounded-full backdrop-blur-md">
+                            ${frag.concentration || 'EDP'}
+                          </span>
+                          ${frag.gender ? `
+                            <span class="bg-[#D4AF37]/15 border border-[#D4AF37]/35 text-[#F1D779] font-semibold text-[9px] px-2 py-0.5 rounded-full backdrop-blur-md">
+                              ${frag.gender}
+                            </span>
+                          ` : ''}
+                        </div>
+
+                        <!-- BOTONES DE EDICIÓN (ADMIN ONLY) -->
+                        ${isAdminLoggedIn ? `
+                          <div class="action-buttons-card no-print absolute top-2.5 right-2.5 flex items-center gap-1">
+                            <button onclick="editFragrance('${frag.id}')" title="Editar" class="p-1.5 rounded-lg bg-black/80 hover:bg-[#D4AF37] text-white hover:text-black transition">
+                              <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <button onclick="deleteFragrance('${frag.id}')" title="Eliminar" class="p-1.5 rounded-lg bg-black/80 hover:bg-red-600 text-white transition">
+                              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                          </div>
+                        ` : ''}
+                      </div>
+
+                      <!-- INFORMACIÓN CLARA -->
+                      <div class="p-3.5 pb-1">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-[#D4AF37] block">
+                          ${frag.brand}
+                        </span>
+                        <h3 class="font-heading text-base font-bold text-white mt-0.5 leading-snug truncate" title="${frag.name}">
+                          ${frag.name}
+                        </h3>
+
+                        <p class="text-[11px] text-zinc-300 mt-1 leading-relaxed line-clamp-3">
+                          <span class="text-zinc-500 font-semibold">Notas:</span> ${frag.notes || 'Notas aromáticas exclusivas.'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- SELECTOR DE DECANTS -->
+                    <div class="p-3.5 pt-1">
+                      <div class="grid grid-cols-3 gap-1.5 text-center">
+                        <button 
+                          onclick="${p3.inStock ? `addToCart('${frag.id}', '3ml')` : ''}"
+                          class="p-1.5 rounded-xl border border-zinc-800 bg-[#090A0E] hover:border-[#D4AF37]/40 transition flex flex-col items-center ${!p3.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer hover:bg-zinc-800/50'}">
+                          <span class="text-[9px] uppercase font-bold text-zinc-400 block">3 ml</span>
+                          <span class="text-[11px] font-bold ${p3.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
+                            ${p3.inStock ? formatPrice(p3.price) : 'Agotado'}
+                          </span>
+                        </button>
+
+                        <button 
+                          onclick="${p5.inStock ? `addToCart('${frag.id}', '5ml')` : ''}"
+                          class="p-1.5 rounded-xl bg-gradient-to-b from-[#D4AF37]/25 to-[#D4AF37]/10 border border-[#D4AF37]/50 hover:brightness-125 transition flex flex-col items-center ${!p5.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[9px] uppercase font-extrabold text-[#F1D779] block">5 ml</span>
+                          <span class="text-[11px] font-extrabold ${p5.inStock ? 'text-[#FFF1B0]' : 'text-zinc-500 line-through'}">
+                            ${p5.inStock ? formatPrice(p5.price) : 'Agotado'}
+                          </span>
+                        </button>
+
+                        <button 
+                          onclick="${p10.inStock ? `addToCart('${frag.id}', '10ml')` : ''}"
+                          class="p-1.5 rounded-xl border border-zinc-800 bg-[#090A0E] hover:border-[#D4AF37]/40 transition flex flex-col items-center ${!p10.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer hover:bg-zinc-800/50'}">
+                          <span class="text-[9px] uppercase font-bold text-zinc-400 block">10 ml</span>
+                          <span class="text-[11px] font-bold ${p10.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
+                            ${p10.inStock ? formatPrice(p10.price) : 'Agotado'}
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
             </div>
+
+            <!-- PIE DE HOJA -->
+            <div class="pt-2 border-t border-zinc-800 flex items-center justify-between text-[10px] text-zinc-400">
+              <span class="text-[#D4AF37] font-medium flex items-center gap-1">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                100% Auténtico • Decants Sellados Herméticamente
+              </span>
+              <span class="font-semibold text-zinc-300">
+                Página ${pageNumber} de ${totalPages}
+              </span>
+            </div>
+
           </div>
         `;
-      }).join('');
+      }
 
+      container.innerHTML = pagesHtml;
       lucide.createIcons();
     }
 

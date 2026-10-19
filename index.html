@@ -65,6 +65,40 @@
       background: radial-gradient(circle at 50% 60%, rgba(255, 117, 24, 0.18) 0%, rgba(13, 9, 22, 0.95) 75%);
     }
 
+    /* ===== TEMA DÍA DE MUERTOS (solo diseño) ===== */
+    :root { --pp: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22300%22%20height%3D%2240%22%20viewBox%3D%220%200%20300%2040%22%3E%3Cpath%20d%3D%22M0%204%20Q150%2010%20300%204%22%20fill%3D%22none%22%20stroke%3D%22%23d9b38c%22%20stroke-width%3D%221.2%22/%3E%3Cpath%20d%3D%22M2%206%20H58%20V32%20L49%2027%20L39%2034%20L30%2027%20L21%2034%20L11%2027%20L2%2032%20Z%22%20fill%3D%22%23FF7518%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M62%206%20H118%20V32%20L109%2027%20L99%2034%20L90%2027%20L81%2034%20L71%2027%20L62%2032%20Z%22%20fill%3D%22%23FF1493%22/%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22104%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M122%206%20H178%20V32%20L169%2027%20L159%2034%20L150%2027%20L141%2034%20L131%2027%20L122%2032%20Z%22%20fill%3D%22%238A2BE2%22/%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22136%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22164%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M182%206%20H238%20V32%20L229%2027%20L219%2034%20L210%2027%20L201%2034%20L191%2027%20L182%2032%20Z%22%20fill%3D%22%23FFD700%22/%3E%3Ccircle%20cx%3D%22210%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22196%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22224%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M242%206%20H298%20V32%20L289%2027%20L279%2034%20L270%2027%20L261%2034%20L251%2027%20L242%2032%20Z%22%20fill%3D%22%2300D2D3%22/%3E%3Ccircle%20cx%3D%22270%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22256%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22284%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3C/svg%3E"); }
+    body { background-image: radial-gradient(circle at 10% 15%, rgba(255,117,24,.12) 0, transparent 24%), radial-gradient(circle at 92% 55%, rgba(255,20,147,.10) 0, transparent 26%), radial-gradient(circle at 20% 90%, rgba(138,43,226,.14) 0, transparent 28%); background-attachment: fixed; }
+    .papel-picado { height: 40px; background-image: var(--pp); background-repeat: repeat-x; background-size: 300px 40px; transform-origin: top; animation: flutter 3.5s ease-in-out infinite alternate; pointer-events: none; }
+    @keyframes flutter { from { transform: skewX(-1.2deg); } to { transform: skewX(1.2deg); } }
+    #top-navbar { border-bottom: 3px solid; border-image: linear-gradient(90deg,#FF7518,#FF1493,#8A2BE2,#FFD700,#00D2D3) 1; }
+    .spooky-ambient { background: radial-gradient(circle at 12% 0%, rgba(255,117,24,.42), transparent 55%), radial-gradient(circle at 92% 25%, rgba(255,20,147,.28), transparent 50%), radial-gradient(circle at 50% 115%, rgba(138,43,226,.35), transparent 60%); }
+    #hero-banner { overflow: hidden; }
+    #hero-banner h2 { text-shadow: 0 2px 18px rgba(255,117,24,.55); }
+    #hero-store-name { background: linear-gradient(90deg,#FF7518,#FFD700,#FF1493); -webkit-background-clip: text; background-clip: text; color: transparent !important; text-shadow: none; }
+    #hero-banner .grid > div { background: linear-gradient(135deg, rgba(255,117,24,.16), rgba(138,43,226,.22)) !important; border-color: rgba(255,190,80,.55) !important; transition: transform .25s, box-shadow .25s; }
+    #hero-banner .grid > div:hover { transform: translateY(-3px); box-shadow: 0 10px 26px -8px rgba(255,117,24,.55); }
+    .petals { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+    .petals span { position: absolute; top: -30px; font-size: 20px; opacity: .8; animation: fall 10s linear infinite; }
+    .petals span:nth-child(1) { left: 5%; animation-delay: 0s; }
+    .petals span:nth-child(2) { left: 18%; animation-delay: 3s; animation-duration: 12s; font-size: 16px; }
+    .petals span:nth-child(3) { left: 32%; animation-delay: 6s; }
+    .petals span:nth-child(4) { left: 47%; animation-delay: 1.5s; animation-duration: 13s; font-size: 14px; }
+    .petals span:nth-child(5) { left: 61%; animation-delay: 4.5s; }
+    .petals span:nth-child(6) { left: 74%; animation-delay: 8s; animation-duration: 11s; font-size: 18px; }
+    .petals span:nth-child(7) { left: 86%; animation-delay: 2s; }
+    .petals span:nth-child(8) { left: 95%; animation-delay: 5.5s; font-size: 15px; }
+    @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); } 100% { transform: translateY(480px) rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .petals { display: none; } .papel-picado { animation: none; } }
+    .altar-title { font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: .18em; font-size: 14px; background: linear-gradient(90deg,#FF7518,#FFD700,#FF1493); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .altar-sub { font-size: 12px; letter-spacing: .5em; opacity: .85; margin-top: 2px; }
+    .catalog-card { position: relative; border: 2px solid transparent; background: linear-gradient(160deg, rgba(36,16,46,.97), rgba(11,8,18,.98)) padding-box, linear-gradient(135deg,#FF7518,#FF1493,#8A2BE2,#FFD700) border-box; }
+    .catalog-card:hover { box-shadow: 0 16px 36px -10px rgba(0,0,0,.95), 0 0 28px -2px rgba(255,117,24,.5); }
+    .catalog-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; z-index: 2; pointer-events: none; background: linear-gradient(90deg,#FF7518,#FF1493,#8A2BE2,#FFD700,#00D2D3); }
+    .bottle-stage { position: relative; background: radial-gradient(circle at 50% 62%, rgba(255,117,24,.30) 0%, rgba(138,43,226,.18) 45%, rgba(13,9,22,.95) 78%); }
+    .bottle-stage::after { content: '🏵️'; position: absolute; right: 8px; bottom: 6px; font-size: 22px; opacity: .4; pointer-events: none; }
+    #contact-footer { position: relative; padding-top: 3.4rem; background: linear-gradient(180deg,#0B0813,#1A0B22); }
+    #contact-footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40px; background-image: var(--pp); background-repeat: repeat-x; background-size: 300px 40px; opacity: .9; }
+
     /* Impresión A4 limpia sin bordes */
     @page {
       size: A4 portrait;
@@ -73,6 +107,7 @@
 
     @media print {
       html, body { background:#07050B !important; color:#fff !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; margin:0 !important; padding:0 !important; width:210mm !important; }
+      body { background-image:none !important; }
       body > *:not(#print-sheet) { display:none !important; }
       #print-sheet { display:block !important; }
       .print-page { page-break-after:always; break-after:page; width:210mm; height:297mm; box-sizing:border-box; padding:12mm 14mm; background:#07050B; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; }
@@ -83,17 +118,8 @@
 </head>
 <body class="flex flex-col antialiased selection:bg-[#FF7518] selection:text-black">
 
-  <!-- GUIRNALDA DECORATIVA DE PAPEL PICADO -->
-  <div class="no-print w-full h-2.5 flex overflow-hidden opacity-80 pointer-events-none">
-    <div class="flex-1 bg-[#FF7518]"></div>
-    <div class="flex-1 bg-[#8A2BE2]"></div>
-    <div class="flex-1 bg-[#FFD700]"></div>
-    <div class="flex-1 bg-[#FF1493]"></div>
-    <div class="flex-1 bg-[#00D2D3]"></div>
-    <div class="flex-1 bg-[#FF7518]"></div>
-    <div class="flex-1 bg-[#8A2BE2]"></div>
-    <div class="flex-1 bg-[#FFD700]"></div>
-  </div>
+  <!-- PAPEL PICADO -->
+  <div class="no-print papel-picado" aria-hidden="true"></div>
 
   <!-- NAVBAR SUPERIOR -->
   <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#0E0A17]/95 backdrop-blur-md border-b border-orange-500/30 px-4 py-3">
@@ -167,6 +193,7 @@
 
   <!-- BANNER DE BIENVENIDA -->
   <section id="hero-banner" class="no-print spooky-ambient border-b border-orange-500/30 px-4 py-8 relative">
+    <div class="petals" aria-hidden="true"><span>🏵️</span><span>🏵️</span><span>🏵️</span><span>🏵️</span><span>🏵️</span><span>🏵️</span><span>🏵️</span><span>🏵️</span></div>
     <div class="max-w-6xl mx-auto flex flex-col gap-5 relative z-10">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
@@ -199,6 +226,7 @@
 
   <!-- CONTENIDO PRINCIPAL: FILTROS + CATÁLOGO -->
   <main id="catalogo" class="scroll-mt-16 flex-1 max-w-6xl w-full mx-auto p-4 flex flex-col gap-5 relative z-10">
+    <div class="no-print text-center pt-2"><div class="altar-title">🏵️ ALTAR DE FRAGANCIAS 🏵️</div><div class="altar-sub">💀 ✦ 🕯️ ✦ 💀</div></div>
     <section id="search-section" class="no-print bg-[#130E22]/90 backdrop-blur border border-orange-500/35 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-xl">
       <div class="flex items-center gap-2.5 flex-1 min-w-[240px]">
         <div class="relative w-full">

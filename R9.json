@@ -28,6 +28,10 @@
         "10ml": {
           "price": 700,
           "inStock": true
+        },
+        "bottle": {
+          "price": 5900,
+          "inStock": true
         }
       }
     },

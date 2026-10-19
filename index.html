@@ -666,6 +666,14 @@
       isAdminLoggedIn = sessionStorage.getItem('jf26_is_admin') === 'true';
       updateAdminUI();
 
+      // Migración única: recupera SOLO las fragancias guardadas antes en este navegador (no datos de tienda, logo ni token)
+      try {
+        if (!localStorage.getItem('jf26_fragrances')) {
+          const old = localStorage.getItem('aura_fragrances');
+          if (old && JSON.parse(old).length > 0) localStorage.setItem('jf26_fragrances', old);
+        }
+      } catch (e) {}
+
       try {
         const storedStore = localStorage.getItem('jf26_store_config');
         if (storedStore) storeConfig = { ...storeConfig, ...JSON.parse(storedStore) };

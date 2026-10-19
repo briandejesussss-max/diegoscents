@@ -19,20 +19,20 @@
       "notes": "SALIDA\npiña\nsal de mar\nbergamota\nYodo\n\nCORAZÓN\nmaracuyá (fruta de la pasión)\nflores blancas\njengibre\n\nBASE\nalmizcle blanco\ncaramelo\nnotas amaderadas",
       "prices": {
         "3ml": {
-          "price": 0,
+          "price": 290,
           "inStock": true
         },
         "5ml": {
-          "price": 0,
+          "price": 450,
           "inStock": true
         },
         "10ml": {
-          "price": 0,
+          "price": 950,
           "inStock": true
         },
         "bottle": {
           "price": 0,
-          "inStock": true
+          "inStock": false
         }
       }
     },
@@ -64,5 +64,5 @@
       }
     }
   ],
-  "updatedAt": "1792397502754"
+  "updatedAt": "1792397528837"
 }

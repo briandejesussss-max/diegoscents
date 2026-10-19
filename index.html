@@ -695,18 +695,17 @@
       await refreshFromRemote();
     }
 
-    // Trae R9.json fresco; si el admin publicó cambios (otra versión), reemplaza los datos locales.
+    // GitHub (R9.json) es la fuente de verdad; el navegador solo sirve de respaldo sin conexión.
+    let remoteReady = false;
     async function refreshFromRemote() {
       try {
         const res = await fetch('./R9.json?v=' + Date.now(), { cache: 'no-store' });
+        if (res.status === 404) { remoteReady = true; return; } // aún no existe: el primer guardado lo crea
         if (!res.ok) return;
-        const text = await res.text(), data = JSON.parse(text);
-        let h = 0; for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) | 0;
-        const stamp = String(data.updatedAt || h), base = localStorage.getItem('jf26_base_stamp');
-        localStorage.setItem('jf26_base_stamp', stamp);
-        if (base === stamp || (base === null && fragrances.length)) return;
+        const data = await res.json();
         if (data.store) { const logo = storeConfig.logo; storeConfig = { ...storeConfig, ...data.store }; if (!data.store.logo && logo) storeConfig.logo = logo; }
-        if (data.fragrances && data.fragrances.length) fragrances = data.fragrances;
+        if (Array.isArray(data.fragrances)) fragrances = data.fragrances;
+        remoteReady = true;
         saveLocalData(); updateStoreBrandHeader(); populateBrandFilter(); renderCatalog(); updateCartUI();
       } catch (e) { console.warn('R9.json no disponible; se usa el almacenamiento del navegador.'); }
     }
@@ -725,6 +724,10 @@
       const token = localStorage.getItem('jf26_gh_token');
       if (!token) {
         showToast('Guardado localmente. Conecta tu GitHub Token para sincronizar en línea.', 3500);
+        return;
+      }
+      if (!remoteReady) {
+        showToast('El catálogo de GitHub aún no carga. No se guardó en línea para no borrar tus fragancias; recarga la página.', 5000);
         return;
       }
 

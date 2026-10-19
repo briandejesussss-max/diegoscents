@@ -1,13 +1,14 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="background-color: #07050B; color: #FFFFFF;">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
-  <title id="page-title">JS FRAGANCES - Especial Día de Muertos & Halloween 🎃💀</title>
-  <meta name="description" content="Catálogo exclusivo de decants y muestras de lujo en edición especial de temporada.">
-  <meta property="og:title" content="JS FRAGANCES - Edición Día de Muertos & Halloween">
-  <meta property="og:description" content="TU MUESTRA DE LUJO AL MEJOR PRECIO. Envíos express a toda la república.">
+  <title id="page-title">JS FRAGANCES - Catálogo Oficial 🎃💀</title>
+  <meta name="description" content="Catálogo exclusivo de decants y botellas completas. Edición especial Día de Muertos y Halloween.">
+  <meta property="og:title" content="JS FRAGANCES - Catálogo Oficial 🎃💀">
+  <meta property="og:description" content="TU MUESTRA DE LUJO AL MEJOR PRECIO. Decants y botellas completas con envíos a toda la república.">
   <meta property="og:type" content="website">
 
   <!-- Tailwind CSS -->
@@ -16,156 +17,64 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Google Fonts -->
+  <!-- Fuentes Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-    
-    body {
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      background-color: #06040A;
-      color: #F8FAFC;
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+      background-color: #07050B !important;
+      color: #F3F4F6;
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      width: 100%;
       overflow-x: hidden;
-      position: relative;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     }
 
-    .font-heading { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
-    .font-luxury { font-family: 'Cinzel', serif; }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.02em;
+    }
 
-    /* Fondo Altar & Halloween con resplandores de cempasúchil y morado místico */
+    /* Fondo temático con gradiente tenue */
     .spooky-ambient {
-      background: 
-        radial-gradient(circle at 50% -12%, rgba(255, 107, 0, 0.32) 0%, rgba(124, 28, 179, 0.22) 42%, rgba(6, 4, 10, 0) 80%),
-        radial-gradient(circle at 100% 30%, rgba(255, 154, 0, 0.16) 0%, transparent 45%),
-        radial-gradient(circle at 0% 70%, rgba(147, 51, 234, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 50% 100%, rgba(255, 85, 0, 0.15) 0%, transparent 60%);
+      background: radial-gradient(circle at 50% -10%, rgba(255, 117, 24, 0.22) 0%, rgba(106, 13, 173, 0.15) 45%, rgba(7, 5, 11, 0) 80%);
     }
 
-    /* Brillo de vela palpitante */
-    @keyframes candlePulse {
-      0%, 100% { filter: drop-shadow(0 0 16px rgba(255, 138, 0, 0.8)) drop-shadow(0 0 35px rgba(255, 80, 0, 0.5)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 24px rgba(255, 170, 0, 1)) drop-shadow(0 0 50px rgba(255, 90, 0, 0.7)); transform: scale(1.03); }
+    /* Tarjetas estilo altar de noche de brujas */
+    .catalog-card {
+      background: linear-gradient(155deg, rgba(23, 16, 35, 0.95), rgba(11, 8, 18, 0.98));
+      border: 1px solid rgba(255, 117, 24, 0.3);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .candle-glow { animation: candlePulse 3.5s ease-in-out infinite; }
-
-    /* Borde de altar festivo para tarjetas */
-    .altar-card {
-      background: linear-gradient(155deg, rgba(28, 18, 42, 0.95), rgba(14, 10, 22, 0.96));
-      border: 1.5px solid rgba(255, 138, 0, 0.35);
-      position: relative;
-      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .altar-card::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      padding: 1.5px;
-      background: linear-gradient(135deg, rgba(255, 138, 0, 0.7), rgba(168, 85, 247, 0.6), rgba(255, 215, 0, 0.4));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0.4;
-      transition: opacity 0.35s ease;
-      pointer-events: none;
-    }
-    .altar-card:hover::before { opacity: 1; }
-    .altar-card:hover {
-      transform: translateY(-6px) scale(1.015);
-      box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.95), 0 0 30px -4px rgba(255, 115, 0, 0.45);
+    .catalog-card:hover {
+      border-color: rgba(255, 140, 0, 0.85);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.95), 0 0 24px -4px rgba(255, 117, 24, 0.3);
     }
 
-    .bottle-box {
-      background: radial-gradient(circle at 50% 60%, rgba(255, 120, 0, 0.25) 0%, rgba(138, 43, 226, 0.15) 45%, rgba(12, 8, 18, 0.98) 75%);
-    }
-    .altar-card:hover .bottle-img { transform: scale(1.09) translateY(-4px); }
-    .bottle-img { transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
-
-    /* ESQUINAS CON ILUSTRACIONES TEMÁTICAS VISTOSAS */
-    .spooky-corner {
-      position: fixed;
-      pointer-events: none;
-      z-index: 25;
-      user-select: none;
-      transition: opacity 0.3s ease;
-    }
-    .corner-tl { top: 68px; left: 8px; }
-    .corner-tr { top: 68px; right: 8px; }
-    .corner-bl { bottom: 8px; left: 8px; }
-    .corner-br { bottom: 8px; right: 8px; }
-
-    /* Niebla espectral animada en el pie */
-    @keyframes mistFlow {
-      0% { transform: translateX(0); }
-      50% { transform: translateX(-30px); }
-      100% { transform: translateX(0); }
-    }
-    .mist-layer {
-      animation: mistFlow 10s ease-in-out infinite;
-      background: radial-gradient(ellipse at 50% 100%, rgba(138, 43, 226, 0.25) 0%, rgba(255, 115, 0, 0.15) 35%, transparent 70%);
-      pointer-events: none;
+    .bottle-stage {
+      background: radial-gradient(circle at 50% 60%, rgba(255, 117, 24, 0.18) 0%, rgba(13, 9, 22, 0.95) 75%);
     }
 
-    /* ELEMENTOS FLOTANTES CON ROTACIÓN Y TRASLACIÓN REALISTA */
-    .flying-element {
-      position: fixed;
-      user-select: none;
-      pointer-events: none;
-      z-index: 28;
-      opacity: 0.85;
-      filter: drop-shadow(0 0 10px rgba(255, 120, 0, 0.6));
-      animation: floatAcross 18s linear infinite;
-    }
-    @keyframes floatAcross {
-      0% {
-        transform: translate(-12vw, 25vh) rotate(-10deg) scale(0.7);
-        opacity: 0;
-      }
-      10% { opacity: 0.9; }
-      50% {
-        transform: translate(50vw, 42vh) rotate(15deg) scale(1.15);
-      }
-      90% { opacity: 0.9; }
-      100% {
-        transform: translate(112vw, 15vh) rotate(-15deg) scale(0.75);
-        opacity: 0;
-      }
-    }
-    .fly-1 { animation-delay: 0s; top: 12%; }
-    .fly-2 { animation-delay: 4.5s; top: 32%; animation-duration: 22s; }
-    .fly-3 { animation-delay: 9s; top: 58%; animation-duration: 19s; }
-    .fly-4 { animation-delay: 13.5s; top: 78%; animation-duration: 24s; }
-
-    /* PAPEL PICADO BANNER ENCABEZADO */
-    .papel-picado-bar {
-      height: 18px;
-      background: repeating-linear-gradient(
-        90deg,
-        #FF7518 0px, #FF7518 28px,
-        #8A2BE2 28px, #8A2BE2 56px,
-        #FFD700 56px, #FFD700 84px,
-        #EC4899 84px, #EC4899 112px
-      );
-      clip-path: polygon(
-        0% 0%, 100% 0%, 100% 75%, 
-        95% 100%, 90% 75%, 85% 100%, 80% 75%, 75% 100%, 70% 75%, 65% 100%, 60% 75%, 
-        55% 100%, 50% 75%, 45% 100%, 40% 75%, 35% 100%, 30% 75%, 25% 100%, 20% 75%, 
-        15% 100%, 10% 75%, 5% 100%, 0% 75%
-      );
-      box-shadow: 0 4px 15px rgba(255, 117, 24, 0.4);
+    /* Impresión A4 limpia sin bordes */
+    @page {
+      size: A4 portrait;
+      margin: 0 !important;
     }
 
-    /* REGLAS PARA IMPRESIÓN LIMPIA A4 SIN BORDES BLANCOS */
-    @page { size: A4 portrait; margin: 0 !important; }
     @media print {
       html, body {
-        background-color: #06040A !important;
+        background-color: #07050B !important;
         color: #FFFFFF !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -174,12 +83,29 @@
         width: 210mm !important;
         height: 297mm !important;
       }
-      .no-print, #top-navbar, #hero-banner, #toast-container, #fragrance-modal,
-      #store-modal, #token-modal, #login-modal, #cart-drawer, #search-section, 
-      #product-page-view, .spooky-corner, .flying-element, .mist-layer, .papel-picado-bar, button {
+
+      .no-print,
+      #top-navbar,
+      #hero-banner,
+      #toast-container,
+      #fragrance-modal,
+      #store-modal,
+      #token-modal,
+      #login-modal,
+      #cart-drawer,
+      #search-section,
+      #product-page-view,
+      button {
         display: none !important;
       }
-      #catalog-sheet { display: block !important; width: 210mm !important; margin: 0 !important; padding: 0 !important; }
+
+      #catalog-sheet {
+        display: block !important;
+        width: 210mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
       .print-page {
         page-break-after: always !important;
         break-after: page !important;
@@ -187,16 +113,13 @@
         height: 297mm !important;
         box-sizing: border-box !important;
         padding: 12mm 14mm !important;
-        background: #06040A !important;
+        background: #07050B !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
         overflow: hidden !important;
       }
-      .print-page:last-child {
-        page-break-after: auto !important;
-        break-after: auto !important;
-      }
+
       .print-grid {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
@@ -205,11 +128,12 @@
         flex: 1 !important;
         margin: 10px 0 !important;
       }
+
       .print-card {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
-        background: #100C18 !important;
-        border: 1px solid #3B2154 !important;
+        background: #110B1C !important;
+        border: 1px solid #332045 !important;
         height: 100% !important;
         display: flex !important;
         flex-direction: column !important;
@@ -220,65 +144,27 @@
 </head>
 <body class="flex flex-col antialiased selection:bg-[#FF7518] selection:text-black">
 
-  <!-- TIRA DECORATIVA DE PAPEL PICADO -->
-  <div class="papel-picado-bar no-print w-full sticky top-0 z-50"></div>
-
-  <!-- ESQUINAS DECORATIVAS VISTOSAS CON CALABAZAS, FLORES DE CEMPASÚCHIL Y CALAVERAS -->
-  <div class="spooky-corner corner-tl no-print flex items-center gap-1">
-    <div class="relative candle-glow">
-      <span class="text-4xl md:text-5xl filter drop-shadow-[0_0_15px_#FF7518]">🎃</span>
-      <span class="absolute -bottom-1 -right-2 text-2xl">🏵️</span>
-    </div>
+  <!-- GUIRNALDA DECORATIVA DE PAPEL PICADO -->
+  <div class="no-print w-full h-2.5 flex overflow-hidden opacity-80 pointer-events-none">
+    <div class="flex-1 bg-[#FF7518]"></div>
+    <div class="flex-1 bg-[#8A2BE2]"></div>
+    <div class="flex-1 bg-[#FFD700]"></div>
+    <div class="flex-1 bg-[#FF1493]"></div>
+    <div class="flex-1 bg-[#00D2D3]"></div>
+    <div class="flex-1 bg-[#FF7518]"></div>
+    <div class="flex-1 bg-[#8A2BE2]"></div>
+    <div class="flex-1 bg-[#FFD700]"></div>
   </div>
 
-  <div class="spooky-corner corner-tr no-print flex items-center gap-1">
-    <div class="relative candle-glow">
-      <span class="text-4xl md:text-5xl filter drop-shadow-[0_0_15px_#A855F7]">💀</span>
-      <span class="absolute -bottom-1 -left-2 text-2xl">🎃</span>
-    </div>
-  </div>
-
-  <div class="spooky-corner corner-bl no-print flex items-center gap-1.5">
-    <div class="flex items-center gap-1">
-      <span class="text-3xl md:text-4xl">🕯️</span>
-      <span class="text-3xl md:text-4xl filter drop-shadow-[0_0_12px_#F59E0B]">🥮</span>
-      <span class="text-2xl">🏵️</span>
-    </div>
-  </div>
-
-  <div class="spooky-corner corner-br no-print flex items-center gap-1.5">
-    <div class="flex items-center gap-1">
-      <span class="text-2xl">🏵️</span>
-      <span class="text-3xl md:text-4xl filter drop-shadow-[0_0_12px_#FF7518]">🎃</span>
-      <span class="text-3xl md:text-4xl">🕯️</span>
-    </div>
-  </div>
-
-  <!-- ELEMENTOS FESTIVOS VOLANTES -->
-  <div class="flying-element fly-1 no-print flex items-center gap-1">
-    <span class="text-3xl">🦇</span>
-    <span class="text-xs text-orange-400 font-bold tracking-widest hidden sm:inline">NOVIEMBRE</span>
-  </div>
-  <div class="flying-element fly-2 no-print flex items-center gap-1">
-    <span class="text-4xl">🎃</span>
-  </div>
-  <div class="flying-element fly-3 no-print flex items-center gap-1">
-    <span class="text-3xl">💀</span>
-    <span class="text-2xl">🏵️</span>
-  </div>
-  <div class="flying-element fly-4 no-print flex items-center gap-1">
-    <span class="text-4xl">🥮</span>
-  </div>
-
-  <!-- NAVBAR -->
-  <header id="top-navbar" class="no-print sticky top-[18px] z-40 bg-[#0C0816]/95 backdrop-blur-md border-b border-orange-500/35 px-4 py-3 shadow-2xl">
+  <!-- NAVBAR SUPERIOR -->
+  <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#0E0A17]/95 backdrop-blur-md border-b border-orange-500/30 px-4 py-3">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       
       <!-- LOGO / IDENTIFICADOR -->
       <div class="flex items-center space-x-3">
         <div class="relative group cursor-pointer" onclick="triggerLogoUpload()" title="Haz clic para subir o cambiar logotipo">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FF6B00] via-[#FFD700] to-[#9333EA] p-[2px] shadow-lg shadow-orange-500/30 flex items-center justify-center">
-            <div class="w-full h-full bg-[#120B20] rounded-[14px] flex items-center justify-center overflow-hidden">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FF7518] via-[#FFD700] to-[#8A2BE2] p-[2px] shadow-lg shadow-orange-500/25 flex items-center justify-center">
+            <div class="w-full h-full bg-[#140D24] rounded-[14px] flex items-center justify-center overflow-hidden">
               <img id="header-logo-img" src="" alt="Logo" class="hidden w-full h-full object-contain p-1">
               <span id="header-logo-icon" class="text-amber-400 font-heading font-black text-sm tracking-wider">JF</span>
             </div>
@@ -289,9 +175,12 @@
         <div>
           <h1 id="header-store-name" class="font-heading text-base font-extrabold tracking-wider text-white uppercase flex items-center gap-2">
             JS FRAGANCES 
-            <span class="text-base animate-bounce">🎃</span>
+            <span class="text-base">🎃</span>
           </h1>
-          <p class="text-[10px] text-orange-200/80 font-medium">Edición Altar & Halloween • Decants Auténticos</p>
+          <p class="text-[10px] text-orange-200/80 font-medium flex items-center gap-1">
+            <span>Edición Día de Muertos & Halloween</span>
+            <span class="text-xs">💀🏵️</span>
+          </p>
         </div>
       </div>
 
@@ -320,7 +209,7 @@
           </button>
         </div>
 
-        <button onclick="toggleCartDrawer()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FF6B00] via-amber-500 to-[#FFD700] text-black text-xs font-black flex items-center gap-1.5 transition shadow-lg shadow-orange-500/35 active:scale-95">
+        <button onclick="toggleCartDrawer()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FF7518] via-amber-500 to-[#FFD700] text-black text-xs font-black flex items-center gap-1.5 transition shadow-lg shadow-orange-500/35 active:scale-95">
           <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
           <span>Bolsa (<span id="cart-count">0</span>)</span>
         </button>
@@ -334,49 +223,52 @@
     </div>
   </header>
 
-  <!-- HERO BANNER CON ALTAR TEMÁTICO -->
-  <section id="hero-banner" class="no-print spooky-ambient border-b border-orange-500/25 px-4 py-8 relative overflow-hidden">
+  <!-- HERO BANNER TEMÁTICO -->
+  <section id="hero-banner" class="no-print spooky-ambient border-b border-orange-500/30 px-4 py-8 relative">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
       <div>
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gradient-to-r from-orange-500/25 via-purple-900/40 to-amber-500/20 border border-orange-500/50 text-amber-300 text-[10px] font-extrabold tracking-widest uppercase mb-3 shadow-inner">
-          <span class="w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping"></span>
-          <span>Temporada de Altar & Noche de Brujas 🏵️🕯️</span>
-          <span class="text-orange-200/90 font-normal">| Frascos 100% Originales</span>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gradient-to-r from-orange-500/25 to-purple-950/70 border border-orange-500/50 text-amber-300 text-[10px] font-bold tracking-widest uppercase mb-2.5 shadow-lg">
+          <span class="w-2 h-2 rounded-full bg-[#FF7518] animate-ping"></span>
+          <span>Altar de Fragancias • Muestras de Lujo 💀🕯️</span>
         </div>
-        <h2 id="hero-tagline" class="font-heading text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight drop-shadow-[0_2px_15px_rgba(255,115,0,0.45)]">
+        <h2 id="hero-tagline" class="font-heading text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight drop-shadow-[0_2px_12px_rgba(255,117,24,0.4)]">
           TU MUESTRA DE LUJO AL MEJOR PRECIO.
         </h2>
-        <p id="hero-notes" class="text-xs sm:text-sm text-orange-100/80 mt-2.5 max-w-xl leading-relaxed">
+        <p id="hero-notes" class="text-xs sm:text-sm text-orange-200/90 mt-2 max-w-xl leading-relaxed">
           Envios express a toda la república.
         </p>
       </div>
 
-      <!-- GUÍA RÁPIDA DE RENDIMIENTO CON ESTILO DE CALABAZA / VELADORA -->
+      <!-- GUÍA RÁPIDA DE RENDIMIENTO CON BOTELLA COMPLETA -->
       <div class="bg-[#150E24]/90 backdrop-blur-md border border-orange-500/40 rounded-2xl p-4 flex flex-col gap-2.5 shrink-0 w-full md:w-auto shadow-2xl">
         <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1.5">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-orange-400"></i> Rendimiento por Frasco
         </span>
-        <div class="grid grid-cols-3 gap-2.5 text-center text-xs">
-          <div class="bg-[#201538] p-2.5 rounded-xl border border-purple-900/80">
+        <div class="grid grid-cols-4 gap-2 text-center text-xs">
+          <div class="bg-[#201538] p-2 rounded-xl border border-purple-900/80">
             <span class="text-[10px] text-zinc-400 block font-semibold">3 ml</span>
             <strong class="text-white text-xs">~45 sprays</strong>
           </div>
-          <div class="bg-gradient-to-b from-orange-500/35 to-purple-900/40 p-2.5 rounded-xl border border-orange-500/70 shadow-inner">
+          <div class="bg-gradient-to-b from-orange-500/35 to-purple-900/40 p-2 rounded-xl border border-orange-500/70 shadow-inner">
             <span class="text-[10px] text-amber-300 block font-semibold">5 ml</span>
             <strong class="text-amber-100 text-xs">~75 sprays</strong>
           </div>
-          <div class="bg-[#201538] p-2.5 rounded-xl border border-purple-900/80">
+          <div class="bg-[#201538] p-2 rounded-xl border border-purple-900/80">
             <span class="text-[10px] text-zinc-400 block font-semibold">10 ml</span>
             <strong class="text-white text-xs">~150 sprays</strong>
+          </div>
+          <div class="bg-[#201538] p-2 rounded-xl border border-amber-500/50">
+            <span class="text-[10px] text-amber-400 block font-semibold">Botella</span>
+            <strong class="text-white text-xs">Completa</strong>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTENIDO PRINCIPAL -->
+  <!-- CONTENIDO PRINCIPAL: FILTROS + CATÁLOGO -->
   <main class="flex-1 max-w-6xl w-full mx-auto p-4 flex flex-col gap-5 relative z-10">
-    <section id="search-section" class="no-print bg-[#130E20]/95 backdrop-blur border border-orange-500/35 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg">
+    <section id="search-section" class="no-print bg-[#130E22]/90 backdrop-blur border border-orange-500/35 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-xl">
       <div class="flex items-center gap-2.5 flex-1 min-w-[240px]">
         <div class="relative w-full">
           <i data-lucide="search" class="w-4 h-4 text-orange-400 absolute left-3.5 top-3"></i>
@@ -384,7 +276,7 @@
             type="text" 
             id="search-input" 
             oninput="filterCatalog()"
-            placeholder="Buscar por fragancia, casa olfativa o notas..." 
+            placeholder="Buscar fragancia, casa olfativa o notas..." 
             class="w-full bg-[#1C1430] border border-purple-900/90 rounded-xl pl-10 pr-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500 transition"
           >
         </div>
@@ -412,22 +304,19 @@
     <div id="empty-state" class="hidden py-20 text-center">
       <div class="text-5xl mb-3">🎃👻🏵️</div>
       <h3 class="text-base font-semibold text-zinc-200">No se encontraron fragancias</h3>
-      <p class="text-xs text-zinc-400 mt-1">Intenta con otro término de búsqueda.</p>
+      <p class="text-xs text-zinc-400 mt-1">Intenta con otro término de búsqueda o agrega un nuevo perfume.</p>
     </div>
   </main>
 
-  <!-- CAPA DE NIEBLA ESPECTRAL INFERIOR -->
-  <div class="mist-layer fixed bottom-0 left-0 right-0 h-44 z-0 no-print"></div>
-
   <!-- PANTALLA COMPLETA DE DETALLE DE PRODUCTO -->
-  <div id="product-page-view" class="no-print fixed inset-0 z-50 bg-[#06040A]/95 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-[#130E20] border border-orange-500/50 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative my-auto">
-      <button onclick="closeProductView()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/75 border border-zinc-700 text-zinc-300 hover:text-white flex items-center justify-center transition">
+  <div id="product-page-view" class="no-print fixed inset-0 z-50 bg-[#07050B]/95 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-[#130E22] border border-orange-500/50 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative my-auto">
+      <button onclick="closeProductView()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/70 border border-zinc-700 text-zinc-300 hover:text-white flex items-center justify-center transition">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="bottle-box p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-orange-500/25 relative min-h-[300px]">
+        <div class="bottle-stage p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-orange-500/25 relative min-h-[300px]">
           <img id="pv-img" src="" alt="Perfume" class="max-h-72 max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(255,115,0,0.35)]">
           <div class="absolute bottom-3 left-3 flex gap-1">
             <span id="pv-concentration" class="bg-[#1C1430]/90 border border-purple-800 text-zinc-300 font-semibold text-[10px] px-2.5 py-0.5 rounded-full">EDP</span>
@@ -447,8 +336,8 @@
           </div>
 
           <div class="mt-5 space-y-3">
-            <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block">Decants Disponibles:</span>
-            <div id="pv-prices-container" class="grid grid-cols-3 gap-2"></div>
+            <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block">Opciones Disponibles:</span>
+            <div id="pv-prices-container" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
 
             <button id="pv-direct-order-btn" class="w-full py-3 rounded-2xl bg-[#25D366] hover:bg-[#20ba59] text-black font-extrabold flex items-center justify-center gap-2 shadow-lg transition text-xs mt-2">
               <i data-lucide="message-circle" class="w-4 h-4"></i>
@@ -462,7 +351,7 @@
 
   <!-- MODAL LOGIN ADMIN -->
   <div id="login-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
-    <div class="bg-[#150F24] border border-orange-500/45 rounded-2xl w-full max-w-sm p-6 relative shadow-2xl">
+    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-sm p-6 relative">
       <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -493,9 +382,9 @@
     </div>
   </div>
 
-  <!-- MODAL PARA CONECTAR TOKEN DE GITHUB -->
+  <!-- MODAL TOKEN GITHUB -->
   <div id="token-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
-    <div class="bg-[#150F24] border border-orange-500/45 rounded-2xl w-full max-w-md p-6 relative">
+    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-md p-6 relative">
       <button onclick="closeTokenModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -522,12 +411,12 @@
   </div>
 
   <!-- PANEL DE CARRITO CON DIRECCIÓN DETALLADA -->
-  <div id="cart-drawer" class="no-print fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-[#120D1E] border-l border-orange-500/35 shadow-2xl p-5 flex flex-col justify-between hidden text-xs overflow-y-auto">
+  <div id="cart-drawer" class="no-print fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-[#140E24] border-l border-orange-500/40 shadow-2xl p-5 flex flex-col justify-between hidden text-xs overflow-y-auto">
     <div>
-      <div class="flex items-center justify-between pb-3 border-b border-orange-500/35 mb-3">
+      <div class="flex items-center justify-between pb-3 border-b border-orange-500/30 mb-3">
         <div class="flex items-center gap-2">
           <i data-lucide="shopping-bag" class="w-5 h-5 text-[#FF7518]"></i>
-          <h3 class="font-heading text-sm font-bold text-white">Tu Pedido de Decants</h3>
+          <h3 class="font-heading text-sm font-bold text-white">Tu Bolsa de Pedido</h3>
         </div>
         <button onclick="toggleCartDrawer()" class="text-zinc-400 hover:text-white">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -608,9 +497,9 @@
     </div>
   </div>
 
-  <!-- MODAL EDITAR / AGREGAR FRAGANCIA -->
+  <!-- MODAL EDITAR / AGREGAR FRAGANCIA CON BOTELLA COMPLETA -->
   <div id="fragrance-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 overflow-y-auto">
-    <div class="bg-[#150F24] border border-orange-500/45 rounded-2xl w-full max-w-lg p-5 relative text-xs">
+    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-lg p-5 relative text-xs">
       <button onclick="closeFragranceModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -655,7 +544,7 @@
             <div class="flex-1 space-y-1.5">
               <input type="text" id="frag-image-url" placeholder="URL directa o base64" oninput="updateImagePreview(this.value)" class="w-full bg-[#201538] border border-purple-900 rounded-lg px-2.5 py-1 text-white text-[11px] focus:outline-none">
               <label class="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-600 text-[10px]">
-                <i data-lucide="image" class="w-3 h-3 text-[#FF7518]"></i>
+                <i data-lucide="image" class="w-3.5 h-3.5 text-[#FF7518]"></i>
                 <span>Subir imagen</span>
                 <input type="file" accept="image/*" class="hidden" onchange="handleLocalImageUpload(event)">
               </label>
@@ -667,15 +556,15 @@
           </div>
         </div>
 
-        <div class="p-2.5 rounded-xl bg-[#1A122A] border border-orange-500/35 space-y-1.5">
-          <span class="text-[10px] font-bold text-orange-400 uppercase tracking-wider block">Precios de Decants</span>
-          <div class="grid grid-cols-3 gap-2">
+        <div class="p-2.5 rounded-xl bg-[#1A122A] border border-orange-500/35 space-y-2">
+          <span class="text-[10px] font-bold text-orange-400 uppercase tracking-wider block">Precios de Decants & Botella Completa</span>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
             <div class="bg-[#0F0A1A] p-2 rounded-lg border border-purple-950">
               <div class="flex justify-between text-[10px] text-zinc-400 mb-1">
                 <span>3 ml</span>
                 <label><input type="checkbox" id="frag-3ml-avail" checked> Stock</label>
               </div>
-              <input type="number" id="frag-price-3ml" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-white text-xs">
+              <input type="number" id="frag-price-3ml" placeholder="0" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-white text-xs">
             </div>
 
             <div class="bg-[#0F0A1A] p-2 rounded-lg border border-orange-500/40">
@@ -683,7 +572,7 @@
                 <span class="font-bold">5 ml</span>
                 <label><input type="checkbox" id="frag-5ml-avail" checked> Stock</label>
               </div>
-              <input type="number" id="frag-price-5ml" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-amber-300 font-bold text-xs">
+              <input type="number" id="frag-price-5ml" placeholder="0" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-amber-300 font-bold text-xs">
             </div>
 
             <div class="bg-[#0F0A1A] p-2 rounded-lg border border-purple-950">
@@ -691,7 +580,15 @@
                 <span>10 ml</span>
                 <label><input type="checkbox" id="frag-10ml-avail" checked> Stock</label>
               </div>
-              <input type="number" id="frag-price-10ml" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-white text-xs">
+              <input type="number" id="frag-price-10ml" placeholder="0" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-white text-xs">
+            </div>
+
+            <div class="bg-[#0F0A1A] p-2 rounded-lg border border-amber-500/50">
+              <div class="flex justify-between text-[10px] text-amber-400 mb-1 font-bold">
+                <span>Botella Completa</span>
+                <label><input type="checkbox" id="frag-bottle-avail" checked> Stock</label>
+              </div>
+              <input type="number" id="frag-price-bottle" placeholder="0" class="w-full bg-[#201538] border border-amber-500/60 rounded px-2 py-0.5 text-amber-300 font-extrabold text-xs">
             </div>
           </div>
         </div>
@@ -711,7 +608,7 @@
 
   <!-- MODAL DATOS TIENDA -->
   <div id="store-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
-    <div class="bg-[#150F24] border border-orange-500/45 rounded-2xl w-full max-w-md p-5 relative shadow-2xl">
+    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-md p-5 relative">
       <button onclick="closeStoreConfigModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -774,6 +671,13 @@
     let isAdminLoggedIn = false;
     const ITEMS_PER_PAGE = 4;
 
+    function getInitials(name) {
+      if (!name) return 'JF';
+      const words = name.trim().split(/\s+/);
+      if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+      return (words[0][0] + words[1][0]).toUpperCase();
+    }
+
     async function initApp() {
       isAdminLoggedIn = sessionStorage.getItem('aura_is_admin') === 'true';
       updateAdminUI();
@@ -787,15 +691,16 @@
         }
       } catch(e) {}
 
-      if (!fragrances || fragrances.length === 0) {
-        await loadJsonData();
-      }
-
       updateStoreBrandHeader();
       populateBrandFilter();
       renderCatalog();
       updateCartUI();
       lucide.createIcons();
+
+      // Carga en segundo plano desde R9.json
+      if (!fragrances || fragrances.length === 0) {
+        await loadJsonData();
+      }
     }
 
     async function loadJsonData() {
@@ -807,10 +712,13 @@
           if (data.fragrances && data.fragrances.length > 0) {
             fragrances = data.fragrances;
             saveLocalData();
+            updateStoreBrandHeader();
+            populateBrandFilter();
+            renderCatalog();
           }
         }
       } catch (e) {
-        console.error("Error al obtener R9.json:", e);
+        console.warn("R9.json no localizado en servidor local, operando con almacenamiento del navegador.");
       }
     }
 
@@ -821,11 +729,10 @@
       } catch(e) {}
     }
 
-    // SINCRONIZACIÓN AUTOMÁTICA CON GITHUB
     async function syncToGitHub() {
       const token = localStorage.getItem('aura_gh_token');
       if (!token) {
-        showToast('Guardado localmente. Conecta tu GitHub Token para guardar en la nube automáticamente.', 4000);
+        showToast('Guardado localmente. Conecta tu GitHub Token para sincronizar en línea.', 3500);
         return;
       }
 
@@ -858,27 +765,26 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            message: `Actualización automática de catálogo: ${new Date().toLocaleString()}`,
+            message: `Actualización de catálogo: ${new Date().toLocaleString()}`,
             content: contentBase64,
             sha: sha || undefined
           })
         });
 
         if (putRes.ok) {
-          showToast('¡Guardado automáticamente en GitHub y en vivo!', 3500);
+          showToast('¡Guardado automáticamente en GitHub!');
         } else {
           showToast('Guardado localmente. Error al sincronizar con GitHub.');
         }
       } catch (err) {
-        showToast('Guardado localmente.');
+        showToast('Guardado localmente en tu navegador.');
       } finally {
         if (saveBtn) saveBtn.textContent = 'Guardar';
       }
     }
 
     function openTokenModal() {
-      const currentToken = localStorage.getItem('aura_gh_token') || '';
-      document.getElementById('github-token-input').value = currentToken;
+      document.getElementById('github-token-input').value = localStorage.getItem('aura_gh_token') || '';
       document.getElementById('token-modal').classList.remove('hidden');
     }
 
@@ -891,31 +797,31 @@
       const token = document.getElementById('github-token-input').value.trim();
       if (token) {
         localStorage.setItem('aura_gh_token', token);
-        showToast('¡Token guardado! Ahora los cambios se guardan solos en GitHub.');
+        showToast('Token conectado correctamente');
         closeTokenModal();
       }
     }
 
-    // PANTALLA COMPLETA DE DETALLE DE FRAGANCIA
     function openProductView(fragId) {
       const frag = fragrances.find(f => f.id === fragId);
       if (!frag) return;
 
-      document.getElementById('pv-img').src = frag.image || 'https://placehold.co/400x400/150F24/FF7518?text=' + encodeURIComponent(frag.name);
+      document.getElementById('pv-img').src = frag.image || 'https://placehold.co/400x400/140D24/FF7518?text=' + encodeURIComponent(frag.name);
       document.getElementById('pv-brand').textContent = frag.brand;
       document.getElementById('pv-name').textContent = frag.name;
       document.getElementById('pv-concentration').textContent = frag.concentration || 'EDP';
       document.getElementById('pv-gender').textContent = frag.gender || 'Unisex';
-      document.getElementById('pv-notes').textContent = frag.notes || 'Notas aromáticas disponibles.';
+      document.getElementById('pv-notes').textContent = frag.notes || 'Notas aromáticas exclusivas.';
 
       const p3 = frag.prices?.['3ml'] || { price: 0, inStock: true };
       const p5 = frag.prices?.['5ml'] || { price: 0, inStock: true };
       const p10 = frag.prices?.['10ml'] || { price: 0, inStock: true };
+      const pBottle = frag.prices?.['bottle'] || { price: 0, inStock: false };
 
       const pricesContainer = document.getElementById('pv-prices-container');
       pricesContainer.innerHTML = `
         <button onclick="${p3.inStock ? `addToCart('${frag.id}', '3ml')` : ''}"
-          class="p-2.5 rounded-2xl border border-purple-900 bg-[#1A122A] hover:border-orange-500/60 transition flex flex-col items-center ${!p3.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+          class="p-2.5 rounded-2xl border border-purple-900 bg-[#1C1430] hover:border-orange-500/60 transition flex flex-col items-center ${!p3.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
           <span class="text-[10px] uppercase font-bold text-zinc-400 block">3 ml</span>
           <span class="text-xs font-bold ${p3.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
             ${p3.inStock ? formatPrice(p3.price) : 'Agotado'}
@@ -923,7 +829,7 @@
         </button>
 
         <button onclick="${p5.inStock ? `addToCart('${frag.id}', '5ml')` : ''}"
-          class="p-2.5 rounded-2xl bg-gradient-to-b from-orange-500/30 to-purple-900/40 border border-orange-500/70 hover:brightness-125 transition flex flex-col items-center ${!p5.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+          class="p-2.5 rounded-2xl bg-gradient-to-b from-orange-500/35 to-purple-900/40 border border-orange-500/70 hover:brightness-125 transition flex flex-col items-center ${!p5.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
           <span class="text-[10px] uppercase font-extrabold text-amber-300 block">5 ml</span>
           <span class="text-xs font-black ${p5.inStock ? 'text-amber-100' : 'text-zinc-500 line-through'}">
             ${p5.inStock ? formatPrice(p5.price) : 'Agotado'}
@@ -931,10 +837,18 @@
         </button>
 
         <button onclick="${p10.inStock ? `addToCart('${frag.id}', '10ml')` : ''}"
-          class="p-2.5 rounded-2xl border border-purple-900 bg-[#1A122A] hover:border-orange-500/60 transition flex flex-col items-center ${!p10.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+          class="p-2.5 rounded-2xl border border-purple-900 bg-[#1C1430] hover:border-orange-500/60 transition flex flex-col items-center ${!p10.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
           <span class="text-[10px] uppercase font-bold text-zinc-400 block">10 ml</span>
           <span class="text-xs font-bold ${p10.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
             ${p10.inStock ? formatPrice(p10.price) : 'Agotado'}
+          </span>
+        </button>
+
+        <button onclick="${pBottle.inStock ? `addToCart('${frag.id}', 'bottle')` : ''}"
+          class="p-2.5 rounded-2xl border border-amber-500/60 bg-[#251838] hover:border-amber-400 transition flex flex-col items-center ${!pBottle.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+          <span class="text-[10px] uppercase font-bold text-amber-400 block">Botella</span>
+          <span class="text-xs font-extrabold ${pBottle.inStock ? 'text-amber-300' : 'text-zinc-500 line-through'}">
+            ${pBottle.inStock ? formatPrice(pBottle.price) : 'N/D'}
           </span>
         </button>
       `;
@@ -953,14 +867,13 @@
       document.getElementById('product-page-view').classList.add('hidden');
     }
 
-    // LOGIN
     function toggleAuthModal() {
       if (isAdminLoggedIn) {
         isAdminLoggedIn = false;
         sessionStorage.removeItem('aura_is_admin');
         updateAdminUI();
         renderCatalog();
-        showToast('Sesión cerrada');
+        showToast('Sesión de administrador cerrada');
       } else {
         document.getElementById('login-modal').classList.remove('hidden');
       }
@@ -979,9 +892,9 @@
         document.getElementById('login-pass').value = '';
         updateAdminUI();
         renderCatalog();
-        showToast('¡Bienvenido! Modo edición activado');
+        showToast('¡Modo administrador activado!');
       } else {
-        showToast('Credenciales incorrectas');
+        showToast('Usuario o contraseña incorrectos');
       }
     }
 
@@ -998,14 +911,13 @@
       lucide.createIcons();
     }
 
-    // CARRITO
     function addToCart(fragId, size) {
       const frag = fragrances.find(f => f.id === fragId);
       if (!frag) return;
 
       const priceInfo = frag.prices?.[size];
       if (!priceInfo || !priceInfo.inStock || priceInfo.price <= 0) {
-        showToast('Tamaño no disponible');
+        showToast('Opción agotada o no disponible');
         return;
       }
 
@@ -1024,7 +936,8 @@
       }
 
       updateCartUI();
-      showToast(`Agregado: ${frag.name} (${size})`);
+      const labelSize = size === 'bottle' ? 'Botella Completa' : size;
+      showToast(`Agregado: ${frag.name} (${labelSize})`);
     }
 
     function removeFromCart(index) {
@@ -1044,8 +957,8 @@
 
       if (cart.length === 0) {
         container.innerHTML = `
-          <div class="py-12 text-center text-zinc-500">
-            <div class="text-4xl mb-1 opacity-70">🎃</div>
+          <div class="py-10 text-center text-zinc-400">
+            <div class="text-3xl mb-1">🎃</div>
             <p>Tu bolsa de pedido está vacía</p>
           </div>
         `;
@@ -1055,16 +968,18 @@
           const subtotal = item.price * item.qty;
           totalPrice += subtotal;
 
+          const sizeText = item.size === 'bottle' ? 'Botella Completa' : `Decant ${item.size}`;
+
           container.innerHTML += `
             <div class="p-3 rounded-xl bg-[#1C1430] border border-orange-500/25 flex items-center justify-between">
               <div>
                 <span class="text-[10px] text-amber-400 font-bold uppercase block">${item.brand}</span>
                 <span class="text-xs text-white font-bold block">${item.name}</span>
-                <span class="text-[11px] text-zinc-400 font-medium">Decant ${item.size} × ${item.qty} (${formatPrice(item.price)})</span>
+                <span class="text-[11px] text-zinc-300 font-medium">${sizeText} × ${item.qty} (${formatPrice(item.price)})</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-xs text-white font-bold">${formatPrice(subtotal)}</span>
-                <button onclick="removeFromCart(${idx})" class="p-1 text-zinc-500 hover:text-red-400 transition">
+                <span class="text-xs text-amber-300 font-bold">${formatPrice(subtotal)}</span>
+                <button onclick="removeFromCart(${idx})" class="p-1 text-zinc-400 hover:text-red-400 transition">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -1079,11 +994,9 @@
     }
 
     function toggleCartDrawer() {
-      const drawer = document.getElementById('cart-drawer');
-      drawer.classList.toggle('hidden');
+      document.getElementById('cart-drawer').classList.toggle('hidden');
     }
 
-    // ENVÍO DE PEDIDO A WHATSAPP CON TODOS LOS CAMPOS DE DIRECCIÓN Y NÚMERO
     function sendOrderViaWhatsApp() {
       if (cart.length === 0) {
         showToast('Agrega al menos una fragancia a tu pedido');
@@ -1112,7 +1025,7 @@
         return;
       }
       if (!street || !numExt || !cp || !colonia || !city || !state) {
-        showToast('Por favor completa los campos de dirección');
+        showToast('Por favor completa todos los campos de entrega');
         return;
       }
 
@@ -1122,10 +1035,11 @@
       cart.forEach((item) => {
         const subtotal = item.price * item.qty;
         total += subtotal;
-        orderListText += `▪ ${item.qty}x ${item.brand} - ${item.name} (${item.size}) -> ${formatPrice(subtotal)}\n`;
+        const sizeTag = item.size === 'bottle' ? 'BOTELLA COMPLETA' : item.size;
+        orderListText += `▪ ${item.qty}x ${item.brand} - ${item.name} (${sizeTag}) -> ${formatPrice(subtotal)}\n`;
       });
 
-      let message = `¡Hola! Me gustaría levantar el siguiente pedido en *${storeConfig.name}* 🎃:\n\n`;
+      let message = `¡Hola! Me gustaría realizar el siguiente pedido en *${storeConfig.name}* 🎃:\n\n`;
       message += `👤 *DATOS DEL CLIENTE*\n`;
       message += `• Nombre: ${name}\n`;
       message += `• Teléfono: ${phone}\n`;
@@ -1133,8 +1047,8 @@
 
       message += `\n📍 *DIRECCIÓN DE ENVÍO*\n`;
       message += `• Calle: ${street}\n`;
-      message += `• No. Exterior: ${numExt}\n`;
-      if (numInt) message += `• No. Interior: ${numInt}\n`;
+      message += `• No. Ext: ${numExt}\n`;
+      if (numInt) message += `• No. Int: ${numInt}\n`;
       message += `• Colonia: ${colonia}\n`;
       message += `• C.P.: ${cp}\n`;
       message += `• Ciudad: ${city}\n`;
@@ -1142,7 +1056,7 @@
 
       message += `\n🛍️ *DETALLE DEL PEDIDO*\n${orderListText}\n`;
       message += `💵 *TOTAL ESTIMADO:* ${formatPrice(total)}\n\n`;
-      message += `¿Me confirmas disponibilidad y los datos para realizar el pago, por favor?`;
+      message += `¿Me confirmas disponibilidad y los datos para realizar la transferencia/pago, por favor?`;
 
       const cleanPhone = storeConfig.whatsapp.replace(/[^0-9]/g, '');
       const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
@@ -1159,18 +1073,11 @@
       document.getElementById('quick-logo-input').click();
     }
 
-    function getInitials(name) {
-      if (!name) return 'JF';
-      const words = name.trim().split(/\s+/);
-      if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
-      return (words[0][0] + words[1][0]).toUpperCase();
-    }
-
     function updateStoreBrandHeader() {
-      document.getElementById('header-store-name').innerHTML = `${storeConfig.name} <span class="text-base animate-bounce">🎃</span>`;
+      document.getElementById('header-store-name').innerHTML = `${storeConfig.name} <span class="text-base">🎃</span>`;
       document.getElementById('hero-tagline').textContent = storeConfig.tagline;
       document.getElementById('hero-notes').textContent = storeConfig.notes;
-      document.getElementById('page-title').textContent = `${storeConfig.name} - Especial Día de Muertos & Halloween 🎃💀`;
+      document.getElementById('page-title').textContent = `${storeConfig.name} - Catálogo Oficial 🎃💀`;
 
       const logoImg = document.getElementById('header-logo-img');
       const logoIcon = document.getElementById('header-logo-icon');
@@ -1200,22 +1107,19 @@
     }
 
     function saveFragrances() {
-      try {
-        localStorage.setItem('aura_fragrances', JSON.stringify(fragrances));
-      } catch (err) {}
+      saveLocalData();
       populateBrandFilter();
     }
 
     function saveStoreConfig() {
-      try {
-        localStorage.setItem('aura_store_config', JSON.stringify(storeConfig));
-      } catch(e) {}
+      saveLocalData();
       updateStoreBrandHeader();
       renderCatalog();
     }
 
     function populateBrandFilter() {
       const select = document.getElementById('filter-brand');
+      if (!select) return;
       const currentVal = select.value;
       const brands = Array.from(new Set(fragrances.map(f => f.brand))).filter(Boolean).sort();
 
@@ -1242,12 +1146,14 @@
       return `${getCurrencySymbol()}${num.toFixed(0)}`;
     }
 
-    // RENDERIZADO POR PÁGINAS A4 EXACTAS
     function renderCatalog() {
       const container = document.getElementById('catalog-sheet');
       const emptyState = document.getElementById('empty-state');
-      const searchQuery = (document.getElementById('search-input').value || '').toLowerCase().trim();
-      const selectedBrand = document.getElementById('filter-brand').value;
+      const searchInput = document.getElementById('search-input');
+      const filterBrand = document.getElementById('filter-brand');
+
+      const searchQuery = (searchInput ? searchInput.value : '').toLowerCase().trim();
+      const selectedBrand = filterBrand ? filterBrand.value : 'ALL';
 
       const filtered = fragrances.filter(frag => {
         const matchBrand = selectedBrand === 'ALL' || frag.brand === selectedBrand;
@@ -1273,20 +1179,20 @@
         const pageNumber = pageIdx + 1;
 
         pagesHtml += `
-          <div class="print-page rounded-3xl mb-8 p-6 bg-[#100B1D] border border-orange-500/40 shadow-2xl relative overflow-hidden">
+          <div class="print-page rounded-2xl mb-8 p-6 bg-[#100B1C] border border-orange-500/35 shadow-2xl">
             
             <div>
-              <div class="pb-3 border-b border-orange-500/35 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="pb-3 border-b border-orange-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FF6B00] via-[#FFD700] to-[#9333EA] p-[2px] shadow-lg shrink-0">
-                    <div class="w-full h-full bg-[#120B20] rounded-[14px] flex items-center justify-center overflow-hidden">
-                      <span class="text-[#FF7518] font-heading font-black text-sm">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FF7518] via-[#FFD700] to-[#8A2BE2] p-[2px] shadow-lg shrink-0">
+                    <div class="w-full h-full bg-[#150E24] rounded-[14px] flex items-center justify-center overflow-hidden">
+                      <span class="text-amber-400 font-heading font-black text-sm">
                         ${getInitials(storeConfig.name)}
                       </span>
                     </div>
                   </div>
                   <div>
-                    <h2 class="font-heading text-lg sm:text-xl font-extrabold tracking-wide text-white uppercase flex items-center gap-2">
+                    <h2 class="font-heading text-lg sm:text-xl font-extrabold tracking-wide text-white uppercase flex items-center gap-1.5">
                       ${storeConfig.name} <span class="text-sm">🎃</span>
                     </h2>
                     <p class="text-[11px] text-orange-200/80 mt-0.5 font-medium tracking-wide">
@@ -1313,42 +1219,44 @@
                 </div>
               </div>
 
-              <div class="mt-2.5 px-3 py-1.5 rounded-xl bg-[#1C1430] border border-orange-500/25 flex items-center justify-between gap-2 text-xs">
+              <div class="mt-2.5 px-3 py-1.5 rounded-xl bg-[#191129] border border-orange-500/25 flex items-center justify-between gap-2 text-xs">
                 <span class="text-amber-400 font-bold text-[11px] flex items-center gap-1">
-                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Rendimiento:
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#FF7518]"></i> Rendimiento Estimado:
                 </span>
                 <div class="flex items-center gap-4 text-[10px] text-orange-100/90 font-medium">
                   <span><strong class="text-white">3 ml:</strong> ~45 sprays</span>
                   <span><strong class="text-amber-400">5 ml:</strong> ~75 sprays</span>
                   <span><strong class="text-white">10 ml:</strong> ~150 sprays</span>
+                  <span><strong class="text-amber-400">Botella:</strong> Completa</span>
                 </div>
               </div>
             </div>
 
-            <!-- CUADRÍCULA 2X2 -->
+            <!-- CUADRÍCULA 2X2 DE PRODUCTOS -->
             <div class="print-grid grid grid-cols-1 sm:grid-cols-2 gap-3.5 my-3">
               ${pageItems.map(frag => {
                 const p3 = frag.prices?.['3ml'] || { price: 0, inStock: true };
                 const p5 = frag.prices?.['5ml'] || { price: 0, inStock: true };
                 const p10 = frag.prices?.['10ml'] || { price: 0, inStock: true };
+                const pBottle = frag.prices?.['bottle'] || { price: 0, inStock: false };
 
                 return `
-                  <div class="print-card altar-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                  <div class="print-card catalog-card rounded-2xl overflow-hidden flex flex-col justify-between">
                     <div>
-                      <div onclick="openProductView('${frag.id}')" class="bottle-box relative w-full h-48 p-3 flex items-center justify-center border-b border-orange-500/25 cursor-pointer">
+                      <div onclick="openProductView('${frag.id}')" class="bottle-stage relative w-full h-48 p-3 flex items-center justify-center border-b border-orange-500/25 cursor-pointer">
                         <img 
-                          src="${frag.image || 'https://placehold.co/400x400/150F24/FF7518?text=' + encodeURIComponent(frag.name)}" 
+                          src="${frag.image || 'https://placehold.co/400x400/150E24/FF7518?text=' + encodeURIComponent(frag.name)}" 
                           alt="${frag.name}"
                           crossorigin="anonymous"
-                          class="bottle-img max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(255,115,0,0.35)]"
+                          class="bottle-img max-h-full max-w-full object-contain filter drop-shadow-[0_12px_22px_rgba(255,115,0,0.3)]"
                         />
 
                         <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
-                          <span class="bg-[#1C1430]/90 border border-purple-900 text-zinc-300 font-semibold text-[9px] px-2 py-0.5 rounded-full backdrop-blur-md">
+                          <span class="bg-[#1C1430]/90 border border-purple-900 text-zinc-300 font-semibold text-[9px] px-2 py-0.5 rounded-full">
                             ${frag.concentration || 'EDP'}
                           </span>
                           ${frag.gender ? `
-                            <span class="bg-orange-500/20 border border-orange-500/50 text-amber-300 font-semibold text-[9px] px-2 py-0.5 rounded-full backdrop-blur-md">
+                            <span class="bg-orange-500/20 border border-orange-500/50 text-amber-300 font-semibold text-[9px] px-2 py-0.5 rounded-full">
                               ${frag.gender}
                             </span>
                           ` : ''}
@@ -1380,12 +1288,13 @@
                       </div>
                     </div>
 
+                    <!-- SELECTOR DE MEDIDAS INCLUYENDO BOTELLA COMPLETA -->
                     <div class="p-3.5 pt-1">
-                      <div class="grid grid-cols-3 gap-1.5 text-center">
+                      <div class="grid grid-cols-4 gap-1 text-center">
                         <button 
                           onclick="${p3.inStock ? `addToCart('${frag.id}', '3ml')` : ''}"
-                          class="p-1.5 rounded-xl border border-purple-900 bg-[#140E22] hover:border-orange-500/60 transition flex flex-col items-center ${!p3.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer hover:bg-purple-900/40'}">
-                          <span class="text-[9px] uppercase font-bold text-zinc-400 block">3 ml</span>
+                          class="p-1 rounded-xl border border-purple-900 bg-[#160F26] hover:border-orange-500/60 transition flex flex-col items-center ${!p3.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[8px] uppercase font-bold text-zinc-400 block">3 ml</span>
                           <span class="text-[11px] font-bold ${p3.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
                             ${p3.inStock ? formatPrice(p3.price) : 'Agotado'}
                           </span>
@@ -1393,8 +1302,8 @@
 
                         <button 
                           onclick="${p5.inStock ? `addToCart('${frag.id}', '5ml')` : ''}"
-                          class="p-1.5 rounded-xl bg-gradient-to-b from-orange-500/30 to-purple-900/40 border border-orange-500/70 hover:brightness-125 transition flex flex-col items-center ${!p5.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
-                          <span class="text-[9px] uppercase font-extrabold text-amber-300 block">5 ml</span>
+                          class="p-1 rounded-xl bg-gradient-to-b from-orange-500/30 to-purple-900/40 border border-orange-500/70 hover:brightness-125 transition flex flex-col items-center ${!p5.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[8px] uppercase font-extrabold text-amber-300 block">5 ml</span>
                           <span class="text-[11px] font-extrabold ${p5.inStock ? 'text-amber-100' : 'text-zinc-500 line-through'}">
                             ${p5.inStock ? formatPrice(p5.price) : 'Agotado'}
                           </span>
@@ -1402,10 +1311,19 @@
 
                         <button 
                           onclick="${p10.inStock ? `addToCart('${frag.id}', '10ml')` : ''}"
-                          class="p-1.5 rounded-xl border border-purple-900 bg-[#140E22] hover:border-orange-500/60 transition flex flex-col items-center ${!p10.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer hover:bg-purple-900/40'}">
-                          <span class="text-[9px] uppercase font-bold text-zinc-400 block">10 ml</span>
+                          class="p-1 rounded-xl border border-purple-900 bg-[#160F26] hover:border-orange-500/60 transition flex flex-col items-center ${!p10.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[8px] uppercase font-bold text-zinc-400 block">10 ml</span>
                           <span class="text-[11px] font-bold ${p10.inStock ? 'text-white' : 'text-zinc-500 line-through'}">
                             ${p10.inStock ? formatPrice(p10.price) : 'Agotado'}
+                          </span>
+                        </button>
+
+                        <button 
+                          onclick="${pBottle.inStock ? `addToCart('${frag.id}', 'bottle')` : ''}"
+                          class="p-1 rounded-xl border border-amber-500/50 bg-[#25173B] hover:border-amber-400 transition flex flex-col items-center ${!pBottle.inStock ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}">
+                          <span class="text-[8px] uppercase font-bold text-amber-400 block">Botella</span>
+                          <span class="text-[11px] font-extrabold ${pBottle.inStock ? 'text-amber-300' : 'text-zinc-500 line-through'}">
+                            ${pBottle.inStock ? formatPrice(pBottle.price) : 'N/D'}
                           </span>
                         </button>
                       </div>
@@ -1415,9 +1333,9 @@
               }).join('')}
             </div>
 
-            <div class="pt-2 border-t border-orange-500/35 flex items-center justify-between text-[10px] text-zinc-400">
+            <div class="pt-2 border-t border-orange-500/30 flex items-center justify-between text-[10px] text-zinc-400">
               <span class="text-amber-400 font-medium flex items-center gap-1">
-                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-orange-400"></i>
                 100% Auténtico • Decants Sellados Herméticamente
               </span>
               <span class="font-semibold text-zinc-300">
@@ -1501,6 +1419,9 @@
       const p10 = parseFloat(document.getElementById('frag-price-10ml').value) || 0;
       const p10Avail = document.getElementById('frag-10ml-avail').checked;
 
+      const pBottle = parseFloat(document.getElementById('frag-price-bottle').value) || 0;
+      const pBottleAvail = document.getElementById('frag-bottle-avail').checked;
+
       const itemData = {
         id: editId || 'frag-' + Date.now(),
         name,
@@ -1512,7 +1433,8 @@
         prices: {
           "3ml": { price: p3, inStock: p3Avail },
           "5ml": { price: p5, inStock: p5Avail },
-          "10ml": { price: p10, inStock: p10Avail }
+          "10ml": { price: p10, inStock: p10Avail },
+          "bottle": { price: pBottle, inStock: pBottleAvail }
         }
       };
 
@@ -1548,6 +1470,7 @@
       const p3 = frag.prices?.['3ml'] || { price: 0, inStock: true };
       const p5 = frag.prices?.['5ml'] || { price: 0, inStock: true };
       const p10 = frag.prices?.['10ml'] || { price: 0, inStock: true };
+      const pBottle = frag.prices?.['bottle'] || { price: 0, inStock: false };
 
       document.getElementById('frag-price-3ml').value = p3.price || '';
       document.getElementById('frag-3ml-avail').checked = p3.inStock;
@@ -1557,6 +1480,9 @@
 
       document.getElementById('frag-price-10ml').value = p10.price || '';
       document.getElementById('frag-10ml-avail').checked = p10.inStock;
+
+      document.getElementById('frag-price-bottle').value = pBottle.price || '';
+      document.getElementById('frag-bottle-avail').checked = pBottle.inStock;
 
       updateImagePreview(frag.image || '');
       document.getElementById('modal-title').textContent = 'Editar Fragancia';
@@ -1610,16 +1536,15 @@
     function showToast(message, duration = 2000) {
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
-      toast.className = 'px-3.5 py-2 rounded-xl bg-purple-950 border border-orange-500/70 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 pointer-events-auto';
+      toast.className = 'px-3.5 py-2 rounded-xl bg-[#201538] border border-orange-500/70 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 pointer-events-auto';
       toast.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-[#FF7518]"></i> <span>${message}</span>`;
       container.appendChild(toast);
       lucide.createIcons();
       setTimeout(() => toast.remove(), duration);
     }
 
-    window.onload = function() {
-      initApp();
-    };
+    window.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
 </html>
+```

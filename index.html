@@ -663,15 +663,15 @@
     }
 
     async function initApp() {
-      isAdminLoggedIn = sessionStorage.getItem('aura_is_admin') === 'true';
+      isAdminLoggedIn = sessionStorage.getItem('jf26_is_admin') === 'true';
       updateAdminUI();
 
       try {
-        const storedStore = localStorage.getItem('aura_store_config');
+        const storedStore = localStorage.getItem('jf26_store_config');
         if (storedStore) storeConfig = { ...storeConfig, ...JSON.parse(storedStore) };
-        const storedLogo = localStorage.getItem('aura_store_logo');
+        const storedLogo = localStorage.getItem('jf26_store_logo');
         if (storedLogo) storeConfig.logo = storedLogo;
-        const storedFrag = localStorage.getItem('aura_fragrances');
+        const storedFrag = localStorage.getItem('jf26_fragrances');
         if (storedFrag && JSON.parse(storedFrag).length > 0) {
           fragrances = JSON.parse(storedFrag);
         }
@@ -694,8 +694,8 @@
         if (!res.ok) return;
         const text = await res.text(), data = JSON.parse(text);
         let h = 0; for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) | 0;
-        const stamp = String(data.updatedAt || h), base = localStorage.getItem('aura_base_stamp');
-        localStorage.setItem('aura_base_stamp', stamp);
+        const stamp = String(data.updatedAt || h), base = localStorage.getItem('jf26_base_stamp');
+        localStorage.setItem('jf26_base_stamp', stamp);
         if (base === stamp || (base === null && fragrances.length)) return;
         if (data.store) { const logo = storeConfig.logo; storeConfig = { ...storeConfig, ...data.store }; if (!data.store.logo && logo) storeConfig.logo = logo; }
         if (data.fragrances && data.fragrances.length) fragrances = data.fragrances;
@@ -705,16 +705,16 @@
 
     function saveLocalData() {
       try {
-        localStorage.setItem('aura_fragrances', JSON.stringify(fragrances));
-        localStorage.setItem('aura_store_config', JSON.stringify(storeConfig));
+        localStorage.setItem('jf26_fragrances', JSON.stringify(fragrances));
+        localStorage.setItem('jf26_store_config', JSON.stringify(storeConfig));
         if (storeConfig.logo && storeConfig.logo.trim() !== '') {
-          localStorage.setItem('aura_store_logo', storeConfig.logo);
+          localStorage.setItem('jf26_store_logo', storeConfig.logo);
         }
       } catch(e) {}
     }
 
     async function syncToGitHub() {
-      const token = localStorage.getItem('aura_gh_token');
+      const token = localStorage.getItem('jf26_gh_token');
       if (!token) {
         showToast('Guardado localmente. Conecta tu GitHub Token para sincronizar en línea.', 3500);
         return;
@@ -757,7 +757,7 @@
         });
 
         if (putRes.ok) {
-          localStorage.setItem('aura_base_stamp', payload.updatedAt);
+          localStorage.setItem('jf26_base_stamp', payload.updatedAt);
           showToast('¡Guardado automáticamente en GitHub!');
         } else {
           showToast('Guardado localmente. Error al sincronizar con GitHub.');
@@ -770,7 +770,7 @@
     }
 
     function openTokenModal() {
-      document.getElementById('github-token-input').value = localStorage.getItem('aura_gh_token') || '';
+      document.getElementById('github-token-input').value = localStorage.getItem('jf26_gh_token') || '';
       document.getElementById('token-modal').classList.remove('hidden');
     }
 
@@ -782,7 +782,7 @@
       e.preventDefault();
       const token = document.getElementById('github-token-input').value.trim();
       if (token) {
-        localStorage.setItem('aura_gh_token', token);
+        localStorage.setItem('jf26_gh_token', token);
         showToast('Token conectado correctamente');
         closeTokenModal();
       }
@@ -820,7 +820,7 @@
     function toggleAuthModal() {
       if (isAdminLoggedIn) {
         isAdminLoggedIn = false;
-        sessionStorage.removeItem('aura_is_admin');
+        sessionStorage.removeItem('jf26_is_admin');
         updateAdminUI();
         renderCatalog();
         showToast('Sesión de administrador cerrada');
@@ -836,7 +836,7 @@
 
       if (user === ADMIN_USER && pass === ADMIN_PASS) {
         isAdminLoggedIn = true;
-        sessionStorage.setItem('aura_is_admin', 'true');
+        sessionStorage.setItem('jf26_is_admin', 'true');
         document.getElementById('login-modal').classList.add('hidden');
         document.getElementById('login-user').value = '';
         document.getElementById('login-pass').value = '';
@@ -1047,7 +1047,7 @@
           storeConfig.logo = optimizedDataUrl;
 
           try {
-            localStorage.setItem('aura_store_logo', optimizedDataUrl);
+            localStorage.setItem('jf26_store_logo', optimizedDataUrl);
           } catch(err) {}
 
           saveStoreConfig();

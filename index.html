@@ -1,4 +1,3 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/>
 <!DOCTYPE html>
 <html lang="es" style="background-color: #07050B; color: #FFFFFF;">
 <head>
@@ -685,6 +684,8 @@
       try {
         const storedStore = localStorage.getItem('aura_store_config');
         if (storedStore) storeConfig = { ...storeConfig, ...JSON.parse(storedStore) };
+        const storedLogo = localStorage.getItem('aura_store_logo');
+        if (storedLogo) storeConfig.logo = storedLogo;
         const storedFrag = localStorage.getItem('aura_fragrances');
         if (storedFrag && JSON.parse(storedFrag).length > 0) {
           fragrances = JSON.parse(storedFrag);
@@ -708,7 +709,14 @@
         const res = await fetch('./R9.json');
         if (res.ok) {
           const data = await res.json();
-          if (data.store) storeConfig = { ...storeConfig, ...data.store };
+          if (data.store) {
+            const currentLogo = storeConfig.logo || localStorage.getItem('aura_store_logo') || '';
+            storeConfig = { ...storeConfig, ...data.store };
+            // Preservar el logotipo guardado localmente si el JSON remoto no incluye uno
+            if ((!data.store.logo || data.store.logo.trim() === '') && currentLogo) {
+              storeConfig.logo = currentLogo;
+            }
+          }
           if (data.fragrances && data.fragrances.length > 0) {
             fragrances = data.fragrances;
             saveLocalData();
@@ -726,6 +734,9 @@
       try {
         localStorage.setItem('aura_fragrances', JSON.stringify(fragrances));
         localStorage.setItem('aura_store_config', JSON.stringify(storeConfig));
+        if (storeConfig.logo && storeConfig.logo.trim() !== '') {
+          localStorage.setItem('aura_store_logo', storeConfig.logo);
+        }
       } catch(e) {}
     }
 
@@ -1099,9 +1110,43 @@
 
       const reader = new FileReader();
       reader.onload = function(e) {
-        storeConfig.logo = e.target.result;
-        saveStoreConfig();
-        showToast('Logotipo actualizado');
+        const img = new Image();
+        img.onload = async function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 320;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Imagen optimizada ligera que nunca excede la cuota de almacenamiento
+          const optimizedDataUrl = canvas.toDataURL('image/png', 0.9);
+          storeConfig.logo = optimizedDataUrl;
+
+          try {
+            localStorage.setItem('aura_store_logo', optimizedDataUrl);
+          } catch(err) {}
+
+          saveStoreConfig();
+          showToast('Logotipo guardado exitosamente');
+          await syncToGitHub();
+        };
+        img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -1186,9 +1231,13 @@
                 <div class="flex items-center gap-3">
                   <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FF7518] via-[#FFD700] to-[#8A2BE2] p-[2px] shadow-lg shrink-0">
                     <div class="w-full h-full bg-[#150E24] rounded-[14px] flex items-center justify-center overflow-hidden">
-                      <span class="text-amber-400 font-heading font-black text-sm">
-                        ${getInitials(storeConfig.name)}
-                      </span>
+                      ${storeConfig.logo && storeConfig.logo.trim() !== '' ? `
+                        <img src="${storeConfig.logo}" alt="Logo" class="w-full h-full object-contain p-1">
+                      ` : `
+                        <span class="text-amber-400 font-heading font-black text-sm">
+                          ${getInitials(storeConfig.name)}
+                        </span>
+                      `}
                     </div>
                   </div>
                   <div>
@@ -1547,4 +1596,3 @@
   </script>
 </body>
 </html>
-```

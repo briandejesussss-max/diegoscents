@@ -31,7 +31,7 @@
         },
         "bottle": {
           "price": 5900,
-          "inStock": true
+          "inStock": false
         }
       }
     },

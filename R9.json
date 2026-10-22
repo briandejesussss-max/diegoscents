@@ -59,7 +59,7 @@
      "inStock": false
     },
     "bottle": {
-     "price": 1200,
+     "price": 1300,
      "inStock": false,
      "onDemand": true
     }

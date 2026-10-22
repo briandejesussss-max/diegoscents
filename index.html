@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html lang="es" style="background-color: #07050B; color: #FFFFFF;">
+<html lang="es" id="html-root" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
   <title id="page-title">JS FRAGANCES - Catálogo Oficial 🎃💀</title>
-  <meta name="description" content="Catálogo exclusivo de decants y botellas completas. Edición especial Día de Muertos y Halloween.">
+  <meta name="description" content="Catálogo exclusivo de decants y botellas completas. Edición especial Día de Muertos y Halloween con cotizador de guías.">
   <meta property="og:title" content="JS FRAGANCES - Catálogo Oficial 🎃💀">
-  <meta property="og:description" content="TU MUESTRA DE LUJO AL MEJOR PRECIO. Decants y botellas completas con envíos a toda la república.">
+  <meta property="og:description" content="TU MUESTRA DE LUJO AL MEJOR PRECIO. Decants, botellas completas y venta de guías con envíos a toda la república.">
   <meta property="og:type" content="website">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FF7518',
+              gold: '#FFD700',
+              pink: '#FF1493',
+              purple: '#8A2BE2'
+            }
+          }
+        }
+      }
+    }
+  </script>
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -28,15 +45,116 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    html, body {
+    /* MODO OSCURO (Default temático altar/Halloween) */
+    html.dark, html.dark body {
       background-color: #07050B !important;
-      color: #F3F4F6;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      width: 100%;
-      overflow-x: hidden;
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: #F3F4F6 !important;
+    }
+    html.dark body {
+      background-image: radial-gradient(circle at 10% 15%, rgba(255,117,24,.12) 0, transparent 24%), radial-gradient(circle at 92% 55%, rgba(255,20,147,.10) 0, transparent 26%), radial-gradient(circle at 20% 90%, rgba(138,43,226,.14) 0, transparent 28%);
+      background-attachment: fixed;
+    }
+    html.dark .spooky-ambient {
+      background: radial-gradient(circle at 12% 0%, rgba(255,117,24,.42), transparent 55%), radial-gradient(circle at 92% 25%, rgba(255,20,147,.28), transparent 50%), radial-gradient(circle at 50% 115%, rgba(138,43,226,.35), transparent 60%);
+    }
+    html.dark .catalog-card {
+      position: relative;
+      border: 2px solid transparent;
+      background: linear-gradient(160deg, rgba(36,16,46,.97), rgba(11,8,18,.98)) padding-box, linear-gradient(135deg,#FF7518,#FF1493,#8A2BE2,#FFD700) border-box;
+    }
+    html.dark .bottle-stage {
+      background: radial-gradient(circle at 50% 62%, rgba(255,117,24,.30) 0%, rgba(138,43,226,.18) 45%, rgba(13,9,22,.95) 78%);
+    }
+    html.dark .themed-modal-bg {
+      background-color: #140E24 !important;
+      color: #F3F4F6 !important;
+      border-color: rgba(255, 117, 24, 0.4) !important;
+    }
+    html.dark .themed-input {
+      background-color: #201538 !important;
+      border-color: #581c87 !important;
+      color: #FFFFFF !important;
+    }
+    html.dark .themed-subbox {
+      background-color: #0F0A1A !important;
+      border-color: rgba(147, 51, 234, 0.3) !important;
+    }
+
+    /* MODO CLARO (Día de Fiesta / Altar radiante) */
+    html:not(.dark), html:not(.dark) body {
+      background-color: #FFFDF9 !important;
+      color: #1F1928 !important;
+    }
+    html:not(.dark) body {
+      background-image: radial-gradient(circle at 10% 15%, rgba(255,117,24,.10) 0, transparent 30%), radial-gradient(circle at 90% 60%, rgba(255,20,147,.08) 0, transparent 30%), radial-gradient(circle at 30% 90%, rgba(138,43,226,.08) 0, transparent 35%);
+      background-attachment: fixed;
+    }
+    html:not(.dark) #top-navbar {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      border-bottom: 2px solid #FF7518 !important;
+    }
+    html:not(.dark) #top-navbar h1 {
+      color: #1A0D2E !important;
+    }
+    html:not(.dark) .spooky-ambient {
+      background: linear-gradient(135deg, rgba(255, 117, 24, 0.15) 0%, rgba(255, 243, 224, 0.9) 50%, rgba(243, 232, 255, 0.6) 100%) !important;
+    }
+    html:not(.dark) #hero-banner h2 {
+      color: #1F1235 !important;
+      text-shadow: none !important;
+    }
+    html:not(.dark) #hero-tagline {
+      color: #4A3B63 !important;
+    }
+    html:not(.dark) #hero-banner .grid > div,
+    html:not(.dark) #yield-section > div,
+    html:not(.dark) #search-section {
+      background-color: #FFFFFF !important;
+      border-color: rgba(255, 117, 24, 0.35) !important;
+      box-shadow: 0 4px 16px -2px rgba(255, 117, 24, 0.12) !important;
+    }
+    html:not(.dark) .catalog-card {
+      position: relative;
+      border: 2px solid transparent;
+      background: linear-gradient(160deg, #FFFFFF, #FFF9F2) padding-box, linear-gradient(135deg,#FF7518,#FF1493,#FFD700) border-box;
+      box-shadow: 0 8px 24px -6px rgba(0,0,0,0.08);
+    }
+    html:not(.dark) .catalog-card h3 {
+      color: #1F1235 !important;
+    }
+    html:not(.dark) .catalog-card p {
+      color: #4B4459 !important;
+    }
+    html:not(.dark) .bottle-stage {
+      background: radial-gradient(circle at 50% 62%, rgba(255,180,100,.25) 0%, rgba(245,230,255,.35) 50%, rgba(245,240,235,.9) 80%);
+    }
+    html:not(.dark) .themed-modal-bg {
+      background-color: #FFFFFF !important;
+      color: #1A122A !important;
+      border-color: rgba(255, 117, 24, 0.5) !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+    }
+    html:not(.dark) .themed-input {
+      background-color: #F8F5FF !important;
+      border-color: #D8B4FE !important;
+      color: #1A0D2E !important;
+    }
+    html:not(.dark) .themed-subbox {
+      background-color: #FAF5FF !important;
+      border-color: #E9D5FF !important;
+    }
+    html:not(.dark) #contact-footer {
+      background: linear-gradient(180deg, #FDF8F3, #F5EFEB) !important;
+      border-top-color: #FF7518 !important;
+    }
+    html:not(.dark) #contact-footer h3,
+    html:not(.dark) #contact-footer span.text-white,
+    html:not(.dark) #contact-footer button {
+      color: #1F1235 !important;
+    }
+    html:not(.dark) #contact-footer p,
+    html:not(.dark) #contact-footer a {
+      color: #4A3B63 !important;
     }
 
     .font-heading {
@@ -44,41 +162,62 @@
       letter-spacing: -0.02em;
     }
 
-    /* Fondo temático con gradiente tenue */
-    .spooky-ambient {
-      background: radial-gradient(circle at 50% -10%, rgba(255, 117, 24, 0.22) 0%, rgba(106, 13, 173, 0.15) 45%, rgba(7, 5, 11, 0) 80%);
-    }
-
-    /* Tarjetas estilo altar de noche de brujas */
-    .catalog-card {
-      background: linear-gradient(155deg, rgba(23, 16, 35, 0.95), rgba(11, 8, 18, 0.98));
-      border: 1px solid rgba(255, 117, 24, 0.3);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
     .catalog-card:hover {
-      border-color: rgba(255, 140, 0, 0.85);
+      box-shadow: 0 16px 36px -10px rgba(0,0,0,.95), 0 0 28px -2px rgba(255,117,24,.5);
       transform: translateY(-4px);
-      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.95), 0 0 24px -4px rgba(255, 117, 24, 0.3);
+    }
+    .catalog-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(90deg,#FF7518,#FF1493,#8A2BE2,#FFD700,#00D2D3);
     }
 
-    .bottle-stage {
-      background: radial-gradient(circle at 50% 60%, rgba(255, 117, 24, 0.18) 0%, rgba(13, 9, 22, 0.95) 75%);
+    /* Papel picado decorativo */
+    :root {
+      --pp: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22300%22%20height%3D%2240%22%20viewBox%3D%220%200%20300%2040%22%3E%3Cpath%20d%3D%22M0%204%20Q150%2010%20300%204%22%20fill%3D%22none%22%20stroke%3D%22%23d9b38c%22%20stroke-width%3D%221.2%22/%3E%3Cpath%20d%3D%22M2%206%20H58%20V32%20L49%2027%20L39%2034%20L30%2027%20L21%2034%20L11%2027%20L2%2032%20Z%22%20fill%3D%22%23FF7518%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M62%206%20H118%20V32%20L109%2027%20L99%2034%20L90%2027%20L81%2034%20L71%2027%20L62%2032%20Z%22%20fill%3D%22%23FF1493%22/%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22104%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M122%206%20H178%20V32%20L169%2027%20L159%2034%20L150%2027%20L141%2034%20L131%2027%20L122%2032%20Z%22%20fill%3D%22%238A2BE2%22/%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22136%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22164%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M182%206%20H238%20V32%20L229%2027%20L219%2034%20L210%2027%20L201%2034%20L191%2027%20L182%2032%20Z%22%20fill%3D%22%23FFD700%22/%3E%3Ccircle%20cx%3D%22210%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22196%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22224%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M242%206%20H298%20V32%20L289%2027%20L279%2034%20L270%2027%20L261%2034%20L251%2027%20L242%2032%20Z%22%20fill%3D%22%2300D2D3%22/%3E%3Ccircle%20cx%3D%22270%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22256%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22284%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3C/svg%3E");
     }
-
-    /* ===== TEMA DÍA DE MUERTOS (solo diseño) ===== */
-    :root { --pp: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22300%22%20height%3D%2240%22%20viewBox%3D%220%200%20300%2040%22%3E%3Cpath%20d%3D%22M0%204%20Q150%2010%20300%204%22%20fill%3D%22none%22%20stroke%3D%22%23d9b38c%22%20stroke-width%3D%221.2%22/%3E%3Cpath%20d%3D%22M2%206%20H58%20V32%20L49%2027%20L39%2034%20L30%2027%20L21%2034%20L11%2027%20L2%2032%20Z%22%20fill%3D%22%23FF7518%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M62%206%20H118%20V32%20L109%2027%20L99%2034%20L90%2027%20L81%2034%20L71%2027%20L62%2032%20Z%22%20fill%3D%22%23FF1493%22/%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22104%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M122%206%20H178%20V32%20L169%2027%20L159%2034%20L150%2027%20L141%2034%20L131%2027%20L122%2032%20Z%22%20fill%3D%22%238A2BE2%22/%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22136%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22164%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M182%206%20H238%20V32%20L229%2027%20L219%2034%20L210%2027%20L201%2034%20L191%2027%20L182%2032%20Z%22%20fill%3D%22%23FFD700%22/%3E%3Ccircle%20cx%3D%22210%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22196%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22224%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Cpath%20d%3D%22M242%206%20H298%20V32%20L289%2027%20L279%2034%20L270%2027%20L261%2034%20L251%2027%20L242%2032%20Z%22%20fill%3D%22%2300D2D3%22/%3E%3Ccircle%20cx%3D%22270%22%20cy%3D%2217%22%20r%3D%225%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22256%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%22284%22%20cy%3D%2215%22%20r%3D%222.2%22%20fill%3D%22%2307050B%22%20opacity%3D%22.55%22/%3E%3C/svg%3E"); }
-    body { background-image: radial-gradient(circle at 10% 15%, rgba(255,117,24,.12) 0, transparent 24%), radial-gradient(circle at 92% 55%, rgba(255,20,147,.10) 0, transparent 26%), radial-gradient(circle at 20% 90%, rgba(138,43,226,.14) 0, transparent 28%); background-attachment: fixed; }
-    .papel-picado { height: 40px; background-image: var(--pp); background-repeat: repeat-x; background-size: 300px 40px; transform-origin: top; animation: flutter 3.5s ease-in-out infinite alternate; pointer-events: none; }
+    .papel-picado {
+      height: 40px;
+      background-image: var(--pp);
+      background-repeat: repeat-x;
+      background-size: 300px 40px;
+      transform-origin: top;
+      animation: flutter 3.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
     @keyframes flutter { from { transform: skewX(-1.2deg); } to { transform: skewX(1.2deg); } }
-    #top-navbar { border-bottom: 3px solid; border-image: linear-gradient(90deg,#FF7518,#FF1493,#8A2BE2,#FFD700,#00D2D3) 1; }
-    .spooky-ambient { background: radial-gradient(circle at 12% 0%, rgba(255,117,24,.42), transparent 55%), radial-gradient(circle at 92% 25%, rgba(255,20,147,.28), transparent 50%), radial-gradient(circle at 50% 115%, rgba(138,43,226,.35), transparent 60%); }
-    #hero-banner { overflow: hidden; }
-    #hero-banner h2 { text-shadow: 0 2px 18px rgba(255,117,24,.55); }
-    #hero-store-name { background: linear-gradient(90deg,#FF7518,#FFD700,#FF1493); -webkit-background-clip: text; background-clip: text; color: transparent !important; text-shadow: none; }
-    #hero-banner .grid > div { background: linear-gradient(135deg, rgba(255,117,24,.16), rgba(138,43,226,.22)) !important; border-color: rgba(255,190,80,.55) !important; transition: transform .25s, box-shadow .25s; }
-    #hero-banner .grid > div:hover { transform: translateY(-3px); box-shadow: 0 10px 26px -8px rgba(255,117,24,.55); }
-    .petals { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
-    .petals span { position: absolute; top: -30px; font-size: 20px; opacity: .8; animation: fall 10s linear infinite; }
+
+    #top-navbar {
+      border-bottom: 3px solid;
+      border-image: linear-gradient(90deg,#FF7518,#FF1493,#8A2BE2,#FFD700,#00D2D3) 1;
+    }
+
+    #hero-store-name {
+      background: linear-gradient(90deg,#FF7518,#FFD700,#FF1493);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+      text-shadow: none;
+    }
+
+    .petals {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .petals span {
+      position: absolute;
+      top: -30px;
+      font-size: 20px;
+      opacity: .8;
+      animation: fall 10s linear infinite;
+    }
     .petals span:nth-child(1) { left: 5%; animation-delay: 0s; }
     .petals span:nth-child(2) { left: 18%; animation-delay: 3s; animation-duration: 12s; font-size: 16px; }
     .petals span:nth-child(3) { left: 32%; animation-delay: 6s; }
@@ -87,24 +226,27 @@
     .petals span:nth-child(6) { left: 74%; animation-delay: 8s; animation-duration: 11s; font-size: 18px; }
     .petals span:nth-child(7) { left: 86%; animation-delay: 2s; }
     .petals span:nth-child(8) { left: 95%; animation-delay: 5.5s; font-size: 15px; }
-    @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); } 100% { transform: translateY(480px) rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .petals { display: none; } .papel-picado { animation: none; } }
-    .altar-title { font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: .18em; font-size: 14px; background: linear-gradient(90deg,#FF7518,#FFD700,#FF1493); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .altar-sub { font-size: 12px; letter-spacing: .5em; opacity: .85; margin-top: 2px; }
-    .catalog-card { position: relative; border: 2px solid transparent; background: linear-gradient(160deg, rgba(36,16,46,.97), rgba(11,8,18,.98)) padding-box, linear-gradient(135deg,#FF7518,#FF1493,#8A2BE2,#FFD700) border-box; }
-    .catalog-card:hover { box-shadow: 0 16px 36px -10px rgba(0,0,0,.95), 0 0 28px -2px rgba(255,117,24,.5); }
-    .catalog-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; z-index: 2; pointer-events: none; background: linear-gradient(90deg,#FF7518,#FF1493,#8A2BE2,#FFD700,#00D2D3); }
-    .bottle-stage { position: relative; background: radial-gradient(circle at 50% 62%, rgba(255,117,24,.30) 0%, rgba(138,43,226,.18) 45%, rgba(13,9,22,.95) 78%); }
-    .bottle-stage::after { content: '🏵️'; position: absolute; right: 8px; bottom: 6px; font-size: 22px; opacity: .4; pointer-events: none; }
-    #contact-footer { position: relative; padding-top: 3.4rem; background: linear-gradient(180deg,#0B0813,#1A0B22); }
-    #contact-footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40px; background-image: var(--pp); background-repeat: repeat-x; background-size: 300px 40px; opacity: .9; }
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg); }
+      100% { transform: translateY(480px) rotate(360deg); }
+    }
 
-    /* Impresión A4 limpia sin bordes */
+    .altar-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      letter-spacing: .18em;
+      font-size: 14px;
+      background: linear-gradient(90deg,#FF7518,#FFD700,#FF1493);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Impresión A4 limpia */
     @page {
       size: A4 portrait;
       margin: 0 !important;
     }
-
     @media print {
       html, body { background:#07050B !important; color:#fff !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; margin:0 !important; padding:0 !important; width:210mm !important; }
       body { background-image:none !important; }
@@ -116,22 +258,22 @@
     }
   </style>
 </head>
-<body class="flex flex-col antialiased selection:bg-[#FF7518] selection:text-black">
+<body class="flex flex-col antialiased selection:bg-[#FF7518] selection:text-black min-h-screen">
 
   <!-- PAPEL PICADO -->
   <div class="no-print papel-picado" aria-hidden="true"></div>
 
   <!-- NAVBAR SUPERIOR -->
-  <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#0E0A17]/95 backdrop-blur-md border-b border-orange-500/30 px-4 py-3">
+  <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#0E0A17]/95 backdrop-blur-md border-b border-orange-500/30 px-4 py-3 transition-colors duration-300">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       
       <!-- LOGO / IDENTIFICADOR -->
       <div class="flex items-center space-x-3">
         <div class="relative group cursor-pointer" onclick="triggerLogoUpload()" title="Haz clic para subir o cambiar logotipo">
           <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FF7518] via-[#FFD700] to-[#8A2BE2] p-[2px] shadow-lg shadow-orange-500/25 flex items-center justify-center">
-            <div class="w-full h-full bg-[#140D24] rounded-[14px] flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full bg-[#140D24] dark:bg-[#140D24] bg-white rounded-[14px] flex items-center justify-center overflow-hidden">
               <img id="header-logo-img" src="" alt="Logo" class="hidden w-full h-full object-contain p-1">
-              <span id="header-logo-icon" class="text-amber-400 font-heading font-black text-sm tracking-wider">JF</span>
+              <span id="header-logo-icon" class="text-amber-500 font-heading font-black text-sm tracking-wider">JF</span>
             </div>
           </div>
           <input type="file" id="quick-logo-input" accept="image/*" class="hidden" onchange="handleDirectLogoUpload(event)">
@@ -142,16 +284,29 @@
             JS FRAGANCES 
             <span class="text-base">🎃</span>
           </h1>
-          <p class="text-[10px] text-orange-200/80 font-medium flex items-center gap-1">
-            <span>Edición Día de Muertos & Halloween</span>
-            <span class="text-xs">💀🏵️</span>
+          <p class="text-[10px] text-orange-400 dark:text-orange-200/80 font-medium flex items-center gap-1">
+            <span>Edición Especial & Guías de Envío</span>
+            <span class="text-xs">💀📦</span>
           </p>
         </div>
       </div>
 
-      <!-- BOTONES DE ACCIÓN -->
+      <!-- BOTONES DE ACCIÓN SUPERIOR -->
       <div class="flex items-center flex-wrap gap-2">
-        <button id="auth-btn" onclick="toggleAuthModal()" class="px-3 py-1.5 rounded-xl bg-purple-950/70 hover:bg-purple-900/80 text-xs text-orange-200 border border-orange-500/40 flex items-center gap-1.5 transition">
+
+        <!-- BOTÓN MODO DÍA / NOCHE -->
+        <button id="theme-toggle-btn" onclick="toggleTheme()" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-500 dark:text-amber-300 border border-amber-500/40 flex items-center gap-1.5 transition font-bold text-xs" title="Cambiar a Modo Día / Noche">
+          <span id="theme-icon"><i data-lucide="moon" class="w-3.5 h-3.5"></i></span>
+          <span id="theme-text">Modo Noche</span>
+        </button>
+
+        <!-- BOTÓN GENERAR GUÍA (APARTADO DE VENTA DE GUÍAS) -->
+        <button onclick="openShippingModal()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 hover:brightness-110 text-black font-extrabold text-xs flex items-center gap-1.5 shadow-md shadow-orange-500/30 transition active:scale-95">
+          <i data-lucide="truck" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+          <span>Generar Guía 📦</span>
+        </button>
+
+        <button id="auth-btn" onclick="toggleAuthModal()" class="px-3 py-1.5 rounded-xl bg-purple-950/70 hover:bg-purple-900/80 dark:bg-purple-950/70 bg-purple-100 text-xs text-orange-600 dark:text-orange-200 border border-orange-500/40 flex items-center gap-1.5 transition font-semibold">
           <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#FF7518]"></i>
           <span id="auth-btn-text">Admin Login</span>
         </button>
@@ -182,9 +337,9 @@
           <span>Bolsa (<span id="cart-count">0</span>)</span>
         </button>
 
-        <button onclick="printCatalog()" class="px-3.5 py-1.5 rounded-xl bg-purple-950/80 hover:bg-purple-900 text-orange-200 text-xs font-bold flex items-center gap-1.5 border border-orange-500/50 transition shadow active:scale-95">
+        <button onclick="printCatalog()" class="px-3 py-1.5 rounded-xl bg-purple-950/80 hover:bg-purple-900 dark:bg-purple-950/80 bg-purple-100 text-orange-600 dark:text-orange-200 text-xs font-bold flex items-center gap-1.5 border border-orange-500/50 transition shadow active:scale-95">
           <i data-lucide="printer" class="w-3.5 h-3.5 text-[#FF7518]"></i>
-          <span>Guardar PDF</span>
+          <span>PDF</span>
         </button>
       </div>
 
@@ -197,36 +352,81 @@
     <div class="max-w-6xl mx-auto flex flex-col gap-5 relative z-10">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gradient-to-r from-orange-500/25 to-purple-950/70 border border-orange-500/50 text-amber-300 text-[10px] font-bold tracking-widest uppercase mb-2.5">
-            <span class="w-2 h-2 rounded-full bg-[#FF7518] animate-ping"></span><span>Tienda confiable • Perfumes originales 💀🕯️</span>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gradient-to-r from-orange-500/25 to-purple-950/70 border border-orange-500/50 text-amber-500 dark:text-amber-300 text-[10px] font-bold tracking-widest uppercase mb-2.5">
+            <span class="w-2 h-2 rounded-full bg-[#FF7518] animate-ping"></span><span>Tienda confiable • Perfumes Originales & Guías Express 💀📦</span>
           </div>
           <h2 class="font-heading text-2xl sm:text-4xl font-extrabold text-white leading-tight">Bienvenido a <span id="hero-store-name" class="text-[#FFB347]">JS FRAGANCES</span></h2>
           <p id="hero-tagline" class="text-xs sm:text-sm text-orange-200/90 mt-2 max-w-xl"></p>
         </div>
-        <div class="flex gap-2">
-          <a href="#catalogo" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#FF7518] to-[#FFD700] text-black font-extrabold text-xs">Ver catálogo</a>
-          <button onclick="contactWhatsApp()" class="px-4 py-2 rounded-xl bg-[#25D366] text-black font-extrabold text-xs">WhatsApp</button>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="openShippingModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-black font-extrabold text-xs shadow hover:brightness-110 flex items-center gap-1.5">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>Cotizar Guía</span>
+          </button>
+          <a href="#catalogo" class="px-4 py-2 rounded-xl bg-purple-950/80 dark:bg-purple-900 bg-purple-200 text-purple-900 dark:text-orange-200 font-extrabold text-xs border border-orange-500/40 flex items-center">Ver catálogo</a>
+          <button onclick="contactWhatsApp()" class="px-4 py-2 rounded-xl bg-[#25D366] text-black font-extrabold text-xs flex items-center gap-1">
+            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+            <span>WhatsApp</span>
+          </button>
         </div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-        <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#150E24]/90 border border-orange-500/40"><div class="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/50 flex items-center justify-center shrink-0"><i data-lucide="badge-check" class="w-4.5 h-4.5 text-[#FF7518]"></i></div><div><strong class="text-white text-xs block">Productos 100% originales</strong><span class="text-[11px] text-zinc-300">Decants de frascos auténticos</span></div></div>
-        <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#150E24]/90 border border-orange-500/40"><div class="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/50 flex items-center justify-center shrink-0"><i data-lucide="truck" class="w-4.5 h-4.5 text-[#FF7518]"></i></div><div><strong class="text-white text-xs block">Envío a todo México</strong><span class="text-[11px] text-zinc-300"><span id="hero-ship-note">Envíos a toda la república</span></span></div></div>
-        <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#150E24]/90 border border-orange-500/40"><div class="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/50 flex items-center justify-center shrink-0"><i data-lucide="shield-check" class="w-4.5 h-4.5 text-[#FF7518]"></i></div><div><strong class="text-white text-xs block">Tienda confiable</strong><span class="text-[11px] text-zinc-300">Atención directa por WhatsApp</span></div></div>
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#150E24]/90 border border-orange-500/40"><div class="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/50 flex items-center justify-center shrink-0"><i data-lucide="badge-check" class="w-4.5 h-4.5 text-[#FF7518]"></i></div><div><strong class="text-zinc-900 dark:text-white text-xs block">Productos 100% originales</strong><span class="text-[11px] text-zinc-600 dark:text-zinc-300">Decants sellados y botellas auténticas</span></div></div>
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#150E24]/90 border border-orange-500/40"><div class="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/50 flex items-center justify-center shrink-0"><i data-lucide="truck" class="w-4.5 h-4.5 text-[#FF7518]"></i></div><div><strong class="text-zinc-900 dark:text-white text-xs block">Venta de Guías Express</strong><span class="text-[11px] text-zinc-600 dark:text-zinc-300">DHL, Fedex, Estafeta, Punto Post, Paquetexpress</span></div></div>
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#150E24]/90 border border-orange-500/40"><div class="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/50 flex items-center justify-center shrink-0"><i data-lucide="shield-check" class="w-4.5 h-4.5 text-[#FF7518]"></i></div><div><strong class="text-zinc-900 dark:text-white text-xs block">Atención Rápida y Segura</strong><span class="text-[11px] text-zinc-600 dark:text-zinc-300">Envíos inmediatos por WhatsApp</span></div></div>
       </div>
     </div>
   </section>
 
+  <!-- TARIFAS DE GUÍAS DE ENVÍO -->
+  <section class="no-print px-4 pt-5">
+    <div class="max-w-6xl mx-auto themed-subbox border border-orange-500/40 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-lg">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center text-black font-bold">
+          <i data-lucide="package-check" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-xs font-bold text-[#FF7518] uppercase tracking-wider block">Tarifas de Guías de Envío</span>
+          <p class="text-xs text-zinc-600 dark:text-zinc-300">DHL · Estafeta · FedEx · Punto Post · Paquetexpress</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 flex-1 max-w-lg">
+        <div class="themed-input p-2 rounded-xl text-center border border-purple-900/60">
+          <span class="text-[10px] text-zinc-500 dark:text-zinc-400 block font-semibold">1 kg</span>
+          <strong class="text-sm font-extrabold text-[#FF7518]">$170 MXN</strong>
+        </div>
+        <div class="themed-input p-2 rounded-xl text-center border border-orange-500/70">
+          <span class="text-[10px] text-zinc-500 dark:text-zinc-400 block font-semibold">2 kg</span>
+          <strong class="text-sm font-extrabold text-amber-500">$180 MXN</strong>
+        </div>
+        <div class="themed-input p-2 rounded-xl text-center border border-purple-900/60">
+          <span class="text-[10px] text-zinc-500 dark:text-zinc-400 block font-semibold">3 kg en adelante</span>
+          <strong class="text-xs font-bold text-zinc-700 dark:text-zinc-200">Cotización</strong>
+        </div>
+      </div>
+      <button onclick="openShippingModal()" class="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow transition">
+        <i data-lucide="send" class="w-4 h-4"></i>
+        <span>Solicitar Formulario de Guía</span>
+      </button>
+    </div>
+  </section>
+
   <!-- GUÍA DE RENDIMIENTO -->
-  <section id="yield-section" class="no-print px-4 pt-5">
+  <section id="yield-section" class="no-print px-4 pt-3">
     <div class="max-w-6xl mx-auto bg-[#150E24]/90 border border-orange-500/40 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center gap-3">
-      <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1.5 shrink-0"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-orange-400"></i> Rendimiento por frasco</span>
-      <div class="grid grid-cols-4 gap-2 flex-1"><div class="bg-[#201538] p-2 rounded-xl border border-purple-900/80 text-center"><span class="text-[10px] text-zinc-400 block font-semibold">3 ml</span><strong class="text-white text-xs">~45 sprays</strong></div><div class="bg-[#201538] p-2 rounded-xl border border-orange-500/70 text-center"><span class="text-[10px] text-amber-300 block font-semibold">5 ml</span><strong class="text-white text-xs">~75 sprays</strong></div><div class="bg-[#201538] p-2 rounded-xl border border-purple-900/80 text-center"><span class="text-[10px] text-zinc-400 block font-semibold">10 ml</span><strong class="text-white text-xs">~150 sprays</strong></div><div class="bg-[#201538] p-2 rounded-xl border border-amber-500/50 text-center"><span class="text-[10px] text-amber-400 block font-semibold">Botella</span><strong class="text-white text-xs">Completa</strong></div></div>
+      <span class="text-[11px] font-bold text-amber-500 dark:text-amber-400 flex items-center gap-1.5 shrink-0"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-orange-400"></i> Rendimiento por decant</span>
+      <div class="grid grid-cols-4 gap-2 flex-1"><div class="themed-subbox p-2 rounded-xl border border-purple-900/80 text-center"><span class="text-[10px] text-zinc-500 dark:text-zinc-400 block font-semibold">3 ml</span><strong class="text-zinc-800 dark:text-white text-xs">~45 sprays</strong></div><div class="themed-subbox p-2 rounded-xl border border-orange-500/70 text-center"><span class="text-[10px] text-amber-500 dark:text-amber-300 block font-semibold">5 ml</span><strong class="text-zinc-800 dark:text-white text-xs">~75 sprays</strong></div><div class="themed-subbox p-2 rounded-xl border border-purple-900/80 text-center"><span class="text-[10px] text-zinc-500 dark:text-zinc-400 block font-semibold">10 ml</span><strong class="text-zinc-800 dark:text-white text-xs">~150 sprays</strong></div><div class="themed-subbox p-2 rounded-xl border border-amber-500/50 text-center"><span class="text-[10px] text-amber-500 dark:text-amber-400 block font-semibold">Botella</span><strong class="text-zinc-800 dark:text-white text-xs">Completa</strong></div></div>
     </div>
   </section>
 
   <!-- CONTENIDO PRINCIPAL: FILTROS + CATÁLOGO -->
   <main id="catalogo" class="scroll-mt-16 flex-1 max-w-6xl w-full mx-auto p-4 flex flex-col gap-5 relative z-10">
-    <div class="no-print text-center pt-2"><div class="altar-title">🏵️ ALTAR DE FRAGANCIAS 🏵️</div><div class="altar-sub">💀 ✦ 🕯️ ✦ 💀</div></div>
+    <div class="no-print text-center pt-2">
+      <div class="altar-title">🏵️ ALTAR DE FRAGANCIAS 🏵️</div>
+      <div class="text-[11px] text-zinc-500 dark:text-zinc-400">💀 ✦ 🕯️ ✦ 💀</div>
+    </div>
+
+    <!-- SECCIÓN DE BÚSQUEDA, FILTRO POR MARCA, ORDENADOR Y CATEGORÍA -->
     <section id="search-section" class="no-print bg-[#130E22]/90 backdrop-blur border border-orange-500/35 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-xl">
       <div class="flex items-center gap-2.5 flex-1 min-w-[240px]">
         <div class="relative w-full">
@@ -235,20 +435,49 @@
             type="text" 
             id="search-input" 
             oninput="filterCatalog()"
-            placeholder="Buscar fragancia, casa olfativa o notas..." 
-            class="w-full bg-[#1C1430] border border-purple-900/90 rounded-xl pl-10 pr-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500 transition"
+            placeholder="Buscar fragancia, marca o notas..." 
+            class="w-full themed-input border border-purple-900/90 rounded-xl pl-10 pr-3 py-2 text-xs focus:outline-none focus:border-orange-500 transition"
           >
         </div>
+      </div>
+
+      <!-- ORDENADOR Y FILTROS -->
+      <div class="flex items-center flex-wrap gap-2">
+        <!-- ORDENADOR POR ALFABETO / NOMBRE / MARCA -->
+        <div class="flex items-center gap-1">
+          <span class="text-[10px] text-zinc-400 font-semibold uppercase">Ordenar:</span>
+          <select 
+            id="sort-order" 
+            onchange="filterCatalog()" 
+            class="themed-input border border-purple-900/90 rounded-xl px-2.5 py-2 text-xs focus:outline-none">
+            <option value="name_asc">Nombre (A - Z)</option>
+            <option value="name_desc">Nombre (Z - A)</option>
+            <option value="brand_asc">Marca / Casa (A - Z)</option>
+            <option value="brand_desc">Marca / Casa (Z - A)</option>
+          </select>
+        </div>
+
+        <!-- FILTRO POR CATEGORÍA / GÉNERO -->
+        <select 
+          id="filter-gender" 
+          onchange="filterCatalog()" 
+          class="themed-input border border-purple-900/90 rounded-xl px-2.5 py-2 text-xs focus:outline-none">
+          <option value="ALL">Todas las Categorías</option>
+          <option value="Unisex">Unisex</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+
+        <!-- FILTRO POR MARCA -->
         <select 
           id="filter-brand" 
           onchange="filterCatalog()" 
-          class="bg-[#1C1430] border border-purple-900/90 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none max-w-[180px]">
+          class="themed-input border border-purple-900/90 rounded-xl px-2.5 py-2 text-xs focus:outline-none max-w-[160px]">
           <option value="ALL">Todas las Casas</option>
         </select>
-      </div>
 
-      <div class="flex items-center gap-2">
-        <select id="currency-symbol" onchange="renderCatalog()" class="bg-[#1C1430] border border-purple-900/90 text-xs text-white rounded-xl px-3 py-2 focus:outline-none">
+        <!-- MONEDA -->
+        <select id="currency-symbol" onchange="renderCatalog()" class="themed-input border border-purple-900/90 text-xs rounded-xl px-2.5 py-2 focus:outline-none">
           <option value="$">$ (MXN)</option>
           <option value="USD $">USD $</option>
         </select>
@@ -258,38 +487,198 @@
     <!-- CATÁLOGO (10 inicial, resto bajo demanda) -->
     <div class="w-full flex justify-center"><div id="catalog-sheet" class="w-full max-w-[860px]"></div></div>
     <div id="load-more-wrap" class="no-print hidden flex flex-col items-center gap-2 pb-4">
-      <span id="catalog-count" class="text-[11px] text-zinc-400"></span>
+      <span id="catalog-count" class="text-[11px] text-zinc-500 dark:text-zinc-400"></span>
       <button id="load-more-btn" onclick="loadMorePerfumes()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-[#FF7518] to-[#FFD700] text-black font-extrabold text-xs hover:brightness-110 active:scale-95 transition">Ver más perfumes</button>
     </div>
 
     <div id="empty-state" class="hidden py-20 text-center">
       <div class="text-5xl mb-3">🎃👻🏵️</div>
-      <h3 class="text-base font-semibold text-zinc-200">No se encontraron fragancias</h3>
-      <p class="text-xs text-zinc-400 mt-1">Intenta con otro término de búsqueda o agrega un nuevo perfume.</p>
+      <h3 class="text-base font-semibold text-zinc-700 dark:text-zinc-200">No se encontraron fragancias</h3>
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Intenta con otro término de búsqueda o cambia tus filtros de marca/categoría.</p>
     </div>
   </main>
 
-  <!-- CONTACTO Y ENVÍOS -->
-  <footer id="contact-footer" class="no-print border-t border-orange-500/30 bg-[#0B0813] px-4 py-8 mt-4">
+  <!-- MODAL / FORMULARIO PARA VENTA Y COTIZACIÓN DE GUÍAS -->
+  <div id="shipping-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs overflow-y-auto">
+    <div class="themed-modal-bg border rounded-2xl w-full max-w-xl p-5 relative my-6 max-h-[92vh] overflow-y-auto shadow-2xl">
+      <button onclick="closeShippingModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-4">
+        <span class="text-[10px] tracking-widest text-[#FF7518] uppercase font-bold flex items-center gap-1">
+          <i data-lucide="truck" class="w-3.5 h-3.5"></i> Venta & Generación de Guías de Envío
+        </span>
+        <h3 class="font-heading text-lg font-bold mt-0.5">Formulario de Solicitud de Guía</h3>
+        <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Completa los datos de remitente y destinatario para generar y enviar la guía directamente a WhatsApp.</p>
+      </div>
+
+      <!-- Tarjetas de Paquetería y Tarifas Base -->
+      <div class="mb-4 p-3 rounded-xl themed-subbox border border-orange-500/40">
+        <span class="text-[10px] font-bold text-amber-500 uppercase tracking-wider block mb-1.5">Precios Base Disponibles</span>
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+          <div class="p-1.5 rounded-lg border border-purple-900/60 themed-input">
+            <span class="block text-[10px] text-zinc-400">1 Kilogramo</span>
+            <strong class="text-sm font-extrabold text-[#FF7518]">$170 MXN</strong>
+          </div>
+          <div class="p-1.5 rounded-lg border border-orange-500/60 themed-input">
+            <span class="block text-[10px] text-zinc-400">2 Kilogramos</span>
+            <strong class="text-sm font-extrabold text-amber-500">$180 MXN</strong>
+          </div>
+          <div class="p-1.5 rounded-lg border border-purple-900/60 themed-input">
+            <span class="block text-[10px] text-zinc-400">3 kg en adelante</span>
+            <strong class="text-xs font-bold text-zinc-300">Bajo cotización</strong>
+          </div>
+        </div>
+      </div>
+
+      <form id="shipping-form" onsubmit="handleShippingSubmit(event)" class="space-y-4">
+        
+        <!-- Selección de Paquetería y Peso -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold mb-1">Paquetería de Preferencia *</label>
+            <select id="ship-courier" required class="w-full themed-input border rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
+              <option value="">Selecciona la paquetería...</option>
+              <option value="DHL Express">DHL Express</option>
+              <option value="Estafeta">Estafeta</option>
+              <option value="FedEx">FedEx</option>
+              <option value="Punto Post">Punto Post</option>
+              <option value="Paquetexpress">Paquetexpress</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold mb-1">Peso / Tipo de Guía *</label>
+            <select id="ship-weight" onchange="updateShippingPricePreview()" required class="w-full themed-input border rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
+              <option value="">Selecciona el peso...</option>
+              <option value="1 kg - $170 MXN">1 kg (Sobre o paquete) - $170 MXN</option>
+              <option value="2 kg - $180 MXN">2 kg - $180 MXN</option>
+              <option value="3 kg (Bajo cotización)">3 kg (Bajo demanda / cotización)</option>
+              <option value="4 a 5 kg (Bajo cotización)">4 a 5 kg (Bajo cotización)</option>
+              <option value="Guía Especial / Carga (Cotizar)">Más de 5 kg / Carga pesada (Cotizar)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="ship-price-display" class="p-2 rounded-xl bg-orange-500/15 border border-orange-500/40 text-center font-bold text-xs text-orange-500 hidden">
+          Tarifa estimada: <span id="ship-price-val">$0</span>
+        </div>
+
+        <!-- DATOS DE ORIGEN (REMITENTE) -->
+        <div class="p-3 rounded-xl themed-subbox border border-purple-900/60 space-y-2">
+          <span class="text-xs font-bold text-amber-500 block uppercase tracking-wider flex items-center gap-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-orange-500"></i> Datos de Origen (Remitente)
+          </span>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">Nombre Completo *</label>
+              <input type="text" id="orig-name" required placeholder="Quien envía el paquete" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">Teléfono *</label>
+              <input type="tel" id="orig-phone" required placeholder="10 dígitos" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2">
+            <div class="col-span-2">
+              <label class="block text-zinc-400 mb-1 font-semibold">Calle y Número *</label>
+              <input type="text" id="orig-street" required placeholder="Calle, No. Ext e Int" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">C.P. *</label>
+              <input type="text" id="orig-cp" required placeholder="Código Postal" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">Colonia *</label>
+              <input type="text" id="orig-colonia" required placeholder="Colonia / Fracc." class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">Ciudad y Estado *</label>
+              <input type="text" id="orig-city" required placeholder="Ej. Saltillo, Coahuila" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- DATOS DE DESTINO (DESTINATARIO) -->
+        <div class="p-3 rounded-xl themed-subbox border border-purple-900/60 space-y-2">
+          <span class="text-xs font-bold text-amber-500 block uppercase tracking-wider flex items-center gap-1">
+            <i data-lucide="flag" class="w-3.5 h-3.5 text-orange-500"></i> Datos de Destino (Destinatario)
+          </span>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">Nombre Completo *</label>
+              <input type="text" id="dest-name" required placeholder="Quien recibe el paquete" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">Teléfono *</label>
+              <input type="tel" id="dest-phone" required placeholder="10 dígitos" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2">
+            <div class="col-span-2">
+              <label class="block text-zinc-400 mb-1 font-semibold">Calle y Número *</label>
+              <input type="text" id="dest-street" required placeholder="Calle, No. Ext e Int" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">C.P. *</label>
+              <input type="text" id="dest-cp" required placeholder="Código Postal" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">Colonia *</label>
+              <input type="text" id="dest-colonia" required placeholder="Colonia / Fracc." class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-zinc-400 mb-1 font-semibold">Ciudad y Estado *</label>
+              <input type="text" id="dest-city" required placeholder="Ej. Monterrey, Nuevo León" class="w-full themed-input border rounded-xl px-2.5 py-1.5 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTENIDO Y MEDIDAS -->
+        <div>
+          <label class="block font-semibold mb-1">Contenido / Dimensiones del Paquete *</label>
+          <input type="text" id="ship-contents" required placeholder="Ej: Perfumes, ropa, refacciones (y dimensiones aprox. L x An x Al en cm)" class="w-full themed-input border rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-black font-extrabold flex items-center justify-center gap-2 shadow-lg transition text-sm">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Enviar Solicitud de Guía a WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONTACTO Y FOOTER -->
+  <footer id="contact-footer" class="no-print border-t border-orange-500/30 bg-[#0B0813] px-4 py-8 mt-4 transition-colors duration-300">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-      <div><h3 id="ft-name" class="font-heading font-extrabold text-white uppercase text-sm"></h3><p id="ft-tagline" class="text-orange-200/80 mt-1"></p></div>
+      <div><h3 id="ft-name" class="font-heading font-extrabold uppercase text-sm"></h3><p id="ft-tagline" class="text-orange-400 dark:text-orange-200/80 mt-1"></p></div>
       <div class="space-y-1.5">
-        <span class="text-amber-400 font-bold uppercase text-[11px] block">Contacto</span>
-        <button onclick="contactWhatsApp()" class="flex items-center gap-1.5 text-white font-semibold"><i data-lucide="message-circle" class="w-3.5 h-3.5 text-[#FF7518]"></i><span id="ft-whatsapp"></span></button>
-        <a id="ft-ig-link" target="_blank" rel="noopener" class="flex items-center gap-1.5 text-zinc-300 font-semibold"><i data-lucide="instagram" class="w-3.5 h-3.5 text-[#FF7518]"></i><span id="ft-instagram"></span></a>
+        <span class="text-amber-500 dark:text-amber-400 font-bold uppercase text-[11px] block">Contacto & Cotizaciones</span>
+        <button onclick="contactWhatsApp()" class="flex items-center gap-1.5 font-semibold"><i data-lucide="message-circle" class="w-3.5 h-3.5 text-[#FF7518]"></i><span id="ft-whatsapp"></span></button>
+        <a id="ft-ig-link" target="_blank" rel="noopener" class="flex items-center gap-1.5 font-semibold"><i data-lucide="instagram" class="w-3.5 h-3.5 text-[#FF7518]"></i><span id="ft-instagram"></span></a>
       </div>
       <div class="space-y-1.5">
-        <span class="text-amber-400 font-bold uppercase text-[11px] block">Envíos y autenticidad</span>
-        <p class="text-zinc-300 flex items-center gap-1.5"><i data-lucide="truck" class="w-3.5 h-3.5 text-[#FF7518]"></i><span id="ft-notes"></span></p>
-        <p class="text-zinc-300">✔ 100% originales • Decants sellados herméticamente</p>
+        <span class="text-amber-500 dark:text-amber-400 font-bold uppercase text-[11px] block">Envíos y Guías</span>
+        <p class="flex items-center gap-1.5"><i data-lucide="truck" class="w-3.5 h-3.5 text-[#FF7518]"></i><span id="ft-notes"></span></p>
+        <p>✔ 100% originales • Decants sellados • Guías express prepagadas</p>
       </div>
     </div>
   </footer>
   <div id="print-sheet" class="hidden"></div>
 
-  <!-- PANTALLA COMPLETA DE DETALLE DE PRODUCTO -->
+  <!-- DETALLE DE PRODUCTO -->
   <div id="product-page-view" class="no-print fixed inset-0 z-50 bg-[#07050B]/95 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-[#130E22] border border-orange-500/50 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative my-auto">
+    <div class="themed-modal-bg border border-orange-500/50 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative my-auto">
       <button onclick="closeProductView()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/70 border border-zinc-700 text-zinc-300 hover:text-white flex items-center justify-center transition">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -298,19 +687,19 @@
         <div class="bottle-stage p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-orange-500/25 relative min-h-[300px]">
           <img id="pv-img" src="" alt="Perfume" class="max-h-72 max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(255,115,0,0.35)]">
           <div class="absolute bottom-3 left-3 flex gap-1">
-            <span id="pv-concentration" class="bg-[#1C1430]/90 border border-purple-800 text-zinc-300 font-semibold text-[10px] px-2.5 py-0.5 rounded-full">EDP</span>
-            <span id="pv-gender" class="bg-orange-500/20 border border-orange-500/50 text-amber-300 font-semibold text-[10px] px-2.5 py-0.5 rounded-full">Unisex</span>
+            <span id="pv-concentration" class="themed-subbox border border-purple-800 text-zinc-300 font-semibold text-[10px] px-2.5 py-0.5 rounded-full">EDP</span>
+            <span id="pv-gender" class="bg-orange-500/20 border border-orange-500/50 text-amber-500 dark:text-amber-300 font-semibold text-[10px] px-2.5 py-0.5 rounded-full">Unisex</span>
           </div>
         </div>
 
         <div class="p-6 flex flex-col justify-between">
           <div>
-            <span id="pv-brand" class="text-xs font-bold uppercase tracking-wider text-amber-400 block">CASA OLFATIVA</span>
-            <h2 id="pv-name" class="font-heading text-xl font-extrabold text-white mt-1 leading-tight">Nombre del Perfume</h2>
+            <span id="pv-brand" class="text-xs font-bold uppercase tracking-wider text-amber-500 dark:text-amber-400 block">CASA OLFATIVA</span>
+            <h2 id="pv-name" class="font-heading text-xl font-extrabold mt-1 leading-tight">Nombre del Perfume</h2>
 
-            <div class="mt-4 p-3.5 rounded-2xl bg-[#1C1430] border border-purple-900/70">
-              <span class="text-[11px] font-bold text-orange-300 block mb-1">Notas Olfativas:</span>
-              <p id="pv-notes" class="text-xs text-zinc-300 leading-relaxed max-h-36 overflow-y-auto">Detalle de notas...</p>
+            <div class="mt-4 p-3.5 rounded-2xl themed-subbox border border-purple-900/70">
+              <span class="text-[11px] font-bold text-orange-500 dark:text-orange-300 block mb-1">Notas Olfativas:</span>
+              <p id="pv-notes" class="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed max-h-36 overflow-y-auto">Detalle de notas...</p>
             </div>
           </div>
 
@@ -330,7 +719,7 @@
 
   <!-- MODAL LOGIN ADMIN -->
   <div id="login-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
-    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-sm p-6 relative">
+    <div class="themed-modal-bg border border-orange-500/40 rounded-2xl w-full max-w-sm p-6 relative">
       <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -339,18 +728,18 @@
         <div class="w-12 h-12 rounded-full bg-orange-500/20 border border-orange-500/50 flex items-center justify-center mx-auto mb-2 text-[#FF7518]">
           <i data-lucide="shield" class="w-6 h-6"></i>
         </div>
-        <h3 class="font-heading text-base font-bold text-white">Panel de Propietario</h3>
+        <h3 class="font-heading text-base font-bold">Panel de Propietario</h3>
         <p class="text-[11px] text-zinc-400">Ingresa tus credenciales para editar</p>
       </div>
 
       <form onsubmit="handleLoginSubmit(event)" class="space-y-3">
         <div>
-          <label class="block text-zinc-300 mb-1 font-semibold">Usuario</label>
-          <input type="text" id="login-user" required class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-orange-500">
+          <label class="block mb-1 font-semibold">Usuario</label>
+          <input type="text" id="login-user" required class="w-full themed-input border border-purple-900 rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
         </div>
         <div>
-          <label class="block text-zinc-300 mb-1 font-semibold">Contraseña</label>
-          <input type="password" id="login-pass" required class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-orange-500">
+          <label class="block mb-1 font-semibold">Contraseña</label>
+          <input type="password" id="login-pass" required class="w-full themed-input border border-purple-900 rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
         </div>
         <div class="pt-2">
           <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 hover:brightness-110 text-black font-extrabold transition">
@@ -363,23 +752,23 @@
 
   <!-- MODAL TOKEN GITHUB -->
   <div id="token-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
-    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-md p-6 relative">
+    <div class="themed-modal-bg border border-orange-500/40 rounded-2xl w-full max-w-md p-6 relative">
       <button onclick="closeTokenModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <div class="mb-3">
-        <h3 class="font-heading text-base font-bold text-white flex items-center gap-2">
+        <h3 class="font-heading text-base font-bold flex items-center gap-2">
           <i data-lucide="key" class="w-4 h-4 text-[#FF7518]"></i>
           Conexión Automática con GitHub
         </h3>
-        <p class="text-[11px] text-zinc-400 mt-1">Ingresa tu Personal Access Token para que los cambios se guarden directamente en GitHub de forma permanente.</p>
+        <p class="text-[11px] text-zinc-400 mt-1">Ingresa tu Personal Access Token para guardar cambios permanentemente en el repositorio.</p>
       </div>
 
       <form onsubmit="saveGitHubToken(event)" class="space-y-3">
         <div>
-          <label class="block text-zinc-300 mb-1 font-semibold">GitHub Token (ghp_...)</label>
-          <input type="password" id="github-token-input" required placeholder="ghp_xxxxxxxxxxxx" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-orange-500">
+          <label class="block mb-1 font-semibold">GitHub Token (ghp_...)</label>
+          <input type="password" id="github-token-input" required placeholder="ghp_xxxxxxxxxxxx" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
         </div>
         <div class="pt-2 flex justify-end gap-2">
           <button type="button" onclick="closeTokenModal()" class="px-4 py-2 rounded-xl bg-zinc-800 text-zinc-300">Cancelar</button>
@@ -390,12 +779,12 @@
   </div>
 
   <!-- PANEL DE CARRITO CON DIRECCIÓN DETALLADA -->
-  <div id="cart-drawer" class="no-print fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-[#140E24] border-l border-orange-500/40 shadow-2xl p-5 flex flex-col justify-between hidden text-xs overflow-y-auto">
+  <div id="cart-drawer" class="no-print fixed inset-y-0 right-0 z-50 w-full max-w-lg themed-modal-bg border-l border-orange-500/40 shadow-2xl p-5 flex flex-col justify-between hidden text-xs overflow-y-auto">
     <div>
       <div class="flex items-center justify-between pb-3 border-b border-orange-500/30 mb-3">
         <div class="flex items-center gap-2">
           <i data-lucide="shopping-bag" class="w-5 h-5 text-[#FF7518]"></i>
-          <h3 class="font-heading text-sm font-bold text-white">Tu Bolsa de Pedido</h3>
+          <h3 class="font-heading text-sm font-bold">Tu Bolsa de Pedido</h3>
         </div>
         <button onclick="toggleCartDrawer()" class="text-zinc-400 hover:text-white">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -405,58 +794,58 @@
       <div id="cart-items-container" class="space-y-2.5 overflow-y-auto max-h-[30vh] pr-1 mb-4"></div>
 
       <div class="pt-3 border-t border-orange-500/30 space-y-2.5">
-        <span class="text-amber-400 font-bold text-[11px] block uppercase tracking-wider">Datos de Entrega y Envío</span>
+        <span class="text-amber-500 dark:text-amber-400 font-bold text-[11px] block uppercase tracking-wider">Datos de Entrega y Envío</span>
         
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">Nombre Completo *</label>
-            <input type="text" id="order-customer-name" placeholder="Ej: Juan Pérez" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="text" id="order-customer-name" placeholder="Ej: Juan Pérez" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">Teléfono *</label>
-            <input type="tel" id="order-customer-phone" placeholder="Ej: 866 123 4567" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="tel" id="order-customer-phone" placeholder="Ej: 844 123 4567" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
         </div>
 
         <div>
           <label class="block text-zinc-400 mb-1 font-semibold">Calle *</label>
-          <input type="text" id="order-street" placeholder="Nombre de la calle" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+          <input type="text" id="order-street" placeholder="Nombre de la calle" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
         </div>
 
         <div class="grid grid-cols-3 gap-2">
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">No. Ext *</label>
-            <input type="text" id="order-num-ext" placeholder="123" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="text" id="order-num-ext" placeholder="123" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">No. Int (Opc)</label>
-            <input type="text" id="order-num-int" placeholder="Depto 4B" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="text" id="order-num-int" placeholder="Depto 4B" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">C.P. *</label>
-            <input type="text" id="order-cp" placeholder="25700" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="text" id="order-cp" placeholder="25000" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">Colonia *</label>
-            <input type="text" id="order-colonia" placeholder="Ej: Centro" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="text" id="order-colonia" placeholder="Ej: Centro" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">Ciudad *</label>
-            <input type="text" id="order-city" placeholder="Ej: Monclova" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="text" id="order-city" placeholder="Ej: Saltillo" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">Estado *</label>
-            <input type="text" id="order-state" placeholder="Ej: Coahuila" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="text" id="order-state" placeholder="Ej: Coahuila" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
           <div>
             <label class="block text-zinc-400 mb-1 font-semibold">Correo (Opcional)</label>
-            <input type="email" id="order-email" placeholder="correo@ejemplo.com" class="w-full bg-[#1C1430] border border-purple-900 rounded-xl px-2.5 py-1.5 text-white focus:outline-none">
+            <input type="email" id="order-email" placeholder="correo@ejemplo.com" class="w-full themed-input border border-purple-900 rounded-xl px-2.5 py-1.5 focus:outline-none">
           </div>
         </div>
       </div>
@@ -465,9 +854,9 @@
     <!-- TOTAL Y BOTÓN DE WHATSAPP -->
     <div class="pt-4 border-t border-orange-500/35 space-y-3 mt-4">
       <div id="cart-alerts"></div>
-      <div class="flex justify-between items-center text-sm font-bold text-white">
+      <div class="flex justify-between items-center text-sm font-bold">
         <span>Total Estimado:</span>
-        <span id="cart-total-price" class="text-base text-amber-400 font-extrabold">$0</span>
+        <span id="cart-total-price" class="text-base text-amber-500 font-extrabold">$0</span>
       </div>
 
       <button onclick="sendOrderViaWhatsApp()" class="w-full py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-black font-extrabold flex items-center justify-center gap-2 shadow-lg transition">
@@ -477,16 +866,16 @@
     </div>
   </div>
 
-  <!-- MODAL EDITAR / AGREGAR FRAGANCIA CON BOTELLA COMPLETA -->
+  <!-- MODAL EDITAR / AGREGAR FRAGANCIA -->
   <div id="fragrance-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 overflow-y-auto">
-    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-lg p-5 relative text-xs">
+    <div class="themed-modal-bg border border-orange-500/40 rounded-2xl w-full max-w-lg p-5 relative text-xs">
       <button onclick="closeFragranceModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <div class="mb-4">
-        <span class="text-[10px] tracking-widest text-orange-400 uppercase font-bold">Catálogo de Fragancias</span>
-        <h3 id="modal-title" class="font-heading text-base font-bold text-white mt-0.5">Editar Fragancia</h3>
+        <span class="text-[10px] tracking-widest text-orange-500 uppercase font-bold">Catálogo de Fragancias</span>
+        <h3 id="modal-title" class="font-heading text-base font-bold mt-0.5">Editar Fragancia</h3>
       </div>
 
       <form id="fragrance-form" onsubmit="handleFragranceSubmit(event)" class="space-y-3">
@@ -494,23 +883,23 @@
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-medium text-zinc-300 mb-1">Nombre</label>
-            <input type="text" id="frag-name" required class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500">
+            <label class="block font-medium mb-1">Nombre</label>
+            <input type="text" id="frag-name" required class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500">
           </div>
           <div>
-            <label class="block font-medium text-zinc-300 mb-1">Marca / Casa</label>
-            <input type="text" id="frag-brand" required class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500">
+            <label class="block font-medium mb-1">Marca / Casa</label>
+            <input type="text" id="frag-brand" required class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500">
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-medium text-zinc-300 mb-1">Concentración</label>
-            <input type="text" id="frag-concentration" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none">
+            <label class="block font-medium mb-1">Concentración</label>
+            <input type="text" id="frag-concentration" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none">
           </div>
           <div>
-            <label class="block font-medium text-zinc-300 mb-1">Categoría</label>
-            <select id="frag-gender" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none">
+            <label class="block font-medium mb-1">Categoría</label>
+            <select id="frag-gender" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none">
               <option value="Unisex">Unisex</option>
               <option value="Masculino">Masculino</option>
               <option value="Femenino">Femenino</option>
@@ -518,11 +907,11 @@
           </div>
         </div>
 
-        <div class="p-3 rounded-xl bg-[#0F0A1A] border border-purple-900/70 space-y-2">
-          <label class="block font-semibold text-zinc-300">Fotografía de la Botella</label>
+        <div class="p-3 rounded-xl themed-subbox border border-purple-900/70 space-y-2">
+          <label class="block font-semibold">Fotografía de la Botella</label>
           <div class="flex items-center gap-3">
             <div class="flex-1 space-y-1.5">
-              <input type="text" id="frag-image-url" placeholder="URL directa o base64" oninput="updateImagePreview(this.value)" class="w-full bg-[#201538] border border-purple-900 rounded-lg px-2.5 py-1 text-white text-[11px] focus:outline-none">
+              <input type="text" id="frag-image-url" placeholder="URL directa o base64" oninput="updateImagePreview(this.value)" class="w-full themed-input border border-purple-900 rounded-lg px-2.5 py-1 text-[11px] focus:outline-none">
               <label class="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-600 text-[10px]">
                 <i data-lucide="image" class="w-3.5 h-3.5 text-[#FF7518]"></i>
                 <span>Subir imagen</span>
@@ -536,46 +925,46 @@
           </div>
         </div>
 
-        <div class="p-2.5 rounded-xl bg-[#1A122A] border border-orange-500/35 space-y-2">
-          <span class="text-[10px] font-bold text-orange-400 uppercase tracking-wider block">Precios de Decants & Botella Completa</span>
+        <div class="p-2.5 rounded-xl themed-subbox border border-orange-500/35 space-y-2">
+          <span class="text-[10px] font-bold text-orange-500 uppercase tracking-wider block">Precios de Decants & Botella Completa</span>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <div class="bg-[#0F0A1A] p-2 rounded-lg border border-purple-950">
+            <div class="p-2 rounded-lg border border-purple-950 themed-input">
               <div class="flex justify-between text-[10px] text-zinc-400 mb-1">
                 <span>3 ml</span>
                 <label><input type="checkbox" id="frag-3ml-avail" checked> Stock</label>
               </div>
-              <input type="number" id="frag-price-3ml" placeholder="0" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-white text-xs">
+              <input type="number" id="frag-price-3ml" placeholder="0" class="w-full themed-input border rounded px-2 py-0.5 text-xs">
             </div>
 
-            <div class="bg-[#0F0A1A] p-2 rounded-lg border border-orange-500/40">
-              <div class="flex justify-between text-[10px] text-orange-300 mb-1">
+            <div class="p-2 rounded-lg border border-orange-500/40 themed-input">
+              <div class="flex justify-between text-[10px] text-orange-500 mb-1">
                 <span class="font-bold">5 ml</span>
                 <label><input type="checkbox" id="frag-5ml-avail" checked> Stock</label>
               </div>
-              <input type="number" id="frag-price-5ml" placeholder="0" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-amber-300 font-bold text-xs">
+              <input type="number" id="frag-price-5ml" placeholder="0" class="w-full themed-input border rounded px-2 py-0.5 font-bold text-xs">
             </div>
 
-            <div class="bg-[#0F0A1A] p-2 rounded-lg border border-purple-950">
+            <div class="p-2 rounded-lg border border-purple-950 themed-input">
               <div class="flex justify-between text-[10px] text-zinc-400 mb-1">
                 <span>10 ml</span>
                 <label><input type="checkbox" id="frag-10ml-avail" checked> Stock</label>
               </div>
-              <input type="number" id="frag-price-10ml" placeholder="0" class="w-full bg-[#201538] border border-purple-900 rounded px-2 py-0.5 text-white text-xs">
+              <input type="number" id="frag-price-10ml" placeholder="0" class="w-full themed-input border rounded px-2 py-0.5 text-xs">
             </div>
 
-            <div class="bg-[#0F0A1A] p-2 rounded-lg border border-amber-500/50">
-              <div class="flex justify-between text-[10px] text-amber-400 mb-1 font-bold">
-                <span>Botella Completa</span>
+            <div class="p-2 rounded-lg border border-amber-500/50 themed-input">
+              <div class="flex justify-between text-[10px] text-amber-500 mb-1 font-bold">
+                <span>Botella</span>
                 <label><input type="checkbox" id="frag-bottle-avail" checked> Stock</label>
               </div>
-              <input type="number" id="frag-price-bottle" placeholder="0" class="w-full bg-[#201538] border border-amber-500/60 rounded px-2 py-0.5 text-amber-300 font-extrabold text-xs">
+              <input type="number" id="frag-price-bottle" placeholder="0" class="w-full themed-input border rounded px-2 py-0.5 font-extrabold text-xs">
             </div>
           </div>
         </div>
 
         <div>
-          <label class="block font-medium text-zinc-300 mb-1">Notas Olfativas</label>
-          <textarea id="frag-notes" rows="2" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none"></textarea>
+          <label class="block font-medium mb-1">Notas Olfativas</label>
+          <textarea id="frag-notes" rows="2" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none"></textarea>
         </div>
 
         <div class="pt-2 flex justify-end gap-2 border-t border-purple-900">
@@ -588,37 +977,37 @@
 
   <!-- MODAL DATOS TIENDA -->
   <div id="store-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 text-xs">
-    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-md p-5 relative">
+    <div class="themed-modal-bg border border-orange-500/40 rounded-2xl w-full max-w-md p-5 relative">
       <button onclick="closeStoreConfigModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <h3 class="font-heading text-base font-bold text-white mb-3">Datos del Catálogo & Tienda</h3>
+      <h3 class="font-heading text-base font-bold mb-3">Datos del Catálogo & Tienda</h3>
 
       <form onsubmit="handleStoreConfigSubmit(event)" class="space-y-3">
         <div>
-          <label class="block text-zinc-300 mb-1">Nombre Comercial</label>
-          <input type="text" id="config-store-name" required class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white">
+          <label class="block mb-1">Nombre Comercial</label>
+          <input type="text" id="config-store-name" required class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5">
         </div>
         <div>
-          <label class="block text-zinc-300 mb-1">Lema o Subtítulo</label>
-          <input type="text" id="config-store-tagline" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white">
+          <label class="block mb-1">Lema o Subtítulo</label>
+          <input type="text" id="config-store-tagline" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5">
         </div>
         
         <div>
-          <label class="block text-orange-400 mb-1 font-bold">Número de WhatsApp para recibir Pedidos *</label>
-          <input type="text" id="config-store-whatsapp" required placeholder="Ej: +52 866 406 0130" class="w-full bg-[#201538] border border-orange-500/50 rounded-xl px-3 py-1.5 text-white focus:outline-none">
-          <span class="text-[10px] text-zinc-500 block mt-0.5">Los pedidos de tus clientes llegarán directamente a este número.</span>
+          <label class="block text-orange-500 mb-1 font-bold">Número de WhatsApp para recibir Pedidos y Guías *</label>
+          <input type="text" id="config-store-whatsapp" required placeholder="Ej: +52 866 406 0130" class="w-full themed-input border border-orange-500/50 rounded-xl px-3 py-1.5 focus:outline-none">
+          <span class="text-[10px] text-zinc-500 block mt-0.5">Los pedidos y solicitudes de guías llegarán directamente a este número.</span>
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-zinc-300 mb-1">Instagram</label>
-            <input type="text" id="config-store-instagram" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white">
+            <label class="block mb-1">Instagram</label>
+            <input type="text" id="config-store-instagram" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5">
           </div>
           <div>
-            <label class="block text-zinc-300 mb-1">Información de Envíos</label>
-            <input type="text" id="config-store-notes" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white">
+            <label class="block mb-1">Información de Envíos</label>
+            <input type="text" id="config-store-notes" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5">
           </div>
         </div>
 
@@ -632,31 +1021,31 @@
 
   <!-- GESTOR DE INVENTARIO (ADMIN) -->
   <div id="inventory-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-start justify-center p-3 overflow-y-auto text-xs">
-    <div class="bg-[#140E24] border border-orange-500/40 rounded-2xl w-full max-w-2xl p-5 relative my-4">
+    <div class="themed-modal-bg border border-orange-500/40 rounded-2xl w-full max-w-2xl p-5 relative my-4">
       <button onclick="closeInventoryModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-      <span class="text-[10px] tracking-widest text-orange-400 uppercase font-bold">Panel administrativo</span>
-      <h3 class="font-heading text-base font-bold text-white mb-3">Gestor de Inventario</h3>
-      <form onsubmit="handleInventorySubmit(event)" class="space-y-3 p-3 rounded-xl bg-[#1A122A] border border-orange-500/35">
-        <div><label class="block text-zinc-300 mb-1 font-semibold">Perfume</label><select id="inv-perfume" onchange="invChanged()" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"></select></div>
-        <div id="inv-new-block" class="hidden space-y-2 p-2.5 rounded-lg bg-[#0F0A1A] border border-purple-950">
-          <div class="grid grid-cols-2 gap-2"><input id="inv-name" placeholder="Nombre" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"><input id="inv-brand" placeholder="Marca / Casa" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"></div>
-          <div class="grid grid-cols-2 gap-2"><input id="inv-conc" placeholder="Concentración (Eau de Parfum)" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"><select id="inv-gender" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"><option>Unisex</option><option>Masculino</option><option>Femenino</option></select></div>
-          <span class="text-[10px] text-zinc-400 block">Precios (déjalos en 0 si no los vendes; se pueden editar después con el lápiz):</span>
-          <div class="grid grid-cols-4 gap-2"><input id="inv-price-3ml" type="number" min="0" placeholder="3 ml $" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"><input id="inv-price-5ml" type="number" min="0" placeholder="5 ml $" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"><input id="inv-price-10ml" type="number" min="0" placeholder="10 ml $" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"><input id="inv-price-bottle" type="number" min="0" placeholder="Botella $" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"></div>
+      <span class="text-[10px] tracking-widest text-orange-500 uppercase font-bold">Panel administrativo</span>
+      <h3 class="font-heading text-base font-bold mb-3">Gestor de Inventario</h3>
+      <form onsubmit="handleInventorySubmit(event)" class="space-y-3 p-3 rounded-xl themed-subbox border border-orange-500/35">
+        <div><label class="block mb-1 font-semibold">Perfume</label><select id="inv-perfume" onchange="invChanged()" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500"></select></div>
+        <div id="inv-new-block" class="hidden space-y-2 p-2.5 rounded-lg themed-input border border-purple-950">
+          <div class="grid grid-cols-2 gap-2"><input id="inv-name" placeholder="Nombre" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500"><input id="inv-brand" placeholder="Marca / Casa" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500"></div>
+          <div class="grid grid-cols-2 gap-2"><input id="inv-conc" placeholder="Concentración (Eau de Parfum)" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500"><select id="inv-gender" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500"><option>Unisex</option><option>Masculino</option><option>Femenino</option></select></div>
+          <span class="text-[10px] text-zinc-400 block">Precios:</span>
+          <div class="grid grid-cols-4 gap-2"><input id="inv-price-3ml" type="number" min="0" placeholder="3 ml $" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5"><input id="inv-price-5ml" type="number" min="0" placeholder="5 ml $" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5"><input id="inv-price-10ml" type="number" min="0" placeholder="10 ml $" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5"><input id="inv-price-bottle" type="number" min="0" placeholder="Botella $" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5"></div>
         </div>
         <div class="grid grid-cols-2 gap-2">
-          <label class="flex items-center gap-2 p-2 rounded-lg bg-[#0F0A1A] border border-purple-950 text-zinc-200"><input type="radio" name="inv-kind" value="bottles" checked onchange="invChanged()"> 🧴 Por pieza (botella)</label>
-          <label class="flex items-center gap-2 p-2 rounded-lg bg-[#0F0A1A] border border-purple-950 text-zinc-200"><input type="radio" name="inv-kind" value="ml" onchange="invChanged()"> 💧 Por ml (decants)</label>
+          <label class="flex items-center gap-2 p-2 rounded-lg themed-input border border-purple-950"><input type="radio" name="inv-kind" value="bottles" checked onchange="invChanged()"> 🧴 Por pieza (botella)</label>
+          <label class="flex items-center gap-2 p-2 rounded-lg themed-input border border-purple-950"><input type="radio" name="inv-kind" value="ml" onchange="invChanged()"> 💧 Por ml (decants)</label>
         </div>
         <div class="grid grid-cols-2 gap-2">
-          <select id="inv-mode" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500"><option value="add">Sumar al stock</option><option value="set">Fijar total exacto</option></select>
-          <div class="relative"><input id="inv-qty" type="number" min="0" step="any" placeholder="Cantidad" class="w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500 pr-14"><span id="inv-unit" class="absolute right-3 top-2 text-zinc-400"></span></div>
+          <select id="inv-mode" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500"><option value="add">Sumar al stock</option><option value="set">Fijar total exacto</option></select>
+          <div class="relative"><input id="inv-qty" type="number" min="0" step="any" placeholder="Cantidad" class="w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500 pr-14"><span id="inv-unit" class="absolute right-3 top-2 text-zinc-400"></span></div>
         </div>
-        <p id="inv-current" class="text-[11px] text-amber-300"></p>
+        <p id="inv-current" class="text-[11px] text-amber-500 font-semibold"></p>
         <button type="submit" class="w-full py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-black font-extrabold">Guardar inventario</button>
       </form>
-      <div class="mt-3 flex items-center gap-2 text-zinc-300">Avisar “pocos ml” cuando queden ≤ <input id="inv-threshold" type="number" min="0" onchange="saveLowThreshold(this.value)" class="w-20 bg-[#201538] border border-purple-900 rounded-lg px-2 py-1 text-white"> ml</div>
-      <input id="inv-filter" oninput="renderInventoryList()" placeholder="Buscar en existencias..." class="mt-3 w-full bg-[#201538] border border-purple-900 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-orange-500">
+      <div class="mt-3 flex items-center gap-2">Avisar “pocos ml” cuando queden ≤ <input id="inv-threshold" type="number" min="0" onchange="saveLowThreshold(this.value)" class="w-20 themed-input border border-purple-900 rounded-lg px-2 py-1"> ml</div>
+      <input id="inv-filter" oninput="renderInventoryList()" placeholder="Buscar en existencias..." class="mt-3 w-full themed-input border border-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500">
       <div id="inv-list" class="space-y-1.5 max-h-64 overflow-y-auto mt-2"></div>
     </div>
   </div>
@@ -682,6 +1071,7 @@
     let cart = [];
     let isAdminLoggedIn = false;
     let visibleCount = 10;
+    let currentTheme = 'dark'; // 'dark' | 'light'
 
     function getInitials(name) {
       if (!name) return 'JF';
@@ -690,11 +1080,42 @@
       return (words[0][0] + words[1][0]).toUpperCase();
     }
 
+    // GESTIÓN DEL TEMA DÍA / NOCHE
+    function initTheme() {
+      const savedTheme = localStorage.getItem('jf26_theme') || 'dark';
+      setTheme(savedTheme);
+    }
+
+    function toggleTheme() {
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(nextTheme);
+      showToast(`Modo cambiado a: ${nextTheme === 'dark' ? 'Modo Noche 🌙' : 'Modo Día ☀️'}`);
+    }
+
+    function setTheme(theme) {
+      currentTheme = theme;
+      const htmlRoot = document.getElementById('html-root');
+      const themeText = document.getElementById('theme-text');
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (theme === 'dark') {
+        htmlRoot.classList.add('dark');
+        themeText.textContent = 'Modo Noche';
+        themeIcon.innerHTML = '<i data-lucide="moon" class="w-3.5 h-3.5"></i>';
+      } else {
+        htmlRoot.classList.remove('dark');
+        themeText.textContent = 'Modo Día';
+        themeIcon.innerHTML = '<i data-lucide="sun" class="w-3.5 h-3.5"></i>';
+      }
+      localStorage.setItem('jf26_theme', theme);
+      lucide.createIcons();
+    }
+
     async function initApp() {
+      initTheme();
       isAdminLoggedIn = sessionStorage.getItem('jf26_is_admin') === 'true';
       updateAdminUI();
 
-      // Migración única: recupera SOLO las fragancias guardadas antes en este navegador (no datos de tienda, logo ni token)
       try {
         if (!localStorage.getItem('jf26_fragrances')) {
           const old = localStorage.getItem('aura_fragrances');
@@ -719,16 +1140,14 @@
       updateCartUI();
       lucide.createIcons();
 
-      // Carga en segundo plano desde R9.json
       await refreshFromRemote();
     }
 
-    // GitHub (R9.json) es la fuente de verdad; el navegador solo sirve de respaldo sin conexión.
     let remoteReady = false;
     async function refreshFromRemote() {
       try {
         const res = await fetch('./R9.json?v=' + Date.now(), { cache: 'no-store' });
-        if (res.status === 404) { remoteReady = true; return; } // aún no existe: el primer guardado lo crea
+        if (res.status === 404) { remoteReady = true; return; }
         if (!res.ok) return;
         const data = await res.json();
         if (data.store) { const logo = storeConfig.logo; storeConfig = { ...storeConfig, ...data.store }; if (!data.store.logo && logo) storeConfig.logo = logo; }
@@ -808,25 +1227,107 @@
       }
     }
 
-    function openTokenModal() {
-      document.getElementById('github-token-input').value = localStorage.getItem('jf26_gh_token') || '';
-      document.getElementById('token-modal').classList.remove('hidden');
+    // ================= MODAL VENTA Y GENERACIÓN DE GUÍAS =================
+    function openShippingModal() {
+      document.getElementById('shipping-modal').classList.remove('hidden');
+      lucide.createIcons();
     }
 
-    function closeTokenModal() {
-      document.getElementById('token-modal').classList.add('hidden');
+    function closeShippingModal() {
+      document.getElementById('shipping-modal').classList.add('hidden');
     }
 
-    function saveGitHubToken(e) {
-      e.preventDefault();
-      const token = document.getElementById('github-token-input').value.trim();
-      if (token) {
-        localStorage.setItem('jf26_gh_token', token);
-        showToast('Token conectado correctamente');
-        closeTokenModal();
+    function updateShippingPricePreview() {
+      const weightVal = document.getElementById('ship-weight').value;
+      const display = document.getElementById('ship-price-display');
+      const val = document.getElementById('ship-price-val');
+      if (weightVal.includes('$170')) {
+        val.textContent = '$170 MXN (Tarifa Base 1 kg)';
+        display.classList.remove('hidden');
+      } else if (weightVal.includes('$180')) {
+        val.textContent = '$180 MXN (Tarifa Base 2 kg)';
+        display.classList.remove('hidden');
+      } else if (weightVal) {
+        val.textContent = 'Bajo Demanda / Cotización Inmediata';
+        display.classList.remove('hidden');
+      } else {
+        display.classList.add('hidden');
       }
     }
 
+    function handleShippingSubmit(e) {
+      e.preventDefault();
+
+      const courier = document.getElementById('ship-courier').value;
+      const weight = document.getElementById('ship-weight').value;
+      const contents = document.getElementById('ship-contents').value.trim();
+
+      const oName = document.getElementById('orig-name').value.trim();
+      const oPhone = document.getElementById('orig-phone').value.trim();
+      const oStreet = document.getElementById('orig-street').value.trim();
+      const oCP = document.getElementById('orig-cp').value.trim();
+      const oColonia = document.getElementById('orig-colonia').value.trim();
+      const oCity = document.getElementById('orig-city').value.trim();
+
+      const dName = document.getElementById('dest-name').value.trim();
+      const dPhone = document.getElementById('dest-phone').value.trim();
+      const dStreet = document.getElementById('dest-street').value.trim();
+      const dCP = document.getElementById('dest-cp').value.trim();
+      const dColonia = document.getElementById('dest-colonia').value.trim();
+      const dCity = document.getElementById('dest-city').value.trim();
+
+      let msg = `📦 *SOLICITUD DE GUÍA DE ENVÍO PREPAGADA* 📦
+
+`;
+      msg += `🚚 *Paquetería:* ${courier}
+`;
+      msg += `⚖️ *Peso/Rango:* ${weight}
+`;
+      msg += `🏷️ *Contenido/Medidas:* ${contents}
+
+`;
+
+      msg += `📍 *DATOS DE ORIGEN (REMITENTE):*
+`;
+      msg += `• Nombre: ${oName}
+`;
+      msg += `• Teléfono: ${oPhone}
+`;
+      msg += `• Calle y No.: ${oStreet}
+`;
+      msg += `• Colonia: ${oColonia}
+`;
+      msg += `• C.P.: ${oCP}
+`;
+      msg += `• Ciudad/Edo.: ${oCity}
+
+`;
+
+      msg += `🏁 *DATOS DE DESTINO (DESTINATARIO):*
+`;
+      msg += `• Nombre: ${dName}
+`;
+      msg += `• Teléfono: ${dPhone}
+`;
+      msg += `• Calle y No.: ${dStreet}
+`;
+      msg += `• Colonia: ${dColonia}
+`;
+      msg += `• C.P.: ${dCP}
+`;
+      msg += `• Ciudad/Edo.: ${dCity}
+
+`;
+      msg += `¿Me apoyas confirmando la cotización y los datos para pago por favor?`;
+
+      const cleanPhone = storeConfig.whatsapp.replace(/[^0-9]/g, '');
+      const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank');
+      closeShippingModal();
+      showToast('Solicitud enviada a WhatsApp');
+    }
+
+    // ================= FUNCIONES DE CATÁLOGO Y ORDENAMIENTO =================
     function openProductView(fragId) {
       const frag = fragrances.find(f => f.id === fragId);
       if (!frag) return;
@@ -924,12 +1425,12 @@
       const box = document.getElementById('cart-items-container'); let n = 0, total = 0;
       box.innerHTML = cart.length ? cart.map((it, idx) => {
         n += it.qty; total += it.price * it.qty;
-        return `<div class="p-3 rounded-xl bg-[#1C1430] border border-orange-500/25 flex items-center justify-between gap-2"><div><span class="text-[10px] text-amber-400 font-bold uppercase block">${esc(it.brand)}</span><span class="text-xs text-white font-bold block">${esc(it.name)}</span><span class="text-[11px] text-zinc-300">${it.size === 'bottle' ? 'Botella Completa' : 'Decant ' + it.size} (${formatPrice(it.price)})</span></div><div class="flex items-center gap-1.5"><button onclick="changeCartQty(${idx},-1)" class="w-6 h-6 rounded bg-zinc-800 text-white">−</button><span class="text-xs text-white font-bold w-4 text-center">${it.qty}</span><button onclick="changeCartQty(${idx},1)" class="w-6 h-6 rounded bg-zinc-800 text-white">+</button><span class="text-xs text-amber-300 font-bold w-14 text-right">${formatPrice(it.price * it.qty)}</span><button onclick="removeFromCart(${idx})" class="p-1 text-zinc-400 hover:text-red-400"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></div>`;
+        return `<div class="p-3 rounded-xl themed-input border border-orange-500/25 flex items-center justify-between gap-2"><div><span class="text-[10px] text-amber-500 font-bold uppercase block">${esc(it.brand)}</span><span class="text-xs font-bold block">${esc(it.name)}</span><span class="text-[11px] text-zinc-400">${it.size === 'bottle' ? 'Botella Completa' : 'Decant ' + it.size} (${formatPrice(it.price)})</span></div><div class="flex items-center gap-1.5"><button onclick="changeCartQty(${idx},-1)" class="w-6 h-6 rounded bg-zinc-800 text-white">−</button><span class="text-xs font-bold w-4 text-center">${it.qty}</span><button onclick="changeCartQty(${idx},1)" class="w-6 h-6 rounded bg-zinc-800 text-white">+</button><span class="text-xs text-amber-500 font-bold w-14 text-right">${formatPrice(it.price * it.qty)}</span><button onclick="removeFromCart(${idx})" class="p-1 text-zinc-400 hover:text-red-400"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></div>`;
       }).join('') : '<div class="py-10 text-center text-zinc-400"><div class="text-3xl mb-1">🎃</div><p>Tu bolsa de pedido está vacía</p></div>';
       document.getElementById('cart-count').textContent = n;
       document.getElementById('cart-total-price').textContent = total ? formatPrice(total) : getCurrencySymbol() + '0';
       const issues = stockIssues();
-      document.getElementById('cart-alerts').innerHTML = issues.length ? `<div class="p-2.5 rounded-xl bg-red-500/15 border border-red-500/40 text-red-200 text-[11px] space-y-1"><b>⚠️ Revisa tu pedido:</b>${issues.map(m => `<div>• ${esc(m)}</div>`).join('')}</div>` : '';
+      document.getElementById('cart-alerts').innerHTML = issues.length ? `<div class="p-2.5 rounded-xl bg-red-500/15 border border-red-500/40 text-red-400 text-[11px] space-y-1"><b>⚠️ Revisa tu pedido:</b>${issues.map(m => `<div>• ${esc(m)}</div>`).join('')}</div>` : '';
       lucide.createIcons();
     }
 
@@ -969,14 +1470,13 @@
         return;
       }
 
-      // Se abre la pestaña ya (gesto del usuario) y se valida el stock más reciente antes de confirmar
       const waWin = window.open('', '_blank');
       showToast('Verificando disponibilidad…', 1500);
       await refreshFromRemote();
       if (stockIssues().length) {
         if (waWin) waWin.close();
         updateCartUI();
-        showToast('No hay ml/piezas suficientes para completar tu pedido. Revisa tu bolsa.', 4500);
+        showToast('No hay existencias suficientes para completar tu pedido. Revisa tu bolsa.', 4500);
         return;
       }
       applyDeduction();
@@ -987,26 +1487,47 @@
         const subtotal = item.price * item.qty;
         total += subtotal;
         const sizeTag = item.size === 'bottle' ? 'BOTELLA COMPLETA' : item.size;
-        orderListText += `▪ ${item.qty}x ${item.brand} - ${item.name} (${sizeTag}) -> ${formatPrice(subtotal)}\n`;
+        orderListText += `▪ ${item.qty}x ${item.brand} - ${item.name} (${sizeTag}) -> ${formatPrice(subtotal)}
+`;
       });
 
-      let message = `¡Hola! Me gustaría realizar el siguiente pedido en *${storeConfig.name}* 🎃:\n\n`;
-      message += `👤 *DATOS DEL CLIENTE*\n`;
-      message += `• Nombre: ${name}\n`;
-      message += `• Teléfono: ${phone}\n`;
-      if (email) message += `• Correo: ${email}\n`;
+      let message = `¡Hola! Me gustaría realizar el siguiente pedido en *${storeConfig.name}* 🎃:
 
-      message += `\n📍 *DIRECCIÓN DE ENVÍO*\n`;
-      message += `• Calle: ${street}\n`;
-      message += `• No. Ext: ${numExt}\n`;
-      if (numInt) message += `• No. Int: ${numInt}\n`;
-      message += `• Colonia: ${colonia}\n`;
-      message += `• C.P.: ${cp}\n`;
-      message += `• Ciudad: ${city}\n`;
-      message += `• Estado: ${state}\n`;
+`;
+      message += `👤 *DATOS DEL CLIENTE*
+`;
+      message += `• Nombre: ${name}
+`;
+      message += `• Teléfono: ${phone}
+`;
+      if (email) message += `• Correo: ${email}
+`;
 
-      message += `\n🛍️ *DETALLE DEL PEDIDO*\n${orderListText}\n`;
-      message += `💵 *TOTAL ESTIMADO:* ${formatPrice(total)}\n\n`;
+      message += `
+📍 *DIRECCIÓN DE ENVÍO*
+`;
+      message += `• Calle: ${street}
+`;
+      message += `• No. Ext: ${numExt}
+`;
+      if (numInt) message += `• No. Int: ${numInt}
+`;
+      message += `• Colonia: ${colonia}
+`;
+      message += `• C.P.: ${cp}
+`;
+      message += `• Ciudad: ${city}
+`;
+      message += `• Estado: ${state}
+`;
+
+      message += `
+🛍️ *DETALLE DEL PEDIDO*
+${orderListText}
+`;
+      message += `💵 *TOTAL ESTIMADO:* ${formatPrice(total)}
+
+`;
       message += `¿Me confirmas disponibilidad y los datos para realizar la transferencia/pago, por favor?`;
 
       const cleanPhone = storeConfig.whatsapp.replace(/[^0-9]/g, '');
@@ -1081,7 +1602,6 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Imagen optimizada ligera que nunca excede la cuota de almacenamiento
           const optimizedDataUrl = canvas.toDataURL('image/png', 0.9);
           storeConfig.logo = optimizedDataUrl;
 
@@ -1096,11 +1616,6 @@
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
-    }
-
-    function saveFragrances() {
-      saveLocalData();
-      populateBrandFilter();
     }
 
     function saveStoreConfig() {
@@ -1145,8 +1660,8 @@
             <div onclick="openProductView('${f.id}')" class="bottle-stage relative w-full h-48 p-3 flex items-center justify-center border-b border-orange-500/25 cursor-pointer">
               <img src="${imgOf(f)}" alt="${esc(f.name)}" loading="lazy" class="max-h-full max-w-full object-contain filter drop-shadow-[0_12px_22px_rgba(255,115,0,0.3)]">
               <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
-                <span class="bg-[#1C1430]/90 border border-purple-900 text-zinc-300 font-semibold text-[9px] px-2 py-0.5 rounded-full">${esc(f.concentration || 'EDP')}</span>
-                ${f.gender ? `<span class="bg-orange-500/20 border border-orange-500/50 text-amber-300 font-semibold text-[9px] px-2 py-0.5 rounded-full">${esc(f.gender)}</span>` : ''}
+                <span class="themed-subbox border border-purple-900 text-zinc-300 font-semibold text-[9px] px-2 py-0.5 rounded-full">${esc(f.concentration || 'EDP')}</span>
+                ${f.gender ? `<span class="bg-orange-500/20 border border-orange-500/50 text-amber-500 font-semibold text-[9px] px-2 py-0.5 rounded-full">${esc(f.gender)}</span>` : ''}
               </div>
               ${isAdminLoggedIn ? `<div class="no-print absolute top-2.5 right-2.5 flex items-center gap-1" onclick="event.stopPropagation()">
                 <button onclick="editFragrance('${f.id}')" title="Editar" class="p-1.5 rounded-lg bg-black/80 hover:bg-[#FF7518] text-white hover:text-black transition"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
@@ -1154,24 +1669,55 @@
               </div>` : ''}
             </div>
             <div class="p-3.5 pb-1 cursor-pointer" onclick="openProductView('${f.id}')">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">${esc(f.brand)}</span>
-              <h3 class="font-heading text-base font-bold text-white mt-0.5 leading-snug truncate">${esc(f.name)}</h3>
-              <p class="text-[11px] text-zinc-300 mt-1 leading-relaxed line-clamp-2"><span class="text-orange-300 font-semibold">Notas:</span> ${esc(f.notes || 'Toca para ver notas completas.')}</p>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-500 block">${esc(f.brand)}</span>
+              <h3 class="font-heading text-base font-bold mt-0.5 leading-snug truncate">${esc(f.name)}</h3>
+              <p class="text-[11px] text-zinc-600 dark:text-zinc-300 mt-1 leading-relaxed line-clamp-2"><span class="text-orange-500 font-semibold">Notas:</span> ${esc(f.notes || 'Toca para ver notas completas.')}</p>
             </div>
           </div>
           <div class="p-3.5 pt-1" data-stock-area data-variant="card" data-frag-id="${f.id}">${stockAreaHtml(f, 'card')}</div>
         </div>`;
     }
 
+    // RENDERIZADO DEL CATÁLOGO CON ORDENADOR Y FILTROS INTEGRADOS
     function renderCatalog() {
       const container = document.getElementById('catalog-sheet');
       const emptyState = document.getElementById('empty-state');
       const wrap = document.getElementById('load-more-wrap');
       const q = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
       const brand = document.getElementById('filter-brand')?.value || 'ALL';
-      const filtered = fragrances.filter(f => (brand === 'ALL' || f.brand === brand) &&
-        ((f.name || '').toLowerCase().includes(q) || (f.brand || '').toLowerCase().includes(q) || (f.notes || '').toLowerCase().includes(q)));
-      if (!filtered.length) { container.innerHTML = ''; wrap.classList.add('hidden'); emptyState.classList.remove('hidden'); return; }
+      const gender = document.getElementById('filter-gender')?.value || 'ALL';
+      const sortOrder = document.getElementById('sort-order')?.value || 'name_asc';
+
+      let filtered = fragrances.filter(f => {
+        const matchesBrand = (brand === 'ALL' || f.brand === brand);
+        const matchesGender = (gender === 'ALL' || (f.gender && f.gender.toLowerCase() === gender.toLowerCase()));
+        const matchesQuery = ((f.name || '').toLowerCase().includes(q) || (f.brand || '').toLowerCase().includes(q) || (f.notes || '').toLowerCase().includes(q));
+        return matchesBrand && matchesGender && matchesQuery;
+      });
+
+      // Lógica de ordenamiento
+      filtered.sort((a, b) => {
+        if (sortOrder === 'name_asc') {
+          return (a.name || '').localeCompare(b.name || '', 'es', { sensitivity: 'base' });
+        } else if (sortOrder === 'name_desc') {
+          return (b.name || '').localeCompare(a.name || '', 'es', { sensitivity: 'base' });
+        } else if (sortOrder === 'brand_asc') {
+          const compBrand = (a.brand || '').localeCompare(b.brand || '', 'es', { sensitivity: 'base' });
+          return compBrand !== 0 ? compBrand : (a.name || '').localeCompare(b.name || '', 'es', { sensitivity: 'base' });
+        } else if (sortOrder === 'brand_desc') {
+          const compBrand = (b.brand || '').localeCompare(a.brand || '', 'es', { sensitivity: 'base' });
+          return compBrand !== 0 ? compBrand : (b.name || '').localeCompare(a.name || '', 'es', { sensitivity: 'base' });
+        }
+        return 0;
+      });
+
+      if (!filtered.length) {
+        container.innerHTML = '';
+        wrap.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
       emptyState.classList.add('hidden');
       const shown = filtered.slice(0, visibleCount);
       container.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">${shown.map(cardHtml).join('')}</div>`;
@@ -1276,6 +1822,7 @@
       }
 
       saveLocalData();
+      populateBrandFilter();
       renderCatalog();
       closeFragranceModal();
       await syncToGitHub();
@@ -1326,6 +1873,7 @@
       }
       fragrances = fragrances.filter(f => f.id !== id);
       saveLocalData();
+      populateBrandFilter();
       renderCatalog();
       showToast('Fragancia eliminada');
       await syncToGitHub();
@@ -1363,20 +1911,38 @@
       showToast('Datos de tienda actualizados');
     }
 
+    function openTokenModal() {
+      document.getElementById('github-token-input').value = localStorage.getItem('jf26_gh_token') || '';
+      document.getElementById('token-modal').classList.remove('hidden');
+    }
+
+    function closeTokenModal() {
+      document.getElementById('token-modal').classList.add('hidden');
+    }
+
+    function saveGitHubToken(e) {
+      e.preventDefault();
+      const token = document.getElementById('github-token-input').value.trim();
+      if (token) {
+        localStorage.setItem('jf26_gh_token', token);
+        showToast('Token conectado correctamente');
+        closeTokenModal();
+      }
+    }
+
     // ================= INVENTARIO Y STOCK =================
     const SIZES = [['3ml', '3 ml'], ['5ml', '5 ml'], ['10ml', '10 ml'], ['bottle', 'Botella']];
     const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const r1 = n => Math.round(n * 10) / 10;
     const fmtMl = n => Number.isInteger(n) ? n : n.toFixed(1);
     const imgOf = f => f.image || 'https://placehold.co/400x400/150E24/FF7518?text=' + encodeURIComponent(f.name);
-    const hasMl = f => Number.isFinite(f.stock?.ml);        // ml controlados (si no, sin límite)
-    const hasPcs = f => Number.isFinite(f.stock?.bottles);  // piezas controladas
+    const hasMl = f => Number.isFinite(f.stock?.ml);
+    const hasPcs = f => Number.isFinite(f.stock?.bottles);
     const getLow = () => storeConfig.lowMlThreshold ?? 15;
     const cartMl = id => cart.reduce((a, i) => a + (i.fragId === id && i.size !== 'bottle' ? parseInt(i.size) * i.qty : 0), 0);
     const cartPcs = id => cart.reduce((a, i) => a + (i.fragId === id && i.size === 'bottle' ? i.qty : 0), 0);
     const availMl = (f, c = true) => hasMl(f) ? Math.max(0, r1(f.stock.ml - (c ? cartMl(f.id) : 0))) : Infinity;
 
-    // Estado de una opción: precio/disponibilidad manual + ml/piezas restantes (descontando lo que ya está en la bolsa)
     function sizeState(f, key, useCart = true) {
       const p = f.prices?.[key] || { price: 0, inStock: key !== 'bottle' };
       if (!p.inStock || !(parseFloat(p.price) > 0)) return { ok: false, label: key === 'bottle' ? 'N/D' : 'Agotado', reason: 'Opción agotada o no disponible' };
@@ -1391,10 +1957,15 @@
 
     function stockAreaHtml(f, v) {
       const pv = v === 'pv';
-      const tone = { '3ml': 'border-purple-900 bg-[#160F26]', '5ml': 'border-orange-500/70 bg-gradient-to-b from-orange-500/30 to-purple-900/40', '10ml': 'border-purple-900 bg-[#160F26]', bottle: 'border-amber-500/50 bg-[#25173B]' };
+      const tone = {
+        '3ml': 'border-purple-900 bg-purple-950/30',
+        '5ml': 'border-orange-500/70 bg-gradient-to-b from-orange-500/20 to-purple-900/30',
+        '10ml': 'border-purple-900 bg-purple-950/30',
+        'bottle': 'border-amber-500/50 bg-amber-950/20'
+      };
       const btns = SIZES.map(([k, l]) => {
         const s = sizeState(f, k);
-        return `<button ${s.ok ? `onclick="addToCart('${f.id}','${k}')"` : 'disabled'} title="${s.ok ? '' : esc(s.reason)}" class="${pv ? 'p-2.5' : 'p-1'} rounded-xl border ${tone[k]} transition flex flex-col items-center ${s.ok ? 'hover:brightness-125 cursor-pointer' : 'opacity-35 cursor-not-allowed'}"><span class="${pv ? 'text-[10px]' : 'text-[8px]'} uppercase font-bold ${k === 'bottle' ? 'text-amber-400' : 'text-zinc-300'}">${l}</span><span class="${pv ? 'text-xs' : 'text-[11px]'} font-bold ${s.ok ? 'text-white' : 'text-zinc-500 line-through'}">${s.label}</span></button>`;
+        return `<button ${s.ok ? `onclick="addToCart('${f.id}','${k}')"` : 'disabled'} title="${s.ok ? '' : esc(s.reason)}" class="${pv ? 'p-2.5' : 'p-1'} rounded-xl border ${tone[k]} transition flex flex-col items-center ${s.ok ? 'hover:brightness-125 cursor-pointer' : 'opacity-35 cursor-not-allowed'}"><span class="${pv ? 'text-[10px]' : 'text-[8px]'} uppercase font-bold ${k === 'bottle' ? 'text-amber-500' : 'text-zinc-400'}">${l}</span><span class="${pv ? 'text-xs' : 'text-[11px]'} font-bold ${s.ok ? '' : 'text-zinc-500 line-through'}">${s.label}</span></button>`;
       }).join('');
       const notes = [];
       if (hasMl(f) && ['3ml', '5ml', '10ml'].some(k => f.prices?.[k]?.price > 0)) {
@@ -1404,7 +1975,7 @@
       }
       if (hasPcs(f) && f.prices?.bottle?.inStock && f.stock.bottles - cartPcs(f.id) === 1) notes.push('⚠️ ¡Última pieza disponible!');
       const adm = !pv && isAdminLoggedIn ? `<p class="no-print text-[10px] text-zinc-400 mt-1.5">📦 Piezas: ${hasPcs(f) ? f.stock.bottles : 'sin control'} · 💧 ML: ${hasMl(f) ? fmtMl(f.stock.ml) : 'sin control'}</p>` : '';
-      return `<div class="grid ${pv ? 'grid-cols-2 sm:grid-cols-4 gap-2' : 'grid-cols-4 gap-1'} text-center">${btns}</div>${notes.map(n => `<p class="mt-2 px-2 py-1 rounded-lg bg-red-500/15 border border-red-500/40 text-[10px] font-semibold text-red-200">${n}</p>`).join('')}${adm}`;
+      return `<div class="grid ${pv ? 'grid-cols-2 sm:grid-cols-4 gap-2' : 'grid-cols-4 gap-1'} text-center">${btns}</div>${notes.map(n => `<p class="mt-2 px-2 py-1 rounded-lg bg-red-500/15 border border-red-500/40 text-[10px] font-semibold text-red-400">${n}</p>`).join('')}${adm}`;
     }
 
     function refreshStockAreas(fragId) {
@@ -1413,7 +1984,6 @@
       document.querySelectorAll(`[data-stock-area][data-frag-id="${fragId}"]`).forEach(el => { el.innerHTML = stockAreaHtml(f, el.dataset.variant); });
     }
 
-    // Problemas del carrito contra el stock actual (suma total por perfume)
     function stockIssues() {
       const need = {}, out = [];
       cart.forEach(i => {
@@ -1431,7 +2001,6 @@
       return out;
     }
 
-    // Los ml/piezas se descuentan hasta que la compra se confirma
     function applyDeduction() {
       cart.forEach(i => {
         const f = fragrances.find(x => x.id === i.fragId);
@@ -1442,10 +2011,9 @@
     }
 
     function contactWhatsApp() {
-      window.open('https://wa.me/' + storeConfig.whatsapp.replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent('¡Hola! Quisiera información sobre sus perfumes.'), '_blank');
+      window.open('https://wa.me/' + storeConfig.whatsapp.replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent('¡Hola! Quisiera información sobre sus perfumes y guías de envío.'), '_blank');
     }
 
-    // ---- Gestor de inventario (admin) ----
     function openInventoryModal() {
       if (!isAdminLoggedIn) return toggleAuthModal();
       populateInvSelect(); invChanged(); renderInventoryList();
@@ -1516,11 +2084,10 @@
         .filter(f => `${f.brand} ${f.name}`.toLowerCase().includes(q))
         .map(f => {
           const badge = hasMl(f) ? (f.stock.ml <= 0 ? '<span class="px-1.5 rounded bg-red-600/30 text-red-300">Agotado</span>' : f.stock.ml <= getLow() ? '<span class="px-1.5 rounded bg-amber-500/25 text-amber-300">Pocos ml</span>' : '') : '';
-          return `<div class="flex items-center justify-between gap-2 p-2 rounded-lg bg-[#1C1430] border border-purple-950"><div class="min-w-0"><span class="text-[10px] text-amber-400 font-bold uppercase block">${esc(f.brand)}</span><span class="text-white font-semibold block truncate">${esc(f.name)}</span></div><div class="flex items-center gap-2 shrink-0 text-[11px] text-zinc-200"><span>🧴 ${hasPcs(f) ? f.stock.bottles : '—'}</span><span>💧 ${hasMl(f) ? fmtMl(f.stock.ml) + ' ml' : '—'}</span>${badge}<button onclick="selectInvPerfume('${f.id}')" class="px-2 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-amber-300">Ajustar</button></div></div>`;
+          return `<div class="flex items-center justify-between gap-2 p-2 rounded-lg themed-input border border-purple-950"><div class="min-w-0"><span class="text-[10px] text-amber-500 font-bold uppercase block">${esc(f.brand)}</span><span class="font-semibold block truncate">${esc(f.name)}</span></div><div class="flex items-center gap-2 shrink-0 text-[11px]"><span>🧴 ${hasPcs(f) ? f.stock.bottles : '—'}</span><span>💧 ${hasMl(f) ? fmtMl(f.stock.ml) + ' ml' : '—'}</span>${badge}<button onclick="selectInvPerfume('${f.id}')" class="px-2 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-amber-300">Ajustar</button></div></div>`;
         }).join('') || '<p class="text-zinc-500 text-center py-3">Sin resultados</p>';
     }
 
-    // ---- Impresión / PDF de todo el catálogo (se arma solo al imprimir) ----
     async function printCatalog() {
       if (!fragrances.length) return showToast('No hay perfumes para imprimir');
       const head = `<div class="pb-2 border-b border-orange-500/30 flex justify-between items-center"><div><h2 class="font-heading text-lg font-extrabold text-white uppercase">${esc(storeConfig.name)} 🎃</h2><p class="text-[11px] text-orange-200/80">${esc(storeConfig.tagline)}</p></div><div class="text-right text-[11px] text-zinc-300"><div class="font-semibold text-white">${esc(storeConfig.whatsapp)} · ${esc(storeConfig.instagram)}</div><div>${esc(storeConfig.notes)}</div></div></div>`;

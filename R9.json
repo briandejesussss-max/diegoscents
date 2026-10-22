@@ -58,8 +58,9 @@
           "inStock": false
         },
         "bottle": {
-          "price": 0,
-          "inStock": false
+          "price": 1200,
+          "inStock": false,
+          "onDemand": true
         }
       }
     },
@@ -5313,5 +5314,5 @@
       }
     }
   ],
-  "updatedAt": "1792646443375"
+  "updatedAt": "1792646805417"
 }

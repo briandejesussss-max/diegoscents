@@ -450,6 +450,7 @@
             id="sort-order" 
             onchange="filterCatalog()" 
             class="themed-input border border-purple-900/90 rounded-xl px-2.5 py-2 text-xs focus:outline-none">
+            <option value="recent">Más recientes</option>
             <option value="name_asc">Nombre (A - Z)</option>
             <option value="name_desc">Nombre (Z - A)</option>
             <option value="brand_asc">Marca / Casa (A - Z)</option>
@@ -485,7 +486,7 @@
     </section>
 
     <!-- CATÁLOGO (10 inicial, resto bajo demanda) -->
-    <div class="w-full flex justify-center"><div id="catalog-sheet" class="w-full max-w-[860px]"></div></div>
+    <div class="w-full flex justify-center"><div id="catalog-sheet" class="w-full max-w-6xl"></div></div>
     <div id="load-more-wrap" class="no-print hidden flex flex-col items-center gap-2 pb-4">
       <span id="catalog-count" class="text-[11px] text-zinc-500 dark:text-zinc-400"></span>
       <button id="load-more-btn" onclick="loadMorePerfumes()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-[#FF7518] to-[#FFD700] text-black font-extrabold text-xs hover:brightness-110 active:scale-95 transition">Ver más perfumes</button>
@@ -538,12 +539,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block font-semibold mb-1">Paquetería de Preferencia *</label>
-            <select id="ship-courier" required class="w-full themed-input border rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
+            <select id="ship-courier" onchange="handleCourierChange()" required class="w-full themed-input border rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
               <option value="">Selecciona la paquetería...</option>
               <option value="DHL Express">DHL Express</option>
               <option value="Estafeta">Estafeta</option>
               <option value="FedEx">FedEx</option>
-              <option value="Punto Post">Punto Post</option>
+              <option value="Punto Post">Punto Post (Zonas seleccionadas)</option>
               <option value="Paquetexpress">Paquetexpress</option>
             </select>
           </div>
@@ -562,6 +563,32 @@
 
         <div id="ship-price-display" class="p-2 rounded-xl bg-orange-500/15 border border-orange-500/40 text-center font-bold text-xs text-orange-500 hidden">
           Tarifa estimada: <span id="ship-price-val">$0</span>
+        </div>
+
+        <!-- AVISO DE COBERTURA ESPECIAL PUNTO POST -->
+        <div id="puntopost-notice" class="hidden p-3 rounded-xl bg-gradient-to-r from-purple-950/70 to-[#1F1435] border border-orange-500/60 shadow-md">
+          <div class="flex items-start gap-2.5">
+            <span class="text-base">📍</span>
+            <div class="text-[11px] leading-relaxed">
+              <strong class="text-amber-400 block text-xs uppercase tracking-wide mb-1">⚠️ Cobertura Exclusiva Punto Post:</strong>
+              <p class="text-zinc-200 mb-1.5">Punto Post solamente aplica para entrega/recepción en las siguientes zonas autorizadas:</p>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-1 text-[10px] text-zinc-300 font-medium">
+                <span class="col-span-2 sm:col-span-3 text-orange-300 font-bold">• Ciudad de México (con alta concentración, superando las 3,000 ubicaciones)</span>
+                <span>• Estado de México</span>
+                <span>• Puebla</span>
+                <span>• Querétaro</span>
+                <span>• Tlaxcala</span>
+                <span>• Hidalgo</span>
+                <span>• Guanajuato</span>
+                <span>• Jalisco</span>
+                <span>• Nuevo León</span>
+                <span>• Veracruz</span>
+                <span>• Tabasco</span>
+                <span>• Aguascalientes</span>
+              </div>
+              <p class="text-[10px] text-orange-200/80 mt-1.5 italic font-semibold">Si tu origen o destino está fuera de estas entidades, te recomendamos elegir DHL, FedEx, Estafeta o Paquetexpress.</p>
+            </div>
+          </div>
         </div>
 
         <!-- DATOS DE ORIGEN (REMITENTE) -->
@@ -1237,6 +1264,18 @@
       document.getElementById('shipping-modal').classList.add('hidden');
     }
 
+    function handleCourierChange() {
+      const courier = document.getElementById('ship-courier')?.value || '';
+      const notice = document.getElementById('puntopost-notice');
+      if (notice) {
+        if (courier.includes('Punto Post')) {
+          notice.classList.remove('hidden');
+        } else {
+          notice.classList.add('hidden');
+        }
+      }
+    }
+
     function updateShippingPricePreview() {
       const weightVal = document.getElementById('ship-weight').value;
       const display = document.getElementById('ship-price-display');
@@ -1686,7 +1725,7 @@ ${orderListText}
       const q = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
       const brand = document.getElementById('filter-brand')?.value || 'ALL';
       const gender = document.getElementById('filter-gender')?.value || 'ALL';
-      const sortOrder = document.getElementById('sort-order')?.value || 'name_asc';
+      const sortOrder = document.getElementById('sort-order')?.value || 'recent';
 
       let filtered = fragrances.filter(f => {
         const matchesBrand = (brand === 'ALL' || f.brand === brand);
@@ -1697,7 +1736,19 @@ ${orderListText}
 
       // Lógica de ordenamiento
       filtered.sort((a, b) => {
-        if (sortOrder === 'name_asc') {
+        if (sortOrder === 'recent') {
+          // Extraer timestamp numérico del id (ej. 'frag-17123456789') o conservar orden de inserción
+          const getTs = item => {
+            if (!item || !item.id) return 0;
+            const match = String(item.id).match(/\d+/);
+            return match ? parseInt(match[0], 10) : 0;
+          };
+          const tsA = getTs(a);
+          const tsB = getTs(b);
+          if (tsA && tsB && tsA !== tsB) return tsB - tsA;
+          // Si no tienen timestamp en el id, respetar el orden original del arreglo fragrances
+          return fragrances.indexOf(a) - fragrances.indexOf(b);
+        } else if (sortOrder === 'name_asc') {
           return (a.name || '').localeCompare(b.name || '', 'es', { sensitivity: 'base' });
         } else if (sortOrder === 'name_desc') {
           return (b.name || '').localeCompare(a.name || '', 'es', { sensitivity: 'base' });
@@ -1720,7 +1771,7 @@ ${orderListText}
 
       emptyState.classList.add('hidden');
       const shown = filtered.slice(0, visibleCount);
-      container.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">${shown.map(cardHtml).join('')}</div>`;
+      container.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">${shown.map(cardHtml).join('')}</div>`;
       wrap.classList.remove('hidden');
       document.getElementById('catalog-count').textContent = `Mostrando ${shown.length} de ${filtered.length} perfumes`;
       document.getElementById('load-more-btn').classList.toggle('hidden', shown.length >= filtered.length);

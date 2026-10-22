@@ -671,10 +671,58 @@
           </div>
         </div>
 
-        <!-- CONTENIDO Y MEDIDAS -->
-        <div>
-          <label class="block font-semibold mb-1">Contenido / Dimensiones del Paquete *</label>
-          <input type="text" id="ship-contents" required placeholder="Ej: Perfumes, ropa, refacciones (y dimensiones aprox. L x An x Al en cm)" class="w-full themed-input border rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
+        <!-- CONTENIDO Y MEDIDAS DEL PAQUETE CON CALCULADORA VOLUMÉTRICA -->
+        <div class="p-3 rounded-xl themed-subbox border border-orange-500/40 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-500 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="box" class="w-4 h-4 text-orange-500"></i> Medidas y Calculadora de Peso Volumétrico
+            </span>
+            <span class="text-[10px] text-zinc-400 font-medium">Fórmula estándar: (L × An × Al) ÷ 5000</span>
+          </div>
+
+          <div>
+            <label class="block text-zinc-400 mb-1 font-semibold">Descripción del Contenido *</label>
+            <input type="text" id="ship-contents" required placeholder="Ej. Perfumes, ropa, calzado, electrónicos..." class="w-full themed-input border rounded-xl px-3 py-2 focus:outline-none focus:border-orange-500">
+          </div>
+
+          <!-- Campos de dimensiones -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div>
+              <label class="block text-[11px] text-zinc-400 mb-0.5 font-semibold">Largo (cm) *</label>
+              <input type="number" id="calc-length" min="1" step="0.5" placeholder="Ej. 20" oninput="calculateVolumetricWeight()" required class="w-full themed-input border rounded-xl px-2.5 py-1.5 text-center font-bold focus:outline-none focus:border-orange-500">
+            </div>
+            <div>
+              <label class="block text-[11px] text-zinc-400 mb-0.5 font-semibold">Ancho (cm) *</label>
+              <input type="number" id="calc-width" min="1" step="0.5" placeholder="Ej. 15" oninput="calculateVolumetricWeight()" required class="w-full themed-input border rounded-xl px-2.5 py-1.5 text-center font-bold focus:outline-none focus:border-orange-500">
+            </div>
+            <div>
+              <label class="block text-[11px] text-zinc-400 mb-0.5 font-semibold">Alto (cm) *</label>
+              <input type="number" id="calc-height" min="1" step="0.5" placeholder="Ej. 10" oninput="calculateVolumetricWeight()" required class="w-full themed-input border rounded-xl px-2.5 py-1.5 text-center font-bold focus:outline-none focus:border-orange-500">
+            </div>
+            <div>
+              <label class="block text-[11px] text-zinc-400 mb-0.5 font-semibold">Peso Báscula (kg)</label>
+              <input type="number" id="calc-real-weight" min="0.1" step="0.1" placeholder="Ej. 0.8" oninput="calculateVolumetricWeight()" class="w-full themed-input border rounded-xl px-2.5 py-1.5 text-center font-bold focus:outline-none focus:border-orange-500">
+            </div>
+          </div>
+
+          <!-- Resultados dinámicos de la calculadora -->
+          <div id="calc-results-card" class="p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/35 grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-xs">
+            <div class="p-1.5 rounded-lg themed-input border border-purple-900/60">
+              <span class="text-[10px] text-zinc-400 block">Volumen</span>
+              <strong id="res-volume" class="text-zinc-200 text-xs">0 cm³</strong>
+            </div>
+            <div class="p-1.5 rounded-lg themed-input border border-orange-500/50">
+              <span class="text-[10px] text-orange-400 block font-semibold">Peso Volumétrico</span>
+              <strong id="res-vol-weight" class="text-amber-400 text-sm font-black">0.00 kg</strong>
+            </div>
+            <div class="p-1.5 rounded-lg themed-input border border-amber-500/60">
+              <span class="text-[10px] text-amber-300 block font-semibold">Peso a Cobrar (Mayor)</span>
+              <strong id="res-billable-weight" class="text-[#FF7518] text-sm font-extrabold">0.00 kg</strong>
+            </div>
+          </div>
+          <div id="calc-tariff-advice" class="text-[11px] text-amber-400/90 italic font-semibold text-center">
+            Introduce las medidas de tu caja para calcular automáticamente el peso volumétrico.
+          </div>
         </div>
 
         <button type="submit" class="w-full py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-black font-extrabold flex items-center justify-center gap-2 shadow-lg transition text-sm">
@@ -980,11 +1028,14 @@
             </div>
 
             <div class="p-2 rounded-lg border border-amber-500/50 themed-input">
-              <div class="flex justify-between text-[10px] text-amber-500 mb-1 font-bold">
+              <div class="flex justify-between items-center text-[10px] text-amber-500 mb-1 font-bold">
                 <span>Botella</span>
-                <label><input type="checkbox" id="frag-bottle-avail" checked> Stock</label>
+                <div class="flex items-center gap-1.5 text-[9px]">
+                  <label title="Pieza disponible de inmediato"><input type="checkbox" id="frag-bottle-avail" checked> Stock</label>
+                  <label class="text-orange-400 font-bold" title="No disponible inmediata pero se puede encargar"><input type="checkbox" id="frag-bottle-ondemand"> Bajo Pedido</label>
+                </div>
               </div>
-              <input type="number" id="frag-price-bottle" placeholder="0" class="w-full themed-input border rounded px-2 py-0.5 font-extrabold text-xs">
+              <input type="number" id="frag-price-bottle" placeholder="0" class="w-full themed-input border rounded px-2 py-0.5 font-extrabold text-xs" title="Precio estimado o 0 si cotizas al momento">
             </div>
           </div>
         </div>
@@ -1276,6 +1327,46 @@
       }
     }
 
+    function calculateVolumetricWeight() {
+      const l = parseFloat(document.getElementById('calc-length')?.value) || 0;
+      const w = parseFloat(document.getElementById('calc-width')?.value) || 0;
+      const h = parseFloat(document.getElementById('calc-height')?.value) || 0;
+      const realWeight = parseFloat(document.getElementById('calc-real-weight')?.value) || 0;
+
+      const volume = l * w * h;
+      const volWeight = volume > 0 ? (volume / 5000) : 0;
+      const billable = Math.max(realWeight, volWeight);
+
+      document.getElementById('res-volume').textContent = volume > 0 ? `${volume.toLocaleString('es-MX')} cm³` : '0 cm³';
+      document.getElementById('res-vol-weight').textContent = `${volWeight.toFixed(2)} kg`;
+      document.getElementById('res-billable-weight').textContent = `${billable.toFixed(2)} kg`;
+
+      const advice = document.getElementById('calc-tariff-advice');
+      const shipWeightSelect = document.getElementById('ship-weight');
+
+      if (billable > 0) {
+        if (billable <= 1.0) {
+          advice.innerHTML = `✅ <b>Tarifa recomendada: 1 kg ($170 MXN)</b> (Peso mayor: ${billable.toFixed(2)} kg)`;
+          if (shipWeightSelect) shipWeightSelect.value = "1 kg - $170 MXN";
+        } else if (billable <= 2.0) {
+          advice.innerHTML = `✅ <b>Tarifa recomendada: 2 kg ($180 MXN)</b> (Peso mayor: ${billable.toFixed(2)} kg)`;
+          if (shipWeightSelect) shipWeightSelect.value = "2 kg - $180 MXN";
+        } else if (billable <= 3.0) {
+          advice.innerHTML = `⚠️ <b>Rango: 3 kg (Bajo cotización/demanda)</b> (Peso mayor: ${billable.toFixed(2)} kg)`;
+          if (shipWeightSelect) shipWeightSelect.value = "3 kg (Bajo cotización)";
+        } else if (billable <= 5.0) {
+          advice.innerHTML = `⚠️ <b>Rango: 4 a 5 kg (Bajo cotización)</b> (Peso mayor: ${billable.toFixed(2)} kg)`;
+          if (shipWeightSelect) shipWeightSelect.value = "4 a 5 kg (Bajo cotización)";
+        } else {
+          advice.innerHTML = `⚠️ <b>Carga pesada / Guía especial (${billable.toFixed(2)} kg)</b>`;
+          if (shipWeightSelect) shipWeightSelect.value = "Guía Especial / Carga (Cotizar)";
+        }
+        updateShippingPricePreview();
+      } else {
+        advice.textContent = 'Introduce las medidas de tu caja para calcular automáticamente el peso volumétrico.';
+      }
+    }
+
     function updateShippingPricePreview() {
       const weightVal = document.getElementById('ship-weight').value;
       const display = document.getElementById('ship-price-display');
@@ -1294,12 +1385,20 @@
       }
     }
 
+    function realWeightDisplay(v) { return (parseFloat(v) > 0) ? `${v} kg` : 'No especificado'; }
+
     function handleShippingSubmit(e) {
       e.preventDefault();
 
       const courier = document.getElementById('ship-courier').value;
       const weight = document.getElementById('ship-weight').value;
       const contents = document.getElementById('ship-contents').value.trim();
+      const length = document.getElementById('calc-length')?.value || 0;
+      const width = document.getElementById('calc-width')?.value || 0;
+      const height = document.getElementById('calc-height')?.value || 0;
+      const realW = document.getElementById('calc-real-weight')?.value || 'No especificado';
+      const volW = ((parseFloat(length) * parseFloat(width) * parseFloat(height)) / 5000).toFixed(2);
+      const billW = Math.max(parseFloat(realW) || 0, parseFloat(volW) || 0).toFixed(2);
 
       const oName = document.getElementById('orig-name').value.trim();
       const oPhone = document.getElementById('orig-phone').value.trim();
@@ -1320,9 +1419,17 @@
 `;
       msg += `🚚 *Paquetería:* ${courier}
 `;
-      msg += `⚖️ *Peso/Rango:* ${weight}
+      msg += `⚖️ *Guía Seleccionada:* ${weight}
 `;
-      msg += `🏷️ *Contenido/Medidas:* ${contents}
+      msg += `🏷️ *Contenido:* ${contents}
+`;
+      msg += `📏 *Dimensiones:* ${length} x ${width} x ${height} cm
+`;
+      msg += `⚖️ *Peso Báscula:* ${realWeightDisplay(realW)}
+`;
+      msg += `📐 *Peso Volumétrico:* ${volW} kg
+`;
+      msg += `📊 *Peso Facturable (Mayor):* ${billW} kg
 
 `;
 
@@ -1791,6 +1898,7 @@ ${orderListText}
         document.getElementById('fragrance-form').reset();
         document.getElementById('form-edit-id').value = '';
         document.getElementById('modal-title').textContent = 'Agregar Fragancia';
+        document.getElementById('frag-bottle-ondemand').checked = false;
         updateImagePreview('');
       }
     }
@@ -1847,6 +1955,7 @@ ${orderListText}
 
       const pBottle = parseFloat(document.getElementById('frag-price-bottle').value) || 0;
       const pBottleAvail = document.getElementById('frag-bottle-avail').checked;
+      const pBottleOnDemand = document.getElementById('frag-bottle-ondemand').checked;
 
       const itemData = {
         id: editId || 'frag-' + Date.now(),
@@ -1861,7 +1970,7 @@ ${orderListText}
           "3ml": { price: p3, inStock: p3Avail },
           "5ml": { price: p5, inStock: p5Avail },
           "10ml": { price: p10, inStock: p10Avail },
-          "bottle": { price: pBottle, inStock: pBottleAvail }
+          "bottle": { price: pBottle, inStock: pBottleAvail, onDemand: pBottleOnDemand }
         }
       };
 
@@ -1911,6 +2020,7 @@ ${orderListText}
 
       document.getElementById('frag-price-bottle').value = pBottle.price || '';
       document.getElementById('frag-bottle-avail').checked = pBottle.inStock;
+      document.getElementById('frag-bottle-ondemand').checked = !!pBottle.onDemand;
 
       updateImagePreview(frag.image || '');
       document.getElementById('modal-title').textContent = 'Editar Fragancia';
@@ -1996,9 +2106,21 @@ ${orderListText}
 
     function sizeState(f, key, useCart = true) {
       const p = f.prices?.[key] || { price: 0, inStock: key !== 'bottle' };
-      if (!p.inStock || !(parseFloat(p.price) > 0)) return { ok: false, label: key === 'bottle' ? 'N/D' : 'Agotado', reason: 'Opción agotada o no disponible' };
+      
+      // Si la botella está configurada bajo pedido
+      if (key === 'bottle' && p.onDemand) {
+        const pr = parseFloat(p.price) > 0 ? formatPrice(p.price) : 'Bajo Pedido';
+        return { ok: true, onDemand: true, label: pr, subtext: 'Bajo Pedido', reason: 'Disponible por encargo especial' };
+      }
+
+      if (!p.inStock || !(parseFloat(p.price) > 0)) {
+        return { ok: false, label: key === 'bottle' ? 'N/D' : 'Agotado', reason: 'Opción agotada o no disponible' };
+      }
+
       if (key === 'bottle') {
-        if (hasPcs(f) && f.stock.bottles - (useCart ? cartPcs(f.id) : 0) < 1) return { ok: false, label: 'Agotado', reason: 'Sin piezas disponibles' };
+        if (hasPcs(f) && f.stock.bottles - (useCart ? cartPcs(f.id) : 0) < 1) {
+          return { ok: false, label: 'Agotado', reason: 'Sin piezas en stock de momento' };
+        }
       } else if (hasMl(f)) {
         const a = availMl(f, useCart);
         if (a < parseInt(key)) return { ok: false, label: a <= 0 ? 'Agotado' : 'Sin ml', reason: a <= 0 ? 'Decants agotados' : `Solo quedan ${fmtMl(a)} ml disponibles` };
@@ -2016,6 +2138,10 @@ ${orderListText}
       };
       const btns = SIZES.map(([k, l]) => {
         const s = sizeState(f, k);
+        if (k === 'bottle' && s.onDemand) {
+          const btnTone = 'border-orange-500 bg-gradient-to-r from-orange-500/25 to-amber-500/20 text-orange-400 shadow-sm';
+          return `<button onclick="orderBottleOnDemand('${f.id}')" title="Encargar botella bajo pedido vía WhatsApp" class="${pv ? 'p-2.5' : 'p-1'} rounded-xl border ${btnTone} transition flex flex-col items-center hover:brightness-125 cursor-pointer animate-pulse"><span class="${pv ? 'text-[10px]' : 'text-[8px]'} uppercase font-extrabold text-amber-400">📦 BOTELLA</span><span class="${pv ? 'text-xs' : 'text-[10px]'} font-black text-orange-400 leading-tight">${s.label === 'Bajo Pedido' ? 'BAJO PEDIDO' : s.label + ' (Encargo)'}</span></button>`;
+        }
         return `<button ${s.ok ? `onclick="addToCart('${f.id}','${k}')"` : 'disabled'} title="${s.ok ? '' : esc(s.reason)}" class="${pv ? 'p-2.5' : 'p-1'} rounded-xl border ${tone[k]} transition flex flex-col items-center ${s.ok ? 'hover:brightness-125 cursor-pointer' : 'opacity-35 cursor-not-allowed'}"><span class="${pv ? 'text-[10px]' : 'text-[8px]'} uppercase font-bold ${k === 'bottle' ? 'text-amber-500' : 'text-zinc-400'}">${l}</span><span class="${pv ? 'text-xs' : 'text-[11px]'} font-bold ${s.ok ? '' : 'text-zinc-500 line-through'}">${s.label}</span></button>`;
       }).join('');
       const notes = [];
@@ -2059,6 +2185,20 @@ ${orderListText}
         if (i.size === 'bottle') { if (hasPcs(f)) f.stock.bottles = Math.max(0, f.stock.bottles - i.qty); }
         else if (hasMl(f)) f.stock.ml = Math.max(0, r1(f.stock.ml - parseInt(i.size) * i.qty));
       });
+    }
+
+    function orderBottleOnDemand(fragId) {
+      const f = fragrances.find(x => x.id === fragId);
+      if (!f) return;
+      const cleanPhone = storeConfig.whatsapp.replace(/[^0-9]/g, '');
+      const priceText = (f.prices?.bottle?.price > 0) ? ` (precio estimado: ${formatPrice(f.prices.bottle.price)})` : '';
+      const text = `¡Hola! 👋 Me interesa solicitar *BAJO PEDIDO / ENCARGO* la Botella Completa de:\n\n` +
+                   `🏷️ *Marca:* ${f.brand}\n` +
+                   `🌸 *Perfume:* ${f.name}\n` +
+                   `✨ *Concentración:* ${f.concentration || 'EDP'}${priceText}\n\n` +
+                   `¿Me podrías confirmar tiempo de entrega estimado y cómo podemos gestionar el encargo?`;
+      window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
+      showToast('Abriendo WhatsApp para encargar la botella...', 2500);
     }
 
     function contactWhatsApp() {

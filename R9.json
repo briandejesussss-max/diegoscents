@@ -10,6 +10,34 @@
  },
  "fragrances": [
   {
+   "id": "frag-1792731440931",
+   "name": "Coffeee Passion",
+   "brand": "Lorenzo Pazzaglia",
+   "concentration": "Extrait de Parfum",
+   "gender": "Unisex",
+   "image": "",
+   "notes": "Top Notes\n\n\nArabica Coffee fragrance note\nArabica Coffee\n\nDates fragrance note\nDates\n\nHazelnut fragrance note\nHazelnut\n\nCoconut Milk fragrance note\nCoconut Milk\n\nCinnamon fragrance note\nCinnamon\nHeart Notes\n\n\nCaramel fragrance note\nCaramel\n\nChocolate fragrance note\nChocolate\n\nArabica Coffee fragrance note\nArabica Coffee\n\nHeliotrope fragrance note\nHeliotrope\n\nTonka Bean fragrance note\nTonka Bean\nBase Notes\n\n\nArabica Coffee fragrance note\nArabica Coffee\n\nSugar fragrance note\nSugar\n\nVanilla fragrance note\nVanilla\n\nBenzoin fragrance note\nBenzoin\n\nCedarwood fragrance note\nCedarwood",
+   "prices": {
+    "3ml": {
+     "price": 350,
+     "inStock": false
+    },
+    "5ml": {
+     "price": 480,
+     "inStock": false
+    },
+    "10ml": {
+     "price": 800,
+     "inStock": false
+    },
+    "bottle": {
+     "price": 3000,
+     "inStock": false,
+     "onDemand": true
+    }
+   }
+  },
+  {
    "id": "frag-1792547667897",
    "name": "Hinoki Noir",
    "brand": "Nook & Scent",

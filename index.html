@@ -36,6 +36,11 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Librerías de Exportación para el Cotizador/Facturación -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <!-- Fuentes Google: Playfair Display + Plus Jakarta Sans + Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +53,6 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Prevención absoluta de desbordes horizontales en cualquier dispositivo */
     html, body {
       width: 100%;
       max-width: 100vw;
@@ -57,7 +61,7 @@
       padding: 0;
     }
 
-    /* MODO OSCURO (Halloween Obsidian Luxe estilo Silloria) */
+    /* MODO OSCURO */
     html.dark, html.dark body {
       background-color: #08070C !important;
       color: #F4F4F5 !important;
@@ -94,7 +98,7 @@
       border: 1px solid rgba(255, 117, 24, 0.15) !important;
     }
 
-    /* MODO CLARO SUAVE (Arena Mate & Pergamino Otoñal - CERO brillo punzante) */
+    /* MODO CLARO */
     html:not(.dark), html:not(.dark) body {
       background-color: #ECE7DE !important;
       color: #272221 !important;
@@ -148,35 +152,16 @@
       letter-spacing: 0.16em;
     }
 
-    /* Animación fluida para el drawer lateral izquierdo */
     #sidebar-drawer {
       transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.38s ease;
     }
     #sidebar-backdrop {
       transition: opacity 0.35s ease;
     }
-
-    /* Sombra elegante lateral */
     .drawer-shadow {
       box-shadow: 10px 0 45px rgba(0, 0, 0, 0.55);
     }
 
-    /* Partículas Halloween sutiles */
-    .spooky-stars { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
-    .spooky-stars span { position: absolute; top: -30px; font-size: 16px; opacity: .4; animation: fallSpooky 14s linear infinite; }
-    .spooky-stars span:nth-child(1) { left: 8%; animation-delay: 0s; }
-    .spooky-stars span:nth-child(2) { left: 26%; animation-delay: 4s; font-size: 13px; }
-    .spooky-stars span:nth-child(3) { left: 52%; animation-delay: 8s; }
-    .spooky-stars span:nth-child(4) { left: 74%; animation-delay: 2s; font-size: 14px; }
-    .spooky-stars span:nth-child(5) { left: 91%; animation-delay: 6s; }
-    @keyframes fallSpooky {
-      0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.55; }
-      80% { opacity: 0.55; }
-      100% { transform: translateY(440px) rotate(360deg); opacity: 0; }
-    }
-
-    /* ===== MEJORAS VISUALES E INTERACTIVAS ===== */
     #scroll-progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#FF8A00,#D4AF37);z-index:70;pointer-events:none}
     .hero{position:relative;overflow:hidden;padding:clamp(2rem,6vw,4.5rem) 1rem}
     .hero-glow{position:absolute;top:-20%;right:-10%;width:60vw;height:60vw;max-width:640px;max-height:640px;background:radial-gradient(circle,rgba(255,138,0,.22),transparent 65%);animation:glowDrift 14s ease-in-out infinite alternate;pointer-events:none}
@@ -221,10 +206,9 @@
     .bump{animation:bump .45s}
     @keyframes bump{40%{transform:scale(1.15)}}
     button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #D4AF37;outline-offset:2px}
-    @media(prefers-reduced-motion:reduce){.hero-glow,.vial-liquid::before,.hero-copy>*,.bump{animation:none}.vial-liquid{transition:none}html{scroll-behavior:auto}}
     html{scroll-behavior:smooth}
 
-    /* ===== CORRECCIÓN DE CONTRASTE EN MODO CLARO ===== */
+    /* CONTRASTE MODO CLARO */
     html.dark{color-scheme:dark;--ink-gold:#D4AF37}
     html:not(.dark){color-scheme:light;--ink-gold:#8A5A00}
     html:not(.dark) .text-gold{color:#8A5A00}
@@ -234,28 +218,17 @@
     html:not(.dark) .text-amber-300,html:not(.dark) .text-amber-400{color:#8a4b00}
     html:not(.dark) .text-red-300,html:not(.dark) .text-red-400,html:not(.dark) .text-red-500{color:#b3261e}
     html:not(.dark) .text-emerald-300,html:not(.dark) .text-emerald-400{color:#166534}
-    html:not(.dark) .hover\:text-white:hover{color:#000}
-    html:not(.dark) .hover\:text-black:hover{color:#000}
     html:not(.dark) .bg-zinc-800,html:not(.dark) .bg-zinc-800\/80,html:not(.dark) .bg-zinc-800\/60,html:not(.dark) .bg-zinc-800\/50,
     html:not(.dark) .bg-zinc-900\/80,html:not(.dark) .bg-zinc-900\/40,html:not(.dark) .bg-zinc-900:not([class*="dark:bg-white"]){background-color:#E4DED2}
     html:not(.dark) .hover\:bg-zinc-800:hover,html:not(.dark) .hover\:bg-zinc-700:hover{background-color:#D8D0C1}
     html:not(.dark) .border-zinc-700,html:not(.dark) .border-zinc-700\/60,html:not(.dark) .border-zinc-600{border-color:#C9BFAE}
     html:not(.dark) .border-white\/10,html:not(.dark) .border-white\/5{border-color:rgba(39,34,33,.14)}
     html:not(.dark) .bg-black\/40,html:not(.dark) .bg-black\/20{background-color:rgba(39,34,33,.07)}
-    html:not(.dark) .bg-red-950,html:not(.dark) .bg-red-950\/30{background-color:#FBE0DC}
-    html:not(.dark) .bg-amber-950,html:not(.dark) .bg-amber-950\/20{background-color:#FBEAC6}
-    html:not(.dark) .bg-emerald-950,html:not(.dark) .bg-emerald-950\/20{background-color:#D9F0E0}
-    html:not(.dark) .stage-bottle .bg-black\/60{background-color:rgba(255,253,248,.94);color:#3a302a}
-    html:not(.dark) #product-page-view .bg-black\/70{color:#F4F4F5}
-    html:not(.dark) #toast-container>div{background:#1b1410;color:#F5E6C8}
-    html:not(.dark) #toast-container .text-gold{color:#D4AF37}
-    html:not(.dark) #theme-toggle-btn{color:#2b2420}
     html:not(.dark) .drawer-shadow{box-shadow:10px 0 40px rgba(40,30,25,.25)}
     .hero-trust-list svg,.hero-steps b,.vial-price{color:var(--ink-gold)}
 
-    /* ===== HALLOWEEN ===== */
+    /* HALLOWEEN */
     .hw-moon{position:absolute;top:1rem;right:5%;width:clamp(70px,11vw,118px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6dc,#f2c879 60%,#d9962f);box-shadow:0 0 70px 12px rgba(255,170,60,.32);opacity:.88;pointer-events:none}
-    .hw-moon::after{content:"";position:absolute;left:58%;top:30%;width:18%;height:18%;border-radius:50%;background:rgba(160,100,30,.25);box-shadow:-26px 30px 0 -2px rgba(160,100,30,.2)}
     .hw-bat{position:absolute;left:0;font-size:22px;opacity:.75;pointer-events:none;animation:batFly 17s linear infinite}
     .hw-bat:nth-of-type(1){top:12%}.hw-bat:nth-of-type(2){top:32%;font-size:16px;animation-duration:23s;animation-delay:-8s}.hw-bat:nth-of-type(3){top:58%;font-size:19px;animation-duration:29s;animation-delay:-15s}
     @keyframes batFly{0%{transform:translate(-8vw,0) scaleX(1)}25%{transform:translate(22vw,-16px)}50%{transform:translate(50vw,10px)}75%{transform:translate(78vw,-14px)}100%{transform:translate(108vw,6px)}}
@@ -270,7 +243,7 @@
     .hero-nav a:hover{border-color:var(--ink-gold);color:var(--ink-gold)}
     #como-funciona,#caldero,#preguntas,#catalogo{scroll-margin-top:4.5rem}
 
-    /* Caldero interactivo */
+    /* Caldero */
     .cauldron{padding:2rem 1rem .5rem}
     .cauldron-inner{max-width:72rem;margin:0 auto;border-radius:1.75rem;padding:1.4rem;display:grid;gap:1.4rem;grid-template-columns:minmax(0,1fr);align-items:center}
     @media(min-width:760px){.cauldron-inner{grid-template-columns:200px minmax(0,1fr);padding:1.8rem}}
@@ -291,9 +264,7 @@
     .cc-name{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;margin:.1rem 0 .3rem}
     .cc-notes{margin:0 0 .6rem;font-size:.75rem;opacity:.75;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
     .cauldron-empty{margin-top:1rem;font-size:.8rem;opacity:.75}
-    .hero-btn:disabled{opacity:.55;cursor:wait}
 
-    /* Preguntas frecuentes */
     .faq{padding:2.5rem 1rem 1rem}
     .faq-inner{max-width:48rem;margin:0 auto}
     .faq h3{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.5rem,4vw,2.1rem);margin:0 0 1rem}
@@ -303,10 +274,7 @@
     .faq summary::after{content:"+";font-size:1.2rem;line-height:1;color:var(--ink-gold);transition:transform .25s}
     .faq details[open] summary::after{transform:rotate(45deg)}
     .faq details p{margin:0;padding:0 1.1rem 1rem;font-size:.82rem;line-height:1.65;opacity:.85}
-    .faq details .hero-btn{margin:0 1.1rem 1rem}
-    @media(prefers-reduced-motion:reduce){.hw-bat{display:none}.marquee-track,.bubble,.pot-brew,.pot.brewing,.cauldron-card{animation:none}}
 
-    /* ===== HALLOWEEN EXTRA ===== */
     .hw-bat.rev{animation-name:batFlyRev}
     @keyframes batFlyRev{0%{transform:translate(108vw,0) scaleX(-1)}30%{transform:translate(70vw,14px) scaleX(-1)}60%{transform:translate(35vw,-12px) scaleX(-1)}100%{transform:translate(-8vw,8px) scaleX(-1)}}
     #spooky-rain{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
@@ -316,7 +284,63 @@
     @keyframes ghostFloat{to{transform:translateY(-7px) rotate(-6deg)}}
     .boo-p{position:fixed;z-index:80;pointer-events:none;animation:booP 1.4s ease-out forwards}
     @keyframes booP{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
-    @media(prefers-reduced-motion:reduce){#spooky-rain,.boo-p{display:none}#fab-ghost{animation:none}}
+
+    /* ESTILOS DEL COTIZADOR Y FACTURA DIRECTA (SIN IFRAME) */
+    .calc-card {
+      background: #FFFFFF;
+      color: #0F172A;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+    .invoice-printable {
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      padding: 24px;
+      border-radius: 10px;
+      border: 1px solid #CBD5E1;
+      width: 100%;
+      max-width: 100%;
+    }
+    .calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .calc-table th {
+      background: #F1F5F9;
+      color: #334155;
+      padding: 8px 10px;
+      font-weight: 700;
+      text-align: left;
+    }
+    .calc-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #1E293B;
+    }
+    .totals-box {
+      margin-left: auto;
+      width: 100%;
+      max-width: 340px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+    .totals-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .totals-row.final {
+      font-weight: 800;
+      font-size: 1.15rem;
+      border-top: 2px solid #CBD5E1;
+      padding-top: 8px;
+      color: #0F172A;
+    }
   </style>
 </head>
 <body class="flex flex-col antialiased selection:bg-[#FF8A00] selection:text-black min-h-screen w-full">
@@ -328,18 +352,16 @@
     <span>JS FRAGANCES &bull; SILLAGE ARCHIVE 🎃 &bull; DECANTS AUTÉNTICOS &bull; GUÍAS EXPRESS</span>
   </div>
 
-  <!-- NAVBAR LIMPIO Y ADAPTABLE -->
+  <!-- NAVBAR -->
   <header id="top-navbar" class="no-print sticky top-0 z-40 bg-[#08070C]/90 dark:bg-[#08070C]/90 bg-[#ECE7DE]/90 backdrop-blur-xl border-b border-white/10 dark:border-white/10 border-zinc-300 px-3 sm:px-6 py-2.5 transition-colors duration-300">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
       
-      <!-- BOTÓN MENÚ HAMBURGUESA / DRAWER IZQUIERDO INTERACTIVO -->
       <div class="flex items-center gap-2">
         <button onclick="toggleSidebarDrawer()" class="p-2 rounded-xl bg-zinc-800/60 dark:bg-zinc-800/60 bg-zinc-300/70 hover:border-gold border border-white/10 text-gold flex items-center gap-1.5 transition active:scale-95" title="Abrir Menú y Herramientas">
           <i data-lucide="menu" class="w-5 h-5"></i>
           <span class="text-[10px] uppercase tracking-wider font-bold hidden sm:inline">Menú &amp; Guías</span>
         </button>
 
-        <!-- LOGO E IDENTIFICADOR -->
         <div class="flex items-center space-x-2">
           <div class="relative group cursor-pointer" onclick="triggerLogoUpload()" title="Cambiar Logotipo">
             <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gold/40 p-[2px] flex items-center justify-center transition-transform group-hover:scale-105">
@@ -362,7 +384,6 @@
         </div>
       </div>
 
-      <!-- BUSCADOR CÁPSULA CENTRAL -->
       <div class="hidden lg:flex flex-1 max-w-sm mx-2">
         <div class="relative w-full">
           <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3.5 top-2.5"></i>
@@ -376,7 +397,6 @@
         </div>
       </div>
 
-      <!-- ACCIONES DERECHA -->
       <div class="flex items-center gap-1.5 sm:gap-2">
         <button onclick="openShippingModal()" class="px-2.5 sm:px-3.5 py-1.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-black hover:bg-gold dark:hover:bg-gold dark:hover:text-black font-semibold text-[10px] sm:text-xs uppercase tracking-wider flex items-center gap-1 border border-white/20 transition active:scale-95">
           <i data-lucide="truck" class="w-3.5 h-3.5"></i>
@@ -479,7 +499,7 @@
         </button>
       </div>
 
-      <!-- Sección 2: Módulo Empezando & Armario Olfativo -->
+      <!-- Sección 2: Módulo Armario Olfativo -->
       <div class="p-3.5 rounded-2xl themed-subbox border space-y-2.5">
         <span class="text-[10px] uppercase tracking-luxury text-gold font-bold block">Tu Armario &bull; Silloria Experience</span>
         
@@ -546,7 +566,6 @@
       </div>
     </div>
 
-    <!-- Pie del Drawer -->
     <div class="pt-4 border-t border-white/10 text-center text-zinc-500 text-[10px] space-y-1">
       <p class="text-zinc-400 font-medium">JS FRAGANCES &bull; Saltillo, Coahuila</p>
       <p>Decants sellados &bull; Envíos a todo México</p>
@@ -644,7 +663,7 @@
       <button class="cat-chip" data-g="Femenino">Femenino</button>
     </div>
 
-    <!-- CUADRÍCULA ADAPTABLE -->
+    <!-- CUADRÍCULA -->
     <div class="w-full flex justify-center">
       <div id="catalog-sheet" class="w-full max-w-6xl"></div>
     </div>
@@ -709,7 +728,6 @@
       </div>
 
       <div class="p-4 sm:p-6 space-y-5">
-        <!-- Pirámide de notas -->
         <div class="space-y-3">
           <span class="text-[9px] uppercase tracking-luxury text-gold font-bold block">Pirámide Olfativa Detallada</span>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-[11px]">
@@ -735,7 +753,6 @@
           <p id="pv-notes-full" class="text-zinc-400 leading-relaxed text-[11px]"></p>
         </div>
 
-        <!-- Radiografía comunitaria -->
         <div id="pv-veredicto" class="p-3.5 sm:p-4 rounded-2xl themed-subbox border space-y-3">
           <div class="flex items-center justify-between border-b border-white/10 pb-1.5">
             <span class="text-[9px] uppercase tracking-luxury text-gold font-bold">Radiografía Olfativa &bull; Comunidad</span>
@@ -761,7 +778,6 @@
           </div>
         </div>
 
-        <!-- Precios, compartir y compra -->
         <div id="pv-precios" class="space-y-2.5 pt-1">
           <div class="flex items-center justify-between">
             <span class="text-[9px] uppercase tracking-luxury text-gold font-bold">Formatos en Decants &amp; Botella</span>
@@ -1095,14 +1111,173 @@
     </div>
   </div>
 
-  <!-- MODAL COTIZADOR Y FACTURACIÓN -->
-  <div id="calc-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 text-xs">
-    <div class="themed-modal-bg rounded-2xl w-full max-w-6xl relative border border-gold/40 flex flex-col" style="height:92vh;height:92dvh">
-      <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/10">
-        <h3 class="font-editorial text-base font-bold text-gold flex items-center gap-2"><i data-lucide="calculator" class="w-4 h-4"></i> Cotizador y Facturación</h3>
-        <button onclick="closeCalcModal()" aria-label="Cerrar cotizador" class="text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+  <!-- ========================================================================= -->
+  <!-- MODAL COTIZADOR Y FACTURACIÓN: NATIVO SIN IFRAME (REPARA PANTALLA EN BLANCO Y PDF) -->
+  <!-- ========================================================================= -->
+  <div id="calc-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-start justify-center p-2 sm:p-4 text-xs overflow-y-auto">
+    <div class="themed-modal-bg rounded-2xl w-full max-w-5xl relative border border-gold/40 flex flex-col my-4 max-h-[92vh] overflow-hidden shadow-2xl">
+      
+      <!-- Encabezado modal -->
+      <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 shrink-0 bg-black/40">
+        <h3 class="font-editorial text-sm sm:text-base font-bold text-gold flex items-center gap-2">
+          <i data-lucide="calculator" class="w-4 h-4"></i> Cotizador y Facturación de Importación
+        </h3>
+        <button onclick="closeCalcModal()" aria-label="Cerrar cotizador" class="text-zinc-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
       </div>
-      <iframe id="calc-frame" title="Cotizador y Facturación" class="flex-1 w-full rounded-b-2xl" style="border:0;background:#f8fafc"></iframe>
+
+      <!-- Contenido scrolleable -->
+      <div class="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
+        
+        <!-- Tarjeta 1: Configuración Divisa -->
+        <div class="calc-card">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <h4 class="font-bold text-slate-800 text-sm">Configuración de Divisa</h4>
+            <span id="calc-rate-status" class="px-2.5 py-1 rounded bg-sky-100 text-sky-800 text-[10px] font-bold w-fit">
+              Consultando tipo de cambio...
+            </span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tipo de Cambio Actual (USD a MXN):</label>
+              <input type="number" id="calc-usd-to-mxn" step="0.01" value="20.00" onchange="actualizarTablaTotales()" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-bold text-slate-800">
+            </div>
+            <div>
+              <button type="button" onclick="obtenerTipoCambio()" class="w-full p-2 rounded-lg bg-slate-600 hover:bg-slate-700 text-white font-semibold text-xs transition">
+                Actualizar Cambio en Vivo
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta 2: Formulario Agregar Fragancia -->
+        <div class="calc-card">
+          <h4 class="font-bold text-slate-800 text-sm mb-3">Agregar Fragancia a la Cotización</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2.5 mb-3">
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] font-bold text-slate-600 mb-1">Fragancia / Casa *</label>
+              <input type="text" id="calc-frag-name" placeholder="Ej. Lattafa Khamrah 100ml" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 mb-1">Precio Lista (USD) *</label>
+              <input type="number" id="calc-frag-price" step="0.01" placeholder="Ej. 50.00" oninput="calcularPreviewCotizador()" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-bold">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 mb-1">Descuento (%)</label>
+              <input type="number" id="calc-frag-discount" step="1" value="0" placeholder="0" oninput="calcularPreviewCotizador()" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 mb-1">Peso Un. (kg)</label>
+              <input type="number" id="calc-frag-weight" step="0.05" value="0.5" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 items-center mb-3">
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 mb-1">Cantidad de piezas:</label>
+              <input type="number" id="calc-frag-qty" value="1" min="1" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-bold">
+            </div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 text-[11px] leading-tight">
+              <strong>Precio con desc.:</strong> <span id="calc-preview-usd" class="font-bold text-emerald-700">$0.00 USD</span> | 
+              <strong>En pesos:</strong> <span id="calc-preview-mxn" class="font-bold text-slate-900">$0.00 MXN</span>
+            </div>
+          </div>
+
+          <button type="button" onclick="agregarFraganciaCotizador()" class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider transition">
+            + Agregar al Pedido / Factura
+          </button>
+        </div>
+
+        <!-- Tarjeta 3: Resumen y Acciones de Exportación -->
+        <div class="calc-card space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-2">
+            <h4 class="font-bold text-slate-800 text-sm">Documento de Cotización</h4>
+            
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="exportarExcelCotizador()" class="px-2.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-bold flex items-center gap-1 transition">
+                <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i> Excel
+              </button>
+              <button onclick="exportarPDFCotizador()" class="px-2.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold flex items-center gap-1 transition">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Descargar PDF
+              </button>
+              <button onclick="exportarImagenCotizador()" class="px-2.5 py-1.5 rounded-lg bg-purple-700 hover:bg-purple-800 text-white text-[10px] font-bold flex items-center gap-1 transition">
+                <i data-lucide="image" class="w-3.5 h-3.5"></i> Imagen
+              </button>
+              <button onclick="limpiarListaCotizador()" class="px-2.5 py-1.5 rounded-lg bg-slate-500 hover:bg-slate-600 text-white text-[10px] font-bold transition">
+                Vaciar
+              </button>
+            </div>
+          </div>
+
+          <!-- ÁREA VISUAL IMPRIMIBLE / FACTURA -->
+          <div id="invoice-export-node" class="invoice-printable">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-200 pb-3 mb-4">
+              <div>
+                <h3 class="text-base sm:text-lg font-black text-slate-900 uppercase tracking-wider leading-none">
+                  COTIZACIÓN / NOTA DE COMPRA
+                </h3>
+                <span class="text-xs text-slate-500 font-medium">JS Fragances &bull; Importación y Entrega a México</span>
+              </div>
+              <div class="text-left sm:text-right text-[11px] text-slate-600 mt-2 sm:mt-0 font-mono">
+                <p><strong>Fecha:</strong> <span id="calc-invoice-date"></span></p>
+                <p><strong>T.C.:</strong> <span id="calc-invoice-rate">20.00</span> MXN/USD</p>
+              </div>
+            </div>
+
+            <!-- Tabla de productos -->
+            <div class="overflow-x-auto">
+              <table class="calc-table mb-4">
+                <thead>
+                  <tr>
+                    <th>Descripción</th>
+                    <th class="text-center">Cant.</th>
+                    <th class="text-right">Unitario (USD)</th>
+                    <th class="text-right">Unitario (MXN)</th>
+                    <th class="text-right">Subtotal (MXN)</th>
+                    <th class="text-center no-print">Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="calc-items-tbody"></tbody>
+              </table>
+            </div>
+
+            <!-- Bloque de totales -->
+            <div class="totals-box">
+              <div class="totals-row text-xs text-slate-600">
+                <span>Subtotal Productos:</span>
+                <span id="calc-subtotal-mxn" class="font-mono font-semibold">$0.00 MXN</span>
+              </div>
+              <div class="totals-row text-xs text-slate-600">
+                <span>Impuestos y Gestión Aduana (Tax):</span>
+                <span id="calc-tax-mxn" class="font-mono font-semibold">$0.00 MXN</span>
+              </div>
+              <div class="totals-row text-xs text-slate-600">
+                <span>Tarifa Cruce e Importación:</span>
+                <span id="calc-cruce-mxn" class="font-mono font-semibold">$0.00 MXN</span>
+              </div>
+              <div class="totals-row text-[10px] text-slate-500">
+                <span>Peso total acumulado:</span>
+                <span id="calc-total-peso" class="font-mono">0.00 kg</span>
+              </div>
+
+              <div id="calc-warning-weight" class="hidden text-[10px] font-bold text-red-600 bg-red-50 p-1.5 rounded border border-red-200">
+                * Peso mayor a 5 kg: Requiere cotización personalizada de cruce.
+              </div>
+
+              <div class="totals-row final">
+                <span class="text-sm">TOTAL A PAGAR:</span>
+                <span id="calc-total-final-mxn" class="text-base text-blue-700 font-black font-mono">$0.00 MXN</span>
+              </div>
+              <div class="totals-row justify-end text-[11px] text-slate-500 font-mono">
+                <span id="calc-total-final-usd">($0.00 USD aprox.)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -1331,6 +1506,9 @@
       updateCartUI();
       lucide.createIcons();
 
+      // Iniciar cotizador
+      initCotizador();
+
       checkUrlForFragrance();
       await refreshFromRemote();
     }
@@ -1360,7 +1538,6 @@
       } catch(e) {}
     }
 
-    // ARMARIO OLFATIVO
     function toggleShelfItem(fragId) {
       const idx = shelf.indexOf(fragId);
       if (idx > -1) {
@@ -1640,7 +1817,6 @@
                 ${f.gender ? `<span class="border border-gold/40 text-gold font-semibold text-[8px] sm:text-[9px] px-2 py-0.5 rounded-full">${esc(f.gender)}</span>` : ''}
               </div>
 
-              <!-- Botón corazón -->
               <button onclick="event.stopPropagation(); toggleShelfItem('${f.id}')" title="Guardar en armario de botellas" class="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/60 text-zinc-300 hover:text-red-400 transition">
                 <i data-lucide="heart" class="w-3.5 h-3.5 ${inShelf ? 'fill-red-500 text-red-500' : ''}"></i>
               </button>
@@ -1728,7 +1904,6 @@
       const frag = fragrances.find(f => f.id === fragId);
       if (!frag) return;
 
-      // Actualizar la URL dinámicamente con el hash
       if (updateUrl) {
         history.replaceState({ fragId: frag.id }, '', `#fragancia=${encodeURIComponent(frag.id)}`);
       }
@@ -1789,11 +1964,9 @@
 
     function closeProductView() {
       document.getElementById('product-page-view').classList.add('hidden');
-      // Quitar el hash sin recargar la página
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
 
-    // Soporte para navegar con el botón atrás del navegador
     window.addEventListener('popstate', () => {
       if (window.location.hash.startsWith('#fragancia=')) {
         checkUrlForFragrance();
@@ -2237,7 +2410,6 @@
     function openInventoryModal() {
       if (!isAdminLoggedIn) return toggleAuthModal();
       populateInvSelect(); invChanged(); renderInventoryList();
-      document.getElementById('inv-threshold').value = getLow();
       document.getElementById('inventory-modal').classList.remove('hidden');
     }
     function closeInventoryModal() { document.getElementById('inventory-modal').classList.add('hidden'); }
@@ -2275,7 +2447,7 @@
         const name = g('inv-name').value.trim(), brand = g('inv-brand').value.trim();
         if (!name || !brand) return showToast('Escribe nombre y casa de la fragancia', 3000);
         const pr = k => parseFloat(g('inv-price-' + k).value) || 0;
-        f = { id: 'frag-' + Date.now(), name, brand, concentration: g('inv-conc').value.trim() || 'Eau de Parfum', gender: g('inv-gender').value, image: '', notes: '', prices: {} };
+        f = { id: 'frag-' + Date.now(), name, brand, concentration: g('inv-conc')?.value.trim() || 'Eau de Parfum', gender: g('inv-gender')?.value || 'Unisex', image: '', notes: '', prices: {} };
         ['3ml', '5ml', '10ml', 'bottle'].forEach(k => { f.prices[k] = { price: pr(k), inStock: pr(k) > 0 }; });
         fragrances.unshift(f);
         g('inv-new-block').querySelectorAll('input').forEach(i => { i.value = ''; });
@@ -2288,12 +2460,6 @@
       populateInvSelect(f.id); invChanged(); renderInventoryList();
       g('inv-qty').value = '';
       showToast('Inventario actualizado');
-      await syncToGitHub();
-    }
-
-    async function saveLowThreshold(v) {
-      storeConfig.lowMlThreshold = Math.max(0, parseFloat(v) || 0);
-      saveLocalData(); renderCatalog(); renderInventoryList();
       await syncToGitHub();
     }
 
@@ -2316,11 +2482,225 @@
       setTimeout(() => toast.remove(), duration);
     }
 
+    // =========================================================================
+    // LÓGICA DEL COTIZADOR Y FACTURACIÓN NATIVO (100% OPERATIVO EN IPAD/SAFARI)
+    // =========================================================================
+    let calcItems = [];
+    const MARGEN_GANANCIA_USD = 3.00;
+
+    function initCotizador() {
+      const d = document.getElementById('calc-invoice-date');
+      if (d) d.textContent = new Date().toLocaleDateString('es-MX');
+      obtenerTipoCambio();
+    }
+
+    function openCalcModal() {
+      if (!isAdminLoggedIn) return toggleAuthModal();
+      document.getElementById('calc-modal').classList.remove('hidden');
+      calcularPreviewCotizador();
+      actualizarTablaTotales();
+      lucide.createIcons();
+    }
+
+    function closeCalcModal() {
+      document.getElementById('calc-modal').classList.add('hidden');
+    }
+
+    async function obtenerTipoCambio() {
+      const status = document.getElementById('calc-rate-status');
+      if (status) status.innerText = "Consultando cambio...";
+      try {
+        const response = await fetch('https://open.er-api.com/v6/latest/USD');
+        const data = await response.json();
+        if (data && data.rates && data.rates.MXN) {
+          const rateVal = data.rates.MXN.toFixed(2);
+          const inp = document.getElementById('calc-usd-to-mxn');
+          if (inp) inp.value = rateVal;
+          if (status) status.innerText = `En vivo: $${rateVal} MXN`;
+          actualizarTablaTotales();
+        }
+      } catch (e) {
+        if (status) status.innerText = "Manual (Fallo API)";
+      }
+    }
+
+    function calcularPreviewCotizador() {
+      const price = parseFloat(document.getElementById('calc-frag-price')?.value) || 0;
+      const discount = parseFloat(document.getElementById('calc-frag-discount')?.value) || 0;
+      const rate = parseFloat(document.getElementById('calc-usd-to-mxn')?.value) || 1;
+
+      const precioFinalUSD = price * (1 - (discount / 100));
+      const precioFinalMXN = precioFinalUSD * rate;
+
+      const pUSD = document.getElementById('calc-preview-usd');
+      const pMXN = document.getElementById('calc-preview-mxn');
+      if (pUSD) pUSD.innerText = `$${precioFinalUSD.toFixed(2)} USD`;
+      if (pMXN) pMXN.innerText = `$${precioFinalMXN.toFixed(2)} MXN`;
+    }
+
+    function agregarFraganciaCotizador() {
+      const name = document.getElementById('calc-frag-name')?.value.trim();
+      const priceUSD = parseFloat(document.getElementById('calc-frag-price')?.value) || 0;
+      const discount = parseFloat(document.getElementById('calc-frag-discount')?.value) || 0;
+      const weight = parseFloat(document.getElementById('calc-frag-weight')?.value) || 0.5;
+      const qty = parseInt(document.getElementById('calc-frag-qty')?.value) || 1;
+
+      if (!name || priceUSD <= 0) {
+        alert("Por favor introduce el nombre y el precio en USD.");
+        return;
+      }
+
+      const priceAfterDiscountUSD = priceUSD * (1 - (discount / 100));
+      calcItems.push({
+        id: Date.now(),
+        name,
+        priceUSD: priceAfterDiscountUSD,
+        weight,
+        qty
+      });
+
+      document.getElementById('calc-frag-name').value = '';
+      document.getElementById('calc-frag-price').value = '';
+      document.getElementById('calc-frag-discount').value = '0';
+      document.getElementById('calc-frag-qty').value = '1';
+      calcularPreviewCotizador();
+      actualizarTablaTotales();
+      showToast('Fragancia agregada al cotizador');
+    }
+
+    function eliminarItemCotizador(id) {
+      calcItems = calcItems.filter(item => item.id !== id);
+      actualizarTablaTotales();
+    }
+
+    function limpiarListaCotizador() {
+      if (confirm("¿Estás seguro de vaciar toda la cotización actual?")) {
+        calcItems = [];
+        actualizarTablaTotales();
+      }
+    }
+
+    function calcularCruce(pesoTotal) {
+      if (pesoTotal <= 0) return 0;
+      if (pesoTotal <= 1) return 200;
+      if (pesoTotal <= 3) return 300;
+      if (pesoTotal <= 5) return 400;
+      return 400;
+    }
+
+    function actualizarTablaTotales() {
+      const rate = parseFloat(document.getElementById('calc-usd-to-mxn')?.value) || 1;
+      const tbody = document.getElementById('calc-items-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      let subtotalUSD = 0;
+      let totalPeso = 0;
+      let totalPiezas = 0;
+
+      calcItems.forEach(item => {
+        const itemSubtotalUSD = item.priceUSD * item.qty;
+        const itemPriceMXN = item.priceUSD * rate;
+        const itemSubtotalMXN = itemSubtotalUSD * rate;
+
+        subtotalUSD += itemSubtotalUSD;
+        totalPeso += (item.weight * item.qty);
+        totalPiezas += item.qty;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${esc(item.name)}</strong></td>
+          <td class="text-center font-bold font-mono">${item.qty}</td>
+          <td class="text-right font-mono text-slate-600">$${item.priceUSD.toFixed(2)}</td>
+          <td class="text-right font-mono text-slate-800">$${itemPriceMXN.toFixed(2)}</td>
+          <td class="text-right font-mono font-bold text-slate-900">$${itemSubtotalMXN.toFixed(2)}</td>
+          <td class="text-center no-print">
+            <button type="button" class="text-red-600 font-bold hover:scale-125 transition text-sm px-1.5" onclick="eliminarItemCotizador(${item.id})">&times;</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      const subtotalMXN = subtotalUSD * rate;
+      const taxOcultoUSD = totalPiezas * MARGEN_GANANCIA_USD;
+      const taxOcultoMXN = taxOcultoUSD * rate;
+      const costoCruce = calcItems.length > 0 ? calcularCruce(totalPeso) : 0;
+      const totalFinalMXN = subtotalMXN + taxOcultoMXN + costoCruce;
+      const totalFinalUSD = totalFinalMXN / rate;
+
+      document.getElementById('calc-subtotal-mxn').innerText = `$${subtotalMXN.toFixed(2)} MXN`;
+      document.getElementById('calc-tax-mxn').innerText = `$${taxOcultoMXN.toFixed(2)} MXN`;
+      document.getElementById('calc-cruce-mxn').innerText = `$${costoCruce.toFixed(2)} MXN`;
+      document.getElementById('calc-total-peso').innerText = `${totalPeso.toFixed(2)} kg`;
+      document.getElementById('calc-total-final-mxn').innerText = `$${totalFinalMXN.toFixed(2)} MXN`;
+      document.getElementById('calc-total-final-usd').innerText = `($${totalFinalUSD.toFixed(2)} USD aprox.)`;
+
+      const warn = document.getElementById('calc-warning-weight');
+      if (warn) warn.classList.toggle('hidden', totalPeso <= 5);
+
+      const invRate = document.getElementById('calc-invoice-rate');
+      if (invRate) invRate.innerText = rate.toFixed(2);
+    }
+
+    function exportarExcelCotizador() {
+      if (calcItems.length === 0) {
+        alert("No hay elementos para exportar.");
+        return;
+      }
+      const rate = parseFloat(document.getElementById('calc-usd-to-mxn')?.value) || 1;
+      const data = calcItems.map(i => ({
+        "Fragancia": i.name,
+        "Cantidad": i.qty,
+        "Precio USD": i.priceUSD.toFixed(2),
+        "Precio MXN": (i.priceUSD * rate).toFixed(2),
+        "Subtotal MXN": (i.priceUSD * i.qty * rate).toFixed(2),
+        "Peso (kg)": (i.weight * i.qty).toFixed(2)
+      }));
+
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Cotización");
+      XLSX.writeFile(wb, "Cotizacion_Fragancias_JS.xlsx");
+    }
+
+    function exportarPDFCotizador() {
+      if (calcItems.length === 0) {
+        alert("Agrega al menos una fragancia para exportar el documento.");
+        return;
+      }
+      showToast('Generando PDF completo...', 2000);
+      const element = document.getElementById('invoice-export-node');
+      
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'Cotizacion_Fragancias_JS.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save();
+    }
+
+    function exportarImagenCotizador() {
+      if (calcItems.length === 0) {
+        alert("No hay elementos para exportar.");
+        return;
+      }
+      showToast('Generando imagen de cotización...', 2000);
+      const element = document.getElementById('invoice-export-node');
+      html2canvas(element, { scale: 2, useCORS: true, scrollY: 0 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'Cotizacion_Fragancias_JS.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+
     window.addEventListener('DOMContentLoaded', initApp);
   </script>
 
   <script>
-  /* Mejoras: se montan encima de la lógica original */
   (function(){
     const $ = id => document.getElementById(id);
     const SIZES = {'3ml':['Para probar sin compromiso',28],'5ml':['Para usarlo varias semanas',46],'10ml':['Para llevarlo en tu día a día',68],'bottle':['Botella completa, pieza original',92]};
@@ -2379,6 +2759,7 @@
       if (e.key === 'Escape') {
         const d = $('sidebar-drawer'); if (d && !d.classList.contains('-translate-x-full')) toggleSidebarDrawer();
         const c = $('cart-drawer'); if (c && !c.classList.contains('hidden')) toggleCartDrawer();
+        const cal = $('calc-modal'); if (cal && !cal.classList.contains('hidden')) closeCalcModal();
       }
     });
 
@@ -2469,24 +2850,6 @@
       showToast('No se pudo guardar en GitHub. Revisa tu token y permisos', 4500);
     }
   }
-  </script>
-
-  <script>
-  /* Cotizador y Facturación iframe */
-  (function(){
-    const CALC_B64 = "PG1ldGEgbmFtZT0ndmlld3BvcnQnIGNvbnRlbnQ9J3dpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xJy8+PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVzIj4KPGhlYWQ+CiAgPG1ldGEgY2hhcnNldD0iVVRGLTgiPgogIDxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MS4wIj4KICA8dGl0bGU+Q290aXphZG9yIHkgRmFjdHVyYWNpw7NuIGRlIEZyYWdhbmNpYXM8L3RpdGxlPgogIAogIDwhLS0gTGlicmVyw61hcyBleHRlcm5hcyBwYXJhIGV4cG9ydGFyIGEgRXhjZWwsIFBERiBlIEltYWdlbiAtLT4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS94bHN4QDAuMTguNS9kaXN0L3hsc3guZnVsbC5taW4uanMiPjwvc2NyaXB0PgogIDxzY3JpcHQgc3JjPSJodHRwczovL2NkbmpzLmNsb3VkZmxhcmUuY29tL2FqYXgvbGlicy9odG1sMnBkZi5qcy8wLjEwLjEvaHRtbDJwZGYuYnVuZGxlLm1pbi5qcyI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2h0bWwyY2FudmFzLzEuNC4xL2h0bWwyY2FudmFzLm1pbi5qcyI+PC9zY3JpcHQ+CgogIDxzdHlsZT4KICAgIDpyb290IHsKICAgICAgLS1wcmltYXJ5OiAjMWUyOTNiOwogICAgICAtLWFjY2VudDogIzI1NjNlYjsKICAgICAgLS1hY2NlbnQtaG92ZXI6ICMxZDRlZDg7CiAgICAgIC0tYmc6ICNmOGZhZmM7CiAgICAgIC0tY2FyZC1iZzogI2ZmZmZmZjsKICAgICAgLS10ZXh0OiAjMGYxNzJhOwogICAgICAtLWJvcmRlcjogI2UyZThmMDsKICAgICAgLS1zdWNjZXNzOiAjMTZhMzRhOwogICAgfQoKICAgICogeyBib3gtc2l6aW5nOiBib3JkZXItYm94OyBtYXJnaW46IDA7IHBhZGRpbmc6IDA7IGZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICJTZWdvZSBVSSIsIFJvYm90bywgc2Fucy1zZXJpZjsgfQogICAgYm9keSB7IGJhY2tncm91bmQtY29sb3I6IHZhcigtLWJnKTsgY29sb3I6IHZhcigtLXRleHQpOyBwYWRkaW5nOiAyNHB4IDE2cHg7IH0KICAgIC5jb250YWluZXIgeyBtYXgtd2lkdGg6IDExMDBweDsgbWFyZ2luOiAwIGF1dG87IGRpc3BsYXk6IGdyaWQ7IGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyOyBnYXA6IDI0cHg7IH0KCiAgICAuY2FyZCB7IGJhY2tncm91bmQ6IHZhcigtLWNhcmQtYmcpOyBib3JkZXItcmFkaXVzOiAxMnB4OyBwYWRkaW5nOiAyNHB4OyBib3gtc2hhZG93OiAwIDRweCAxMnB4IHJnYmEoMCwwLDAsMC4wNSk7IGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWJvcmRlcik7IH0KICAgIGgyLCBoMyB7IGNvbG9yOiB2YXIoLS1wcmltYXJ5KTsgbWFyZ2luLWJvdHRvbTogMTZweDsgZm9udC13ZWlnaHQ6IDcwMDsgfQogICAgCiAgICAuZ3JpZC1mb3JtIHsgZGlzcGxheTogZ3JpZDsgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoYXV0by1maXQsIG1pbm1heCgyMDBweCwgMWZyKSk7IGdhcDogMTRweDsgbWFyZ2luLWJvdHRvbTogMTZweDsgfQogICAgLmZvcm0tZ3JvdXAgeyBkaXNwbGF5OiBmbGV4OyBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyBnYXA6IDZweDsgfQogICAgbGFiZWwgeyBmb250LXNpemU6IDAuODVyZW07IGZvbnQtd2VpZ2h0OiA2MDA7IGNvbG9yOiAjNDc1NTY5OyB9CiAgICBpbnB1dCwgc2VsZWN0IHsgcGFkZGluZzogMTBweCAxMnB4OyBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1ib3JkZXIpOyBib3JkZXItcmFkaXVzOiA4cHg7IGZvbnQtc2l6ZTogMC45NXJlbTsgb3V0bGluZTogbm9uZTsgfQogICAgaW5wdXQ6Zm9jdXMsIHNlbGVjdDpmb2N1cyB7IGJvcmRlci1jb2xvcjogdmFyKC0tYWNjZW50KTsgfQoKICAgIC5idG4tcm93IHsgZGlzcGxheTogZmxleDsgZ2FwOiAxMHB4OyBmbGV4LXdyYXA6IHdyYXA7IG1hcmdpbi10b3A6IDEwcHg7IH0KICAgIGJ1dHRvbiB7IGN1cnNvcjogcG9pbnRlcjsgcGFkZGluZzogMTBweCAxNnB4OyBib3JkZXItcmFkaXVzOiA4cHg7IGJvcmRlcjogbm9uZTsgZm9udC13ZWlnaHQ6IDYwMDsgdHJhbnNpdGlvbjogYWxsIDAuMnM7IGZvbnQtc2l6ZTogMC45cmVtOyB9CiAgICAuYnRuLXByaW1hcnkgeyBiYWNrZ3JvdW5kOiB2YXIoLS1hY2NlbnQpOyBjb2xvcjogd2hpdGU7IH0KICAgIC5idG4tcHJpbWFyeTpob3ZlciB7IGJhY2tncm91bmQ6IHZhcigtLWFjY2VudC1ob3Zlcik7IH0KICAgIC5idG4tZXhjZWwgeyBiYWNrZ3JvdW5kOiAjMTA3YzQxOyBjb2xvcjogd2hpdGU7IH0KICAgIC5idG4tcGRmIHsgYmFja2dyb3VuZDogI2RjMjYyNjsgY29sb3I6IHdoaXRlOyB9CiAgICAuYnRuLWltZyB7IGJhY2tncm91bmQ6ICM2YjIxYTg7IGNvbG9yOiB3aGl0ZTsgfQogICAgLmJ0bi1jbGVhciB7IGJhY2tncm91bmQ6ICM2NDc0OGI7IGNvbG9yOiB3aGl0ZTsgfQoKICAgIC8qIENvbnRlbmVkb3IgZGUgbGEgRmFjdHVyYSAvIENvdGl6YWNpw7NuICovCiAgICAjaW52b2ljZS1hcmVhIHsKICAgICAgYmFja2dyb3VuZDogI2ZmZmZmZjsKICAgICAgcGFkZGluZzogMzBweDsKICAgICAgYm9yZGVyLXJhZGl1czogMTBweDsKICAgICAgYm9yZGVyOiAxcHggc29saWQgI2NiZDVlMTsKICAgIH0KICAgIC5pbnZvaWNlLWhlYWRlciB7IGRpc3BsYXk6IGZsZXg7IGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjsgYm9yZGVyLWJvdHRvbTogMnB4IHNvbGlkICNlMmU4ZjA7IHBhZGRpbmctYm90dG9tOiAxNnB4OyBtYXJnaW4tYm90dG9tOiAyMHB4OyB9CiAgICAuaW52b2ljZS10aXRsZSI+Q09USVpBQ0nDk04gLyBOT1RBIERFIENPTVBSQTwvZGl2PgogICAgICAgICAgPGRpdiBzdHlsZT0iY29sb3I6ICM2NDc0OGI7IGZvbnQtc2l6ZTogMC45cmVtOyI+SW1wb3J0YWNpw7NuIHkgRW50cmVnYSBhIE3DqXhpY288L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IGNsYXNzPSJpbnZvaWNlLW1ldGEiPgogICAgICAgICAgPHA+PHN0cm9uZz5GZWNoYTo8L3N0cm9uZz4gPHNwYW4gaWQ9Imludm9pY2VEYXRlIj48L3NwYW4+PC9wPgogICAgICAgICAgPHA+PHN0cm9uZz5ULkMuOjwvc3Ryb25nPiA8c3BhbiBpZD0iaW52b2ljZVJhdGUiPjwvc3Bhbj4gTVhOL1VTRDwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY+CgogICAgICA8dGFibGU+CiAgICAgICAgPHRoZWFkPgogICAgICAgICAgPHRyPgogICAgICAgICAgICA8dGg+RGVzY3JpcGNpw7NuPC90aD4KICAgICAgICAgICAgPHRoIGNsYXNzPSJ0ZXh0LWNlbnRlciI+Q2FudC48L3RoPgogICAgICAgICAgICA8dGggY2xhc3M9InRleHQtcmlnaHQiPlVuaXRhcmlvIChVU0QpPC90aD4KICAgICAgICAgICAgPHRoIGNsYXNzPSJ0ZXh0LXJpZ2h0Ij5Vbml0YXJpbyAoTVhOKTwvdGg+CiAgICAgICAgICAgIDx0aCBjbGFzcz0idGV4dC1yaWdodCI+U3VidG90YWwgKE1YTik8L3RoPgogICAgICAgICAgICA8dGggY2xhc3M9InRleHQtY2VudGVyIj5BY2Npw7NuPC90aD4KICAgICAgICAgIDwvdHI+CiAgICAgICAgPC90aGVhZD4KICAgICAgICA8dGJvZHkgaWQ9Iml0ZW1zVGFibGVCb2R5Ij4KICAgICAgICAgIDwhLS0gRmlsYXMgZ2VuZXJhZGFzIGRpbsOhbWljYW1lbnRlIC0tPgogICAgICAgIDwvdGJvZHk+CiAgICAgIDwvdGFibGU+CgogICAgICA8ZGl2IGNsYXNzPSJ0b3RhbHMtYm94Ij4KICAgICAgICA8ZGl2IGNsYXNzPSJ0b3RhbHMtcm93Ij4KICAgICAgICAgIDxzcGFuPlN1YnRvdGFsIFByb2R1Y3Rvczo8L3NwYW4+CiAgICAgICAgICA8c3BhbiBpZD0idG90U3VidG90YWxNWE4iPiQwLjAwIE1YTjwvc3Bhbj4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IGNsYXNzPSJ0b3RhbHMtcm93Ij4KICAgICAgICAgIDxzcGFuPkltcHVlc3RvcyB5IEdlc3Rpw7NuIGRlIEFkdWFuYSAoVGF4KTo8L3NwYW4+CiAgICAgICAgICA8c3BhbiBpZD0idG90VGF4TVhOIj4kMC4wMCBNWE48L3NwYW4+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzcz0idG90YWxzLXJvdyI+CiAgICAgICAgICA8c3Bhbj5UYXJpZmEgQ3J1Y2UgZSBJbXBvcnRhY2nDs246PC9zcGFuPgogICAgICAgICAgPHNwYW4gaWQ9InRvdENydWNlTVhOIj4kMC4wMCBNWE48L3NwYW4+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzcz0idG90YWxzLXJvdyIgc3R5bGU9ImZvbnQtc2l6ZTogMC44cmVtOyBjb2xvcjogIzY0NzQ4YjsiPgogICAgICAgICAgPHNwYW4+UGVzbyB0b3RhbCBhY3VtdWxhZG86PC9zcGFuPgogICAgICAgICAgPHNwYW4gaWQ9InRvdFBlc28iPjAuMDAga2c8L3NwYW4+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBpZD0iY3VzdG9tQ3J1Y2VXYXJuaW5nIiBjbGFzcz0idGFnLWFsZXJ0IiBzdHlsZT0iZGlzcGxheTogbm9uZTsiPgogICAgICAgICAgKiBQZXNvIG1heW9yIGEgNSBrZzogUmVxdWllcmUgY290aXphY2nDs24gcGVyc29uYWxpemFkYSBkZSBjcnVjZS4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IGNsYXNzPSJ0b3RhbHMtcm93IGZpbmFsIj4KICAgICAgICAgIDxzcGFuPlRPVEFMIEEgUEFHQVI6PC9zcGFuPgogICAgICAgICAgPHNwYW4gaWQ9InRvdEZpbmFsTVhOIj4kMC4wMCBNWE48L3NwYW4+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzcz0idG90YWxzLXJvdyIgc3R5bGU9ImZvbnQtc2l6ZTogMC44NXJlbTsgY29sb3I6ICM2NDc0OGI7IGp1c3RpZnktY29udGVudDogZmxleC1lbmQ7Ij4KICAgICAgICAgIDxzcGFuIGlkPSJ0b3RGaW5hbFVTRCI+KCQwLjAwIFVTRCBhcHJveC4pPC9zcGFuPgogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogIDwvZGl2PgoKPC9kaXY+Cg==";
-    let loaded = false;
-    window.openCalcModal = function(){
-      if (typeof isAdminLoggedIn !== 'undefined' && !isAdminLoggedIn) return;
-      if (!loaded) {
-        document.getElementById('calc-frame').srcdoc = new TextDecoder().decode(Uint8Array.from(atob(CALC_B64), c => c.charCodeAt(0)));
-        loaded = true;
-      }
-      document.getElementById('calc-modal').classList.remove('hidden');
-    };
-    window.closeCalcModal = function(){ document.getElementById('calc-modal').classList.add('hidden'); };
-    addEventListener('keydown', e => { if (e.key === 'Escape') closeCalcModal(); });
-  })();
   </script>
 </body>
 </html>

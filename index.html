@@ -285,6 +285,22 @@
     .boo-p{position:fixed;z-index:80;pointer-events:none;animation:booP 1.4s ease-out forwards}
     @keyframes booP{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
 
+
+    /* CAMPOS DEL COTIZADOR: fondo claro, letra oscura (legibles en modo claro y oscuro) */
+    .calc-card input, .calc-card select, .calc-card textarea {
+      background-color: #F8FAFC !important;
+      color: #0F172A !important;
+      -webkit-text-fill-color: #0F172A !important;
+      border: 1.5px solid #94A3B8 !important;
+      color-scheme: light;
+      caret-color: #1D4ED8;
+    }
+    .calc-card input::placeholder { color: #64748B !important; -webkit-text-fill-color: #64748B !important; opacity: 1; }
+    .calc-card input:focus { outline: none; border-color: #2563EB !important; box-shadow: 0 0 0 3px rgba(37,99,235,.25); background-color: #FFFFFF !important; }
+    .calc-card label { color: #334155 !important; }
+    .calc-card h4 { color: #0F172A !important; }
+    #calc-modal .themed-modal-bg { color-scheme: light; }
+
     /* ESTILOS DEL COTIZADOR Y FACTURA DIRECTA (SIN IFRAME) */
     .calc-card {
       background: #FFFFFF;
@@ -1114,7 +1130,7 @@
   <!-- ========================================================================= -->
   <!-- MODAL COTIZADOR Y FACTURACIÓN: NATIVO SIN IFRAME (REPARA PANTALLA EN BLANCO Y PDF) -->
   <!-- ========================================================================= -->
-  <div id="calc-modal" class="no-print fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-start justify-center p-2 sm:p-4 text-xs overflow-y-auto">
+  <div id="calc-modal" class="no-print fixed inset-0 z-50 bg-black/85 hidden flex items-start justify-center p-2 sm:p-4 text-xs overflow-y-auto">
     <div class="themed-modal-bg rounded-2xl w-full max-w-5xl relative border border-gold/40 flex flex-col my-4 max-h-[92vh] overflow-hidden shadow-2xl">
       
       <!-- Encabezado modal -->
@@ -1195,16 +1211,16 @@
             <h4 class="font-bold text-slate-800 text-sm">Documento de Cotización</h4>
             
             <div class="flex flex-wrap gap-1.5">
-              <button onclick="exportarExcelCotizador()" class="px-2.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-bold flex items-center gap-1 transition">
+              <button type="button" onclick="exportarExcelCotizador()" class="px-2.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-bold flex items-center gap-1 transition">
                 <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i> Excel
               </button>
-              <button onclick="exportarPDFCotizador()" class="px-2.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold flex items-center gap-1 transition">
+              <button type="button" onclick="exportarPDFCotizador()" class="px-2.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold flex items-center gap-1 transition">
                 <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Descargar PDF
               </button>
-              <button onclick="exportarImagenCotizador()" class="px-2.5 py-1.5 rounded-lg bg-purple-700 hover:bg-purple-800 text-white text-[10px] font-bold flex items-center gap-1 transition">
+              <button type="button" onclick="exportarImagenCotizador()" class="px-2.5 py-1.5 rounded-lg bg-purple-700 hover:bg-purple-800 text-white text-[10px] font-bold flex items-center gap-1 transition">
                 <i data-lucide="image" class="w-3.5 h-3.5"></i> Imagen
               </button>
-              <button onclick="limpiarListaCotizador()" class="px-2.5 py-1.5 rounded-lg bg-slate-500 hover:bg-slate-600 text-white text-[10px] font-bold transition">
+              <button type="button" onclick="limpiarListaCotizador()" class="px-2.5 py-1.5 rounded-lg bg-slate-500 hover:bg-slate-600 text-white text-[10px] font-bold transition">
                 Vaciar
               </button>
             </div>
@@ -2663,39 +2679,81 @@
       XLSX.writeFile(wb, "Cotizacion_Fragancias_JS.xlsx");
     }
 
-    function exportarPDFCotizador() {
-      if (calcItems.length === 0) {
-        alert("Agrega al menos una fragancia para exportar el documento.");
-        return;
-      }
-      showToast('Generando PDF completo...', 2000);
-      const element = document.getElementById('invoice-export-node');
-      
-      const opt = {
-        margin: [10, 10, 10, 10],
-        filename: 'Cotizacion_Fragancias_JS.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      html2pdf().set(opt).from(element).save();
+    // Crea una copia limpia de la factura fuera de pantalla (evita trabas del modal con scroll/blur)
+    function crearCloneFactura() {
+      const original = document.getElementById('invoice-export-node');
+      const clone = original.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.querySelectorAll('.no-print').forEach(n => n.remove());
+      clone.style.cssText = 'position:fixed;left:-10000px;top:0;width:780px;max-width:780px;background:#fff;color:#0F172A;padding:24px;box-sizing:border-box;z-index:-1;';
+      document.body.appendChild(clone);
+      return clone;
     }
 
-    function exportarImagenCotizador() {
-      if (calcItems.length === 0) {
-        alert("No hay elementos para exportar.");
-        return;
+    function conTimeout(promesa, ms, msg) {
+      return Promise.race([promesa, new Promise((_, rej) => setTimeout(() => rej(new Error(msg)), ms))]);
+    }
+
+    let exportandoCotizador = false;
+
+    async function exportarPDFCotizador() {
+      if (calcItems.length === 0) { alert("Agrega al menos una fragancia para exportar el documento."); return; }
+      if (exportandoCotizador) return;
+      if (typeof html2pdf === 'undefined') { alert("No cargó la librería de PDF. Revisa tu conexión y recarga la página."); return; }
+      exportandoCotizador = true;
+      showToast('Generando PDF...', 2500);
+      let clone = null;
+      try {
+        clone = crearCloneFactura();
+        await new Promise(r => setTimeout(r, 150));
+        const opt = {
+          margin: 10,
+          filename: 'Cotizacion_Fragancias_JS.pdf',
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff', scrollX: 0, scrollY: 0, windowWidth: 800 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['css', 'legacy'] }
+        };
+        await conTimeout(html2pdf().set(opt).from(clone).save(), 25000, 'Tiempo agotado al generar el PDF');
+        showToast('PDF descargado');
+      } catch (e) {
+        console.error('Error PDF:', e);
+        alert("No se pudo generar el PDF: " + (e && e.message ? e.message : e) + "\nPuedes usar el botón Imagen como alternativa.");
+      } finally {
+        if (clone && clone.parentNode) clone.parentNode.removeChild(clone);
+        exportandoCotizador = false;
       }
-      showToast('Generando imagen de cotización...', 2000);
-      const element = document.getElementById('invoice-export-node');
-      html2canvas(element, { scale: 2, useCORS: true, scrollY: 0 }).then(canvas => {
+    }
+
+    async function exportarImagenCotizador() {
+      if (calcItems.length === 0) { alert("No hay elementos para exportar."); return; }
+      if (exportandoCotizador) return;
+      if (typeof html2canvas === 'undefined') { alert("No cargó la librería de imagen. Recarga la página."); return; }
+      exportandoCotizador = true;
+      showToast('Generando imagen...', 2500);
+      let clone = null;
+      try {
+        clone = crearCloneFactura();
+        await new Promise(r => setTimeout(r, 150));
+        const canvas = await conTimeout(html2canvas(clone, { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff', scrollX: 0, scrollY: 0, windowWidth: 800 }), 25000, 'Tiempo agotado al generar la imagen');
         const link = document.createElement('a');
         link.download = 'Cotizacion_Fragancias_JS.png';
         link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
         link.click();
-      });
+        link.remove();
+      } catch (e) {
+        console.error('Error imagen:', e);
+        alert("No se pudo generar la imagen: " + (e && e.message ? e.message : e));
+      } finally {
+        if (clone && clone.parentNode) clone.parentNode.removeChild(clone);
+        exportandoCotizador = false;
+      }
     }
+
+    // Cerrar el cotizador con Esc o tocando fuera de la ventana
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCalcModal(); });
+    document.getElementById('calc-modal').addEventListener('click', e => { if (e.target.id === 'calc-modal') closeCalcModal(); });
 
     window.addEventListener('DOMContentLoaded', initApp);
   </script>

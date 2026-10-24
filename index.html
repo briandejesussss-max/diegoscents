@@ -781,6 +781,11 @@
             <i data-lucide="message-circle" class="w-4 h-4"></i>
             <span>Pedir Asesoría Directa por WhatsApp</span>
           </button>
+
+          <button type="button" id="pv-share-btn" onclick="sharePerfumeLink()" class="w-full py-3 rounded-full border border-gold/60 text-gold font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition hover:bg-gold hover:text-black mt-2">
+            <i data-lucide="share-2" class="w-4 h-4"></i>
+            <span>Compartir link de este perfume</span>
+          </button>
         </div>
 
       </div>
@@ -1324,8 +1329,10 @@
       renderCuratedShelf();
       updateCartUI();
       lucide.createIcons();
+      openFragFromUrl();
 
       await refreshFromRemote();
+      openFragFromUrl();
     }
 
     let remoteReady = false;
@@ -1746,10 +1753,103 @@
       };
 
       document.getElementById('product-page-view').classList.remove('hidden');
+      document.title = `${frag.brand} ${frag.name} | ${BASE_TITLE}`;
+      if (!pvFromPop && IS_WEB) {
+        try { history.pushState({ perfume: frag.id }, '', fragShareUrl(frag)); } catch (e) {}
+      }
       lucide.createIcons();
     }
 
-    function closeProductView() { document.getElementById('product-page-view').classList.add('hidden'); }
+    // ================= LINK PROPIO POR PERFUME =================
+    // Cada ficha tiene su URL: tusitio.github.io/?perfume=marca-nombre
+    const BASE_TITLE = document.title;
+    // Si la página se abre como archivo local (content:// o file://) no se toca la barra de direcciones;
+    // el link compartido siempre apunta al sitio publicado.
+    const SITE_URL = 'https://briandejesussss-max.github.io/';
+    const IS_WEB = /^https?:$/.test(window.location.protocol);
+    let pvFromPop = false;
+    let urlFragOpened = false;
+
+    function slugify(t) {
+      return String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+    function fragSlug(f) { return slugify((f.brand || '') + ' ' + (f.name || '')); }
+    function cleanBaseUrl() {
+      try {
+        if (!IS_WEB) return SITE_URL;
+        const u = new URL(window.location.href);
+        u.search = ''; u.hash = '';
+        return u.toString();
+      } catch (e) { return SITE_URL; }
+    }
+    function fragShareUrl(f) {
+      return cleanBaseUrl() + '?perfume=' + encodeURIComponent(fragSlug(f));
+    }
+    function findFragFromParam(v) {
+      if (!v) return null;
+      const raw = String(v);
+      const low = slugify(raw);
+      return fragrances.find(f => String(f.id) === raw)
+        || fragrances.find(f => fragSlug(f) === low)
+        || fragrances.find(f => slugify(f.name) === low) || null;
+    }
+    function openFragFromUrl() {
+      if (urlFragOpened) return;
+      if (!IS_WEB) return;
+      let p = null;
+      try { p = new URLSearchParams(window.location.search).get('perfume'); } catch (e) {}
+      if (!p) return;
+      const f = findFragFromParam(p);
+      if (!f) return;
+      urlFragOpened = true;
+      pvFromPop = true;
+      try { openProductView(f.id); } finally { pvFromPop = false; }
+    }
+
+    async function sharePerfumeLink() {
+      const id = document.getElementById('pv-prices-container')?.dataset.fragId;
+      const f = fragrances.find(x => x.id === id);
+      if (!f) return;
+      const url = fragShareUrl(f);
+      const title = `${f.brand} - ${f.name}`;
+      try {
+        if (navigator.share) {
+          await navigator.share({ title, text: `Mira ${title} en JS Fragances`, url });
+          return;
+        }
+      } catch (e) {
+        if (e && e.name === 'AbortError') return;
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('Link copiado: ' + title);
+      } catch (e) {
+        try { window.prompt('Copia el link de este perfume:', url); } catch (e2) { showToast(url, 6000); }
+      }
+    }
+
+    function closeProductView() {
+      document.getElementById('product-page-view').classList.add('hidden');
+      document.title = BASE_TITLE;
+      if (pvFromPop || !IS_WEB) return;
+      try {
+        if (new URLSearchParams(window.location.search).has('perfume')) {
+          if (history.state && history.state.perfume) history.back();
+          else history.replaceState(null, '', cleanBaseUrl());
+        }
+      } catch (e) {}
+    }
+
+    window.addEventListener('popstate', function () {
+      if (!IS_WEB) return;
+      pvFromPop = true;
+      try {
+        const p = new URLSearchParams(window.location.search).get('perfume');
+        const f = p ? findFragFromParam(p) : null;
+        if (f) openProductView(f.id); else closeProductView();
+      } finally { pvFromPop = false; }
+    });
     function scrollToSection(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); }
 
     function orderBottleOnDemand(fragId) {
